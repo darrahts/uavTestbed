@@ -34,9 +34,12 @@
     <img src="https://whitelabel.2u.com/cdn/v1/vu-eng/logo-1.png" alt="Logo" width=300>
   </a>
   <br />
-  <img src="https://ti.arc.nasa.gov/m/site/img/nasa_header_logo1.gif">
+  <a href="https://ti.arc.nasa.gov/">
+    <img src="https://ti.arc.nasa.gov/m/site/img/nasa_header_logo1.gif">
+  </a>
   
-  <p align="center"> [Prognostics Center of Excellence](https://ti.arc.nasa.gov/tech/dash/groups/pcoe/) </p>
+  [Prognostics Center of Excellence](https://ti.arc.nasa.gov/tech/dash/groups/pcoe/)
+  [Planning and Scheduling Group](https://ti.arc.nasa.gov/tech/asr/groups/planning-and-scheduling/)
 
   <h1 align="center">UAV Simulation Testbed</h3>
 
