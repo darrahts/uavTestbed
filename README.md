@@ -34,19 +34,14 @@
     <img src="https://whitelabel.2u.com/cdn/v1/vu-eng/logo-1.png" alt="Logo" width=300>
   </a>
 
-  <h3 align="center">UAV Simulation Testbed</h3>
+  <h1 align="center">UAV Simulation Testbed</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
+    A testbed for the development of prognostic, health management, and decision making algorithms using MATLAB and Simulink.
     <br />
     <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
     <br />
-    <br />
     <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
   </p>
 </p>
 
@@ -74,6 +69,7 @@
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="#publications">Publications</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
@@ -180,6 +176,9 @@ Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.c
 
 Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
 
+<!-- PUBLICATIONS -->
+## Publications
+* [Prognostics Based Decision Making for Safe and Optimal UAV Operations](https://arc.aiaa.org/doi/abs/10.2514/6.2021-0394)
 
 
 <!-- ACKNOWLEDGEMENTS -->
