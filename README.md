@@ -38,8 +38,8 @@
     <img src="https://ti.arc.nasa.gov/m/site/img/nasa_header_logo1.gif">
   </a>
   
-  <a href="https://ti.arc.nasa.gov/tech/dash/groups/pcoe/">Prognostics Center of Excellence</a>
-  <a href="https://ti.arc.nasa.gov/tech/asr/groups/planning-and-scheduling/">Planning and Scheduling Group</a>
+  <p align="center"><a href="https://ti.arc.nasa.gov/tech/dash/groups/pcoe/">Prognostics Center of Excellence</a></p>
+  <p align="center"><a href="https://ti.arc.nasa.gov/tech/asr/groups/planning-and-scheduling/">Planning and Scheduling Group</a></p>
 
   <h1 align="center">UAV Simulation Testbed</h3>
 
