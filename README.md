@@ -92,8 +92,11 @@ about here
 ## Usage
 
 Open the livescript `next_paper.mlx`  
-Run the cells until "scratch paper below" cell
+Run the cells until "scratch paper below" cell  
 
+
+Discuss the following:  
+- parallelized PF-based RUL estimation
 - trajectory generation
 - RUL estimation
 - Degradation
@@ -103,7 +106,8 @@ Run the cells until "scratch paper below" cell
 <!-- ROADMAP -->
 ## Roadmap
 
-* Parallelized PF-based RUL estimation
+To be incorporated:  
+
 * mission or maintenance scheduling
 * optimize flight time vs maintenance time
 * in-mission decision making
