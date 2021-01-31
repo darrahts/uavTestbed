@@ -91,7 +91,7 @@ about here
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Open the livescript `next_paper.mlx`
+Open the livescript `next_paper.mlx`  
 Run the cells until "scratch paper below" cell
 
 - trajectory generation
