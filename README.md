@@ -33,6 +33,10 @@
   <a href="https://lab.vanderbilt.edu/vumacs/">
     <img src="https://whitelabel.2u.com/cdn/v1/vu-eng/logo-1.png" alt="Logo" width=300>
   </a>
+  <br />
+  <img src="https://ti.arc.nasa.gov/m/site/img/nasa_header_logo1.gif">
+  
+  [Prognostics Center of Excellence](https://ti.arc.nasa.gov/tech/dash/groups/pcoe/)
 
   <h1 align="center">UAV Simulation Testbed</h3>
 
