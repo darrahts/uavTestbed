@@ -1,9 +1,3 @@
-twin_sample_rate = .05;
-true_sample_rate = .025;
-load 'params/mdown.mat';
-load 'params/rdown.mat';
-load 'params/qdown.mat';
-
 load_system('truesystem');
 load_system('digitaltwin1c');
 
@@ -15,7 +9,7 @@ currents_twin = ending_soc_twin;
 currents_true = ending_soc_true;
 
 % for wind
-mu1 = normrnd(.5, .8);
+mu_wind = normrnd(.5, .8);
 
 pos_errs_true = zeros(n_missions, 3);
 pos_errs_twin = pos_errs_true;

@@ -25,26 +25,22 @@ load('positionestimator');
 load('ukfBatteryParams');
 load('MotorEstimator');
 
-load 'params/mdown.mat';
-load 'params/rdown.mat';
-load 'params/qdown.mat';
+% accelerated degradation
+% load 'params/mdown.mat';
+% load 'params/rdown.mat';
+% load 'params/qdown.mat';
+
+% normal degradation
+load 'params/mdeg.mat';
+load 'params/rdeg.mat';
+load 'params/qdeg.mat';
 
 IC.X = 50;
 IC.Y = 25;
 IC.Z = 3;
 
 warning('off');
-load trajectories/path2.mat
-load trajectories/path2stamped.mat
-sampletimetraj=1; % seconds by default
-desiredvelocity=1.3; % 1 m/s
-
-IC.X=path(1,1);
-IC.Y=path(1,2);
-IC.state(1)=path(1,1);
-IC.state(2)=path(1,2);
-destination=path(end,:);
-%stoptimetotal=1.0047e3;
-stoptimetotal= 1900;
 
 octomodel.sampletime = .01;
+twin_sample_rate = .05;
+true_sample_rate = .025;
