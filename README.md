@@ -76,6 +76,31 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
+Work in progress!
+
+TODO
+- update [truesystem.slx](https://github.com/darrahts/uavTestbed2/blob/main/truesystem.slx)
+    - output to workspace variables organized
+    - condition monitors redone
+    - ukf covariance outputs
+- fix degradation parameter standard deviation 
+    - start large, update based on ukf 
+- integrate parallelization
+    - see below `scratch paper` section of [next_paper.mlx](https://github.com/darrahts/uavTestbed2/blob/main/next_paper.mlx)
+- rewrite RUL experiment from last paper using new framework
+    - parallel execution of digitaltwin
+    - rul distribution
+    - execute real system
+    - update degradation parameters
+    - repeat until digitaltwin fails
+- add maintenance decision making
+- add power demand estimation based on trajectory (ask Chris about this)
+- add in-mission decision making and actions
+    - activities such as drop package, take picture, transmit data, etc
+    - appropriate power demand based on activity
+- more...
+
+
 <!-- 
 [![Screenshot][product-screenshot]](https://example.com)
 -->
