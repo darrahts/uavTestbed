@@ -31,7 +31,7 @@
 <br />
 <p align="center">
   <a href="https://lab.vanderbilt.edu/vumacs/">
-    <img src="https://whitelabel.2u.com/cdn/v1/vu-eng/logo-1.png" alt="Logo" width="80" height="80">
+    <img src="https://whitelabel.2u.com/cdn/v1/vu-eng/logo-1.png" alt="Logo">
   </a>
 
   <h3 align="center">UAV Simulation Testbed</h3>
