@@ -118,7 +118,13 @@ To be incorporated:
 
 <!-- CONTRIBUTING -->
 ## Contributing
-
+Project contributors (direct or indirect):  
+Marcos Quinones  
+Gautam Biswas  
+Chetan Kulkarni  
+Chris Teubert  
+Jeremy Frank  
+Ibrahim Ahmed  
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 1. Fork the Project
