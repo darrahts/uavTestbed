@@ -39,9 +39,9 @@
   <p align="center">
     A testbed for the development of prognostic, health management, and decision making algorithms using MATLAB and Simulink.
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/darrahts/uavTestbed2"><strong>Explore the docs »</strong></a>
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    <a href="https://github.com/darrahts/uavTestbed2">View Demo</a>
   </p>
 </p>
 
