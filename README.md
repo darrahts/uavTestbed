@@ -1,4 +1,3 @@
-# uavTestbed2
 
 <!--
 *** Thanks for checking out the Best-README-Template. If you have a suggestion
@@ -31,11 +30,11 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://lab.vanderbilt.edu/vumacs/">
+    <img src="https://cdn.vanderbilt.edu/vu-www4/brandbar/svg/Optimized/Engineering.svg" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Best-README-Template</h3>
+  <h3 align="center">UAV Simulation Testbed</h3>
 
   <p align="center">
     An awesome README template to jumpstart your projects!
@@ -204,7 +203,7 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
+[contributors-url]: https://github.com/darrahts/uavTestbed2/graphs/contributors
 <!--
 [forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
 [forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
