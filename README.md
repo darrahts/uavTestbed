@@ -36,7 +36,7 @@
   <br />
   <img src="https://ti.arc.nasa.gov/m/site/img/nasa_header_logo1.gif">
   
-  [Prognostics Center of Excellence](https://ti.arc.nasa.gov/tech/dash/groups/pcoe/)
+  <p align="center"> [Prognostics Center of Excellence](https://ti.arc.nasa.gov/tech/dash/groups/pcoe/) </p>
 
   <h1 align="center">UAV Simulation Testbed</h3>
 
