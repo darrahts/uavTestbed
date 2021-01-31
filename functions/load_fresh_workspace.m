@@ -44,3 +44,10 @@ warning('off');
 octomodel.sampletime = .01;
 twin_sample_rate = .05;
 true_sample_rate = .025;
+
+
+
+posNoise = [.15 .15];
+mu_wind = normrnd(.5, .8);
+
+
