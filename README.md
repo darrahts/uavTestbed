@@ -93,7 +93,8 @@ TODO
     - execute real system
     - update degradation parameters
     - repeat until digitaltwin fails
-- add maintenance decision making
+- create training data set
+- build NN model to decide on mission or maintenance
 - add power demand estimation based on trajectory (ask Chris about this)
 - add in-mission decision making and actions
     - activities such as drop package, take picture, transmit data, etc
@@ -101,10 +102,6 @@ TODO
 - more...
 
 
-<!-- 
-[![Screenshot][product-screenshot]](https://example.com)
--->
-about here
 
 ### Prerequisites
 
