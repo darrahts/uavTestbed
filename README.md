@@ -79,10 +79,10 @@
 Work in progress!
 
 TODO
-- update [truesystem.slx](https://github.com/darrahts/uavTestbed2/blob/main/truesystem.slx)
+- ~~update [truesystem.slx](https://github.com/darrahts/uavTestbed2/blob/main/truesystem.slx)~~
     - ~~output to workspace variables organized~~
     - ~~condition monitors redone~~
-    - ukf covariance outputs
+    - ~~ukf covariance outputs~~
 - fix degradation parameter standard deviation 
     - start large, update based on ukf 
 - integrate parallelization
