@@ -85,6 +85,7 @@ TODO
     - ~~ukf covariance outputs~~
 - fix degradation parameter standard deviation 
     - start large, update based on ukf 
+    - dont forget the motor filter!
 - integrate parallelization
     - see below `scratch paper` section of [next_paper.mlx](https://github.com/darrahts/uavTestbed2/blob/main/next_paper.mlx)
 - rewrite RUL experiment from last paper using new framework
