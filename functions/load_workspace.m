@@ -1,5 +1,4 @@
 function load_workspace(i, r_var, q_var, m_var)
-    %load 'WorkSpace_base.mat';
     evalin('base', 'rng("shuffle")');
     evalin('base', 'seed = randi(9999)');
     evalin('base', 'load parallel_workspace.mat');
