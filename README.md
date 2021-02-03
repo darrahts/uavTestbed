@@ -87,6 +87,7 @@ TODO
     - ~~start large, update based on ukf~~
     - ~~dont forget the motor filter!~~
 - integrate parallelization
+    - WORK IN PROGRESS
     - see below `scratch paper` section of [next_paper.mlx](https://github.com/darrahts/uavTestbed2/blob/main/next_paper.mlx)
 - rewrite RUL experiment from last paper using new framework
     - parallel execution of digitaltwin
