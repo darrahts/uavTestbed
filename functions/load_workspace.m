@@ -1,14 +1,13 @@
-function load_workspace()
+function load_workspace(i, r_var, q_var, m_var)
     %load 'WorkSpace_base.mat';
     evalin('base', 'rng("shuffle")');
-    evalin('base', 'load WorkSpace.mat');
-    evalin('base', 'batterytwin.R0=normrnd(rdown(1), .00025)');
-    evalin('base', 'batterytwin.Q=normrnd(qdown(1), .075)');
-    evalin('base', 'Motortwin2.Req=normrnd(mdown(1), .03)');
-    evalin('base', 'Motortwin4.Req=normrnd(mdown(1), .03)');
-    evalin('base', 'mu1 = normrnd(.5, .8)');
-    evalin('base', 'mu2 = normrnd(.5, .8)');
-    evalin('base', 'mu3 = normrnd(.5, .8)');
-    evalin('base', 'seed = randi(6999)');
+    evalin('base', 'seed = randi(9999)');
+    evalin('base', 'load parallel_workspace.mat');
+    evalin('base', sprintf('batterytwin.R0=normrnd(rdeg(i), %f)', r_var));
+    evalin('base', sprintf('batterytwin.Q=normrnd(qdeg(i), %f)', q_var));
+    evalin('base', sprintf('Motortwin2.Req=normrnd(mdeg(i), %f)', m_var));
+%     evalin('base', sprintf('Motortwin4.Req=normrnd(mdeg(1), %f)', m_var));
+%     evalin('base', sprintf('Motortwin5.Req=normrnd(mdeg(1), %f)', m_var));
+    
 end
 
