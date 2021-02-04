@@ -139,6 +139,7 @@ Discuss the following:
 
 To be incorporated:  
 
+* power estimation based on trajectory
 * mission or maintenance scheduling
 * optimize flight time vs maintenance time
 * in-mission decision making
