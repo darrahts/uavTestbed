@@ -86,9 +86,9 @@ TODO
 - ~~fix degradation parameter standard deviation~~
     - ~~start large, update based on ukf~~
     - ~~dont forget the motor filter!~~
-- integrate parallelization
-    - WORK IN PROGRESS
-    - see below `scratch paper` section of [next_paper.mlx](https://github.com/darrahts/uavTestbed2/blob/main/next_paper.mlx)
+- ~~integrate parallelization
+    - ~~WORK IN PROGRESS~~
+    - ~~see below `scratch paper` section of [next_paper.mlx](https://github.com/darrahts/uavTestbed2/blob/main/next_paper.mlx)~~
 - rewrite RUL experiment from last paper using new framework
     - parallel execution of digitaltwin
     - rul distribution
@@ -140,6 +140,8 @@ Discuss the following:
 To be incorporated:  
 
 * power estimation based on trajectory
+* 4D flight plan
+* dynamic craft speed based on flight plan
 * mission or maintenance scheduling
 * optimize flight time vs maintenance time
 * in-mission decision making
