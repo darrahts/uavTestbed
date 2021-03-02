@@ -1,21 +1,3 @@
-
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Thanks again! Now go create something AMAZING! :D
--->
-
-
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
 [![Contributors][contributors-shield]][contributors-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 <!--
@@ -89,12 +71,12 @@ TODO
 - ~~integrate parallelization
     - ~~WORK IN PROGRESS~~
     - ~~see below `scratch paper` section of [next_paper.mlx](https://github.com/darrahts/uavTestbed2/blob/main/next_paper.mlx)~~
-- rewrite RUL experiment from last paper using new framework
-    - parallel execution of digitaltwin
-    - rul distribution
-    - execute real system
-    - update degradation parameters
-    - repeat until digitaltwin fails
+- ~~rewrite RUL experiment from last paper using new framework~~
+    - ~~parallel execution of digitaltwin~~
+    - ~~rul distribution~~
+    - ~~execute real system~~
+    - ~~update degradation parameters~~
+    - ~~repeat until digitaltwin fails~~
 - create training data set
 - build NN model to decide on mission or maintenance
 - add power demand estimation based on trajectory (ask Chris about this)
@@ -133,12 +115,14 @@ Discuss the following:
 - Degradation
 - parameter approximation
 - parameter value estimation
+- train/test/validation data
 
 <!-- ROADMAP -->
 ## Roadmap
 
 To be incorporated:  
 
+* prognostics-based waypoint selection
 * power estimation based on trajectory
 * 4D flight plan
 * dynamic craft speed based on flight plan
