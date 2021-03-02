@@ -28,6 +28,6 @@ function load_parallel_workspace(i, lookback, horizon, r_var, q_var, m_var, s_ra
         evalin('base', sprintf('batterytwin.R0 = max(abs(normrnd(rdeg(%d), %f)), .0001)', i, r_var));
         evalin('base', sprintf('batterytwin.Q = min(abs(normrnd(qdeg(%d), %f)), 15.5)', i, q_var));
         evalin('base', sprintf('Motortwin2.Req = abs(normrnd(mdeg(%d), %f))', i, m_var));
-    end
+%    end
 end
 
