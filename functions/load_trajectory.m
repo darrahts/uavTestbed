@@ -10,4 +10,4 @@ IC.Y=longPath(1,2);
 IC.state(1)=longPath(1,1);
 IC.state(2)=longPath(1,2);
 %stoptimetotal=1.0047e3;
-stoptimetotal= 1900;
+stoptimetotal= 2200;
