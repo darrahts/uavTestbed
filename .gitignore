@@ -3,3 +3,6 @@ slprj/*
 *.slxc
 *.bak
 *.asv
+dig/*
+*/dig
+get_password.m
