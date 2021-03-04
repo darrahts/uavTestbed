@@ -53,6 +53,7 @@ create table eqc_battery_tb(
 	v float not null default 4.2,
 	v0 float not null default 4.2,
 	dt float not null default 1.0,
+	in_use boolean default '0',
 	uav_id integer references uav_tb(id)
 );
 
@@ -63,9 +64,37 @@ insert into eqc_battery_tb(name, serial_number, uav_id) values ('plett_discrete'
 -- select * from eqc_battery_tb where name ilike 'plett_discrete' and serial_number ilike 'B001' limit 1;
 
 
---create table motor_tb(
---
---);
+create table eq_motor_tb(
+	id serial primary key,
+	name varchar(32) default 'default_motor',
+	serial_number varchar(16) unique not null,
+	motor_number int not null,
+	age_hours float default 0.0,
+	status varchar(32) default 'GREEN',
+	"Req" float default 0.2371,
+	"Ke_eq" float default 0.0107,
+	"J" float default 0.00002,
+	"Df" float default 0.0,
+	"cq" float default 0.00000013678,
+	unique (serial_number, motor_number),
+	deg_idx integer default 0,
+	uav_id integer references uav_tb(id)
+);
+
+drop table eq_motor_tb;
+
+insert into eq_motor_tb(name, serial_number, motor_number, uav_id) 
+	values
+		('rc_standard', 'M001', 1, 1),
+		('rc_standard', 'M002', 2, 1),
+		('rc_standard', 'M003', 3, 1),
+		('rc_standard', 'M004', 4, 1),
+		('rc_standard', 'M005', 5, 1),
+		('rc_standard', 'M006', 6, 1),
+		('rc_standard', 'M007', 7, 1),
+		('rc_standard', 'M008', 8, 1);
+	
+	
 --
 --
 --
