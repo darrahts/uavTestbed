@@ -1,4 +1,16 @@
-battery=load('params/battery.mat').battery;
+
+
+
+%battery=load('params/battery.mat').battery;
+battery_name = 'plett_discrete';
+battery_sern = 'B001';
+battery = select(conn, sprintf("select * from eqc_battery_tb where name ilike '%s' and serial_number ilike '%s' limit 1;", battery_name, battery_sern));
+battery = table2struct(battery);
+soc_ocv = load('params/soc_ocv.mat');
+battery.soc_ocv = soc_ocv.soc_ocv;
+clear soc_ocv;
+battery.dt = double(battery.dt);
+%battery.sampletime = 1.0;
 batterytwin=load('params/batterytwin.mat').batterytwin;
 controllers=load('params/controllers.mat').controllers;
 Motor1=load('params/Motors/Motor1.mat').Motor;
