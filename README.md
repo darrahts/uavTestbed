@@ -77,7 +77,9 @@ TODO
     - ~~execute real system~~
     - ~~update degradation parameters~~
     - ~~repeat until digitaltwin fails~~
+- integrate database (appx 75% complete)
 - create training data set
+- randomize route priorities
 - build NN model to decide on mission or maintenance
 - add power demand estimation based on trajectory (ask Chris about this)
 - add in-mission decision making and actions
