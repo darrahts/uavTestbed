@@ -77,7 +77,6 @@ create table eq_motor_tb(
 	"Df" float default 0.0,
 	"cq" float default 0.00000013678,
 	unique (serial_number, motor_number),
-	deg_idx integer default 0,
 	uav_id integer references uav_tb(id)
 );
 
@@ -95,6 +94,17 @@ insert into eq_motor_tb(name, serial_number, motor_number, uav_id)
 		('rc_standard', 'M008', 8, 1);
 	
 	
+	select * from uav_tb ut where name ilike 'simulink_octocopter' and serial_number ilike 'x001' limit 1;
+	
+
+	select ebt.* from eqc_battery_tb ebt join uav_tb ut on ebt.uav_id = ut.id where ut."name" ilike 'simulink_octocopter';
+
+	select emt.* from eq_motor_tb emt join uav_tb ut on emt.uav_id = ut.id where ut.serial_number ilike 'X001';
+
+	select ebt.* from eqc_battery_tb ebt join uav_tb ut on ebt.uav_id = ut.id where ut.serial_number ilike 'X001' and ebt.serial_number ilike 'B001';
+
+	select ut.* from uav_tb ut where serial_number ilike 'X001' limit 1;
+
 --
 --
 --
