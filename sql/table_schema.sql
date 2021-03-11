@@ -31,6 +31,7 @@ insert into uav_tb(name, serial_number) values('simulink_octocopter', 'X001');
 
 
 
+
 create table eqc_battery_tb(
 	id serial primary key,
 	name varchar(32) default 'default_battery',
@@ -104,6 +105,39 @@ insert into eq_motor_tb(name, serial_number, motor_number, uav_id)
 	select ebt.* from eqc_battery_tb ebt join uav_tb ut on ebt.uav_id = ut.id where ut.serial_number ilike 'X001' and ebt.serial_number ilike 'B001';
 
 	select ut.* from uav_tb ut where serial_number ilike 'X001' limit 1;
+
+select count(pd.*) from pg_catalog.pg_database pd where pd.datname ilike 'uavtestbed2' 
+
+drop table foresight_model_tb;
+
+create table foresight_model_tb(
+	id serial not null,
+	parameter varchar(32) not null,
+	size_mb float not null,
+	lstm_layers int not null,
+	dense_layers int not null,
+	lookback_hours int not null,
+	horizon_hours int not null,
+	path_header varchar(256) not null,
+	model_path varchar(128) not null,
+	scaler_x_path varchar(128) not null,
+	scaler_y_path varchar(128) not null,
+	train_date date default now()::date,
+	train_samples_start timestamptz not null,
+	train_samples_end timestamptz not null,
+	train_samples int not null,
+	test_samples int not null,
+	validate_samples int not null,
+	test_score float not null,
+	validate_score float not null,
+	penalty float,
+	min_delta float,
+	patience int,
+	batch_size int not null,
+	validation_split float not null,
+	dropout float not null,
+	epochs int not null
+);
 
 --
 --
