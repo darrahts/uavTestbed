@@ -1,5 +1,4 @@
 
-
 conn = database('uavtestbed2', 'postgres', get_password('#4KRx39Dn@09'));
 
 db_api.view_tables    = "select table_name from information_schema.tables where table_schema = 'public'";
@@ -14,3 +13,5 @@ db_api.get_motors  = "select emt.* from eq_motor_tb emt join uav_tb ut on emt.ua
 db_api.get_uav        = "select ut.* from uav_tb ut where serial_number ilike '%s' limit 1;";
 %db_api.get_battery    = "select * from eqc_battery_tb where name ilike '%s' and serial_number ilike '%s' limit 1;";
 db_api.get_motor      = "select * from eq_motor_tb where name ilike '%s' and serial_number ilike '%s' limit 1;";
+
+
