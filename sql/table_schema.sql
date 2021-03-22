@@ -108,36 +108,34 @@ insert into eq_motor_tb(name, serial_number, motor_number, uav_id)
 
 select count(pd.*) from pg_catalog.pg_database pd where pd.datname ilike 'uavtestbed2' 
 
-drop table foresight_model_tb;
+drop table model_tb;
 
-create table foresight_model_tb(
+create table model_tb(
 	id serial not null,
-	parameter varchar(32) not null,
-	size_mb float not null,
-	lstm_layers int not null,
-	dense_layers int not null,
-	lookback_hours int not null,
-	horizon_hours int not null,
+	uav_id int references uav_tb(id) not null,
+	active bool not null default true,
 	path_header varchar(256) not null,
 	model_path varchar(128) not null,
 	scaler_x_path varchar(128) not null,
 	scaler_y_path varchar(128) not null,
-	train_date date default now()::date,
-	train_samples_start timestamptz not null,
-	train_samples_end timestamptz not null,
+	test_score float not null,
+	validate_score float not null,
+	size_mb float not null,
+	num_weights int not null,
+	train_date date not null default now()::date,
 	train_samples int not null,
 	test_samples int not null,
 	validate_samples int not null,
-	test_score float not null,
-	validate_score float not null,
-	penalty float,
-	min_delta float,
-	patience int,
 	batch_size int not null,
 	validation_split float not null,
 	dropout float not null,
-	epochs int not null
+	epochs int not null,
+	penalty float,
+	min_delta float,
+	patience int,
+	unique(uav_id, num_weights, train_samples, test_samples, validate_samples, batch_size, dropout, epochs)
 );
+
 
 --
 --
