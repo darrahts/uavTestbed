@@ -17,8 +17,8 @@ battery_tb = timetable(time_vec, round(battery_actual_rs.Data(:,1), 4), round(ba
     mid_ts.Data(:,1), 'VariableNames', battery_tb_cols);
 battery_tb = timetable2table(battery_tb);
 battery_tb.Properties.VariableNames(1) = {'dt'};
-battery_sensor_tb.dt.Format = 'uuuu-MM-dd HH:mm:ss.SSS';
-battery_sensor_tb.dt = cellstr(battery_sensor_tb.dt);
+battery_tb.dt.Format = 'uuuu-MM-dd HH:mm:ss.SSS';
+battery_tb.dt = cellstr(battery_tb.dt);
 
 sqlwrite(conn, 'battery_sensor_tb', battery_tb);
 clear('battery_observed_rs', 'battery_actual_rs', 'bid_ts', 'uid_ts', 'mid_ts', 'battery_tb_cols', 'battery_tb');
