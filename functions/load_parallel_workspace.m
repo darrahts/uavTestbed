@@ -1,33 +1,38 @@
-function load_parallel_workspace(i, lookback, horizon, r_var, q_var, m_var, s_rate)
-    evalin('base', 'seed = randi(9999)');
-    evalin('base', 'rng(seed)');
-    evalin('base', 'addpath(genpath(pwd))');
-    evalin('base', 'load_fresh_workspace');
-    evalin('base', 'load_trajectory');
-    evalin('base', sprintf('octomodel.sampletime = %f', s_rate));
-        
-%     if i > lookback
-%         % fit a polonomial to determine the rate of change of the degradation parameters 
-%         evalin('base', sprintf('x = ((%d-(%d-1)):1:%d)', i, lookback, i));
-%         evalin('base', sprintf("r_poly = polyfit(x, smoothdata(r_deg((%d-(%d-1)):%d)', 'rlowess', 5), 1)", i, lookback, i));
-%         evalin('base', sprintf("q_poly = polyfit(x, smoothdata(q_deg((%d-(%d-1)):%d)', 'rlowess', 5), 1)", i, lookback, i));
-%         evalin('base', sprintf("m_poly = polyfit(x, smoothdata(m_deg((%d-(%d-1)):%d)', 'rlowess', 5), 1)", i, lookback, i));
-%         % keep track of deltas 
-%         evalin('base', "polys(1,:) = r_poly");
-%         evalin('base', "polys(2,:) = q_poly");
-%         evalin('base', "polys(3,:) = m_poly");
-%         
-%         % predict degradation value at the horizon
-%         evalin('base', sprintf("batterytwin.R0 = polyval(r_poly, %d+%d)", i, horizon));
-%         evalin('base', sprintf("batterytwin.Q = polyval(q_poly, %d+%d)", i, horizon));
-%         evalin('base', sprintf("Motortwin2.Req = polyval(m_poly, %d+%d)", i, horizon));
-%         
-%         evalin('base', sprintf('save_deg_info(%d, polys, R0i, Qi, RMi)', i));
-%         
-%     else
-        evalin('base', sprintf('batterytwin.R0 = max(abs(normrnd(rdeg(%d), %f)), .0001)', i, r_var));
-        evalin('base', sprintf('batterytwin.Q = min(abs(normrnd(qdeg(%d), %f)), 15.5)', i, q_var));
-        evalin('base', sprintf('Motortwin2.Req = abs(normrnd(mdeg(%d), %f))', i, m_var));
-%    end
-end
+
+seed = randi(9999);
+rng(seed);
+addpath(genpath(pwd));
+conn = database('uavtestbed2', 'postgres', get_password('#4KRx39Dn@09'));
+load_trajectory;
+
+% load UAV airframe
+uav_sern = 'X001';
+octomodel = get_airframe(conn, uav_sern);
+
+% load battery
+battery_sern = 'B001';
+batterytwin = get_battery(conn, battery_sern);
+
+% load motors
+[Motortwin1, Motortwin2, Motortwin3, Motortwin4, Motortwin5, Motortwin6, Motortwin7, Motortwin8] = get_motors(conn, octomodel.id);
+
+IC= load('params/IC_HoverAt10ftOcto.mat').IC;
+
+% normal degradation
+load 'params/mdeg.mat';
+load 'params/rdeg.mat';
+load 'params/qdeg.mat';
+
+IC.X = 50;
+IC.Y = 25;
+IC.Z = 3;
+
+warning('off');
+
+posNoise = [.15 .15];
+mu_wind = normrnd(.5, .8);
+
+batterytwin.R0 = max(abs(normrnd(rdeg(i), r_var)), .0001);
+batterytwin.Q = min(abs(normrnd(qdeg(i), q_var)), 15.5);
+Motortwin2.Req = abs(normrnd(mdeg(i), m_var));
 
