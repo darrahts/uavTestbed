@@ -11,7 +11,7 @@ octomodel = get_airframe(conn, uav_sern);
 
 % load battery
 battery_sern = 'B001';
-batterytwin = get_battery(conn, battery_sern);
+evalin('base', 'batterytwin = get_battery(conn, battery_sern);');
 
 % load motors
 [Motortwin1, Motortwin2, Motortwin3, Motortwin4, Motortwin5, Motortwin6, Motortwin7, Motortwin8] = get_motors(conn, octomodel.id);
