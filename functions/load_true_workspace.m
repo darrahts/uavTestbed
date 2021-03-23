@@ -17,7 +17,10 @@ battery = get_battery(conn, battery_sern);
 %% load rest of simulation parameters
 
 IC= load('params/IC_HoverAt10ftOcto.mat').IC;
-%octomodel=load('params/octoModel.mat').octomodel;
+IC.X=longPath(1,1);
+IC.Y=longPath(1,2);
+IC.state(1)=longPath(1,1);
+IC.state(2)=longPath(1,2);
 
 controllers=load('params/controllers.mat').controllers;
 
@@ -31,15 +34,13 @@ load 'params/mdeg.mat';
 load 'params/rdeg.mat';
 load 'params/qdeg.mat';
 
-IC.X = 50;
-IC.Y = 25;
-IC.Z = 3;
-
 warning('off');
 
 octomodel.sampletime = .01;
 twin_sample_rate = .05;
 true_sample_rate = .025;
+
+stoptimetotal = 2200;
 
 posNoise = [.15 .15];
 mu_wind = normrnd(.5, .8);
