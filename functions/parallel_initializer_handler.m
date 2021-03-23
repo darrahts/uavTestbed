@@ -20,7 +20,15 @@ function parallel_initializer_handler(i, lookback, horizon, r_var, q_var, m_var,
     
     
     evalin('base', "batterytwin = get_battery(conn, battery_sern);");
-    evalin('base', "batterytwin.R0 = max(abs(normrnd(rdeg(i), r_var)), .0001);");
+    
+    %  this way gives the error: dot indexing is not supported for variables
+    %  of this type
+    %evalin('base', sprintf("batterytwin.R0 = max(abs(normrnd(rdeg(%d), %f)), .0001);", i, r_var));
+    
+    %  this way gives the error: array indices must be positive integers or
+    %  logical values
+    %evalin('base', "batterytwin.R0 = max(abs(normrnd(rdeg(i), r_var)), .0001);");
+    
     evalin('base', "batterytwin.Q = min(abs(normrnd(qdeg(i), q_var)), 15.5);");
     evalin('base', "Motortwin2.Req = abs(normrnd(mdeg(i), m_var));");
     
