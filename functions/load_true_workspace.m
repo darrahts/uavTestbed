@@ -41,6 +41,6 @@ stoptimetotal = 2200;
 posNoise = [.15 .15];
 mu_wind = normrnd(.5, .8);
 
-rul_hat = 25.0
+rul_hat = 25.0;
 
 
