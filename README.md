@@ -72,12 +72,12 @@ TODO
     - ~~WORK IN PROGRESS~~
     - ~~see below `scratch paper` section of [next_paper.mlx](https://github.com/darrahts/uavTestbed2/blob/main/next_paper.mlx)~~
 - ~~rewrite RUL experiment from last paper using new framework~~
-    - ~~parallel execution of digitaltwin~~
+    - parallel execution of digitaltwin [TODO - Fix here!]
     - ~~rul distribution~~
     - ~~execute real system~~
-    - ~~update degradation parameters~~
+    - update degradation parameters [TODO - need to fix parallel execution first]
     - ~~repeat until digitaltwin fails~~
-- integrate database (appx 75% complete)
+- ~~integrate database~~
 - create training data set
 - randomize route priorities
 - build NN model to decide on mission or maintenance
@@ -107,7 +107,8 @@ TODO
 ## Usage
 
 Open the livescript `next_paper.mlx`  
-Run the cells until "scratch paper below" cell  
+- To do one simulation run of the real system, execute the first cells before "Simulation Loop" title
+- find "Simulation Loop" title, and execute cell to 
 
 
 Discuss the following:  
