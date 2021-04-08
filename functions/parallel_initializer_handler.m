@@ -17,19 +17,21 @@ function parallel_initializer_handler(i, lookback, horizon, r_var, q_var, m_var,
     evalin('base', "uav_sern='X001';");
     evalin('base', "octomodel = get_airframe(conn, uav_sern);");
     evalin('base', "battery_sern='B001';");
-    
-
     evalin('base', "batterytwin = get_battery(conn, battery_sern);");
+    
+    % load motors
+    evalin('base', "[Motor1, Motor2, Motor3, Motor4, Motor5, Motor6, Motor7, Motor8] = get_motors(conn, octomodel.id);");
+    
+    evalin('base', "load_base_workspace");
     
     %  this way gives the error: dot indexing is not supported for variables
     %  of this type
     %evalin('base', sprintf("batterytwin.R0 = max(abs(normrnd(rdeg(%d), %f)), .0001);", i, r_var));
     %  this way gives the error: array indices must be positive integers or
     %  logical values
-    evalin('base', "batterytwin.R0 = max(abs(normrnd(rdeg(i), r_var)), .0001);");
-    
-    evalin('base', "batterytwin.Q = min(abs(normrnd(qdeg(i), q_var)), 15.5);");
-    evalin('base', "Motortwin2.Req = abs(normrnd(mdeg(i), m_var));");
+%     evalin('base', "batterytwin.R0 = max(abs(normrnd(rdeg(i), r_var)), .0001);");
+%     evalin('base', "batterytwin.Q = min(abs(normrnd(qdeg(i), q_var)), 15.5);");
+%     evalin('base', "Motortwin2.Req = abs(normrnd(mdeg(i), m_var));");
     
     
     % load the parallel workspace script

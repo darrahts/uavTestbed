@@ -21,4 +21,5 @@ battery_tb.dt.Format = 'uuuu-MM-dd HH:mm:ss.SSS';
 battery_tb.dt = cellstr(battery_tb.dt);
 
 sqlwrite(conn, 'battery_sensor_tb', battery_tb);
+
 clear('battery_observed_rs', 'battery_actual_rs', 'bid_ts', 'uid_ts', 'mid_ts', 'battery_tb_cols', 'battery_tb');

@@ -27,6 +27,10 @@ flight_sensor_tb = timetable2table(flight_sensor_tb);
 flight_sensor_tb.Properties.VariableNames(1) = {'dt'};
 flight_sensor_tb.dt.Format = 'uuuu-MM-dd HH:mm:ss.SSS';
 flight_sensor_tb.dt = cellstr(flight_sensor_tb.dt);
+
 sqlwrite(conn, 'flight_sensor_tb', flight_sensor_tb);
+
 clear('ctrl_err_rs', 'bid_ts', 'uid_ts', 'mid_ts', 'flight_sensor_tb_cols', 'flight_sensor_tb');
 clear('pos_err_rs', 'pos_observed_rs', 'motors_rs');   
+
+
