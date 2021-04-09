@@ -58,7 +58,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Work in progress!
+Currenlty conducting several run-to-failure experiments in effort to collect telementry and mission data to facilitate research into deep learning approaches to problems such as remaining useful life (RUL) estimation, fault detection & isolation (FDI), or decision making (among others).
 
 TODO
 - ~~update [truesystem.slx](https://github.com/darrahts/uavTestbed2/blob/main/truesystem.slx)~~
@@ -68,18 +68,18 @@ TODO
 - ~~fix degradation parameter standard deviation~~
     - ~~start large, update based on ukf~~
     - ~~dont forget the motor filter!~~
-- ~~integrate parallelization
+- integrate parallelization
     - ~~WORK IN PROGRESS~~
     - ~~see below `scratch paper` section of [next_paper.mlx](https://github.com/darrahts/uavTestbed2/blob/main/next_paper.mlx)~~
 - ~~rewrite RUL experiment from last paper using new framework~~
     - parallel execution of digitaltwin [TODO - Fix here!]
     - ~~rul distribution~~
     - ~~execute real system~~
-    - update degradation parameters [TODO - need to fix parallel execution first]
+    - ~~update degradation parameters~~
     - ~~repeat until digitaltwin fails~~
 - ~~integrate database~~
-- create training data set
-- randomize route priorities
+- ~~create training data set~~
+- ~~randomize route priorities~~
 - build NN model to decide on mission or maintenance
 - add power demand estimation based on trajectory (ask Chris about this)
 - add in-mission decision making and actions
@@ -106,14 +106,17 @@ TODO
 <!-- USAGE EXAMPLES -->
 ## Usage
 
+(`next_paper.mlx` needs updated, see `experiment_b2.mlx` for a complete example)
 Open the livescript `next_paper.mlx`  
 - To do one simulation run of the real system, execute the first cells before "Simulation Loop" title
 - find "Simulation Loop" title, and execute cell to 
 
 
-Discuss the following:  
+Discuss the following: 
+- database schema
+- software as a service (SAAS) implementation 
 - parallelized PF-based RUL estimation
-- trajectory generation
+- trajectory selection
 - RUL estimation
 - Degradation
 - parameter approximation
