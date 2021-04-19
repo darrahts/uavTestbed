@@ -21,3 +21,4 @@ end
 %disp(degradation_tb)
     
 sqlwrite(conn, 'degradation_parameter_tb', degradation_tb);
+conn.commit();
