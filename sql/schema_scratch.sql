@@ -723,7 +723,7 @@ select * from eqc_battery_tb ebt ;
 select * from eq_motor_tb emt ;
 select mt.* from mission_tb mt order by mt.dt_start desc;
 select * from battery_sensor_tb bst order by dt desc;
-select fst.* from flight_sensor_tb fst where mission_id = 674 order by dt desc;
+select fst.* from flight_sensor_tb fst order by dt desc;
 select * from degradation_parameter_tb order by mission_id desc;
 select count(mission_id) from twin_params_tb groorder by id desc;
 select * from trajectory_tb;
@@ -751,10 +751,16 @@ insert into experiment_tb (mission_ids, notes) values ('320-451', '4th experimen
 insert into experiment_tb (mission_ids, notes) values ('452-526', 'failed to write flight data for mission 526, error during simulation, matlab crashed and the simulation restarted form scratch with a new experiment');
 insert into experiment_tb (mission_ids, notes) values ('527-630', 'now simulating digital twin 4x and using mean values, includes random trajectory exploration of path > rul time, stopped before experiment finished');
 insert into experiment_tb (mission_ids, notes) values ('631-762', 'simulating digital twin 4x, random trajectory exploration, digital twin does not inform true system, mission 742 (and others), why did true system fail when it had worse degradradation parameters than the digital twin? are there trajectories with higher crash rates? (trajectory 10)');
-insert into experiment_tb (mission_ids, notes) values ('764-830', 'same as above, digital twin informs true system, but in some cases the true system still did exploration - computer restarted in the middle of the experiment')
+insert into experiment_tb (mission_ids, notes) values ('764-830', 'same as above, digital twin informs true system, but in some cases the true system still did exploration - computer restarted in the middle of the experiment');
+insert into experiment_tb (mission_ids, notes) values ('831-961', 'same as above, digital twin informs true system, true system doesnt explore');
+insert into experiment_tb (mission_ids, notes) values ('964-1094', 'same as above, digital twin informs true system, true system doesnt explore, but true system failed several times in the end?');
+
+-- notes - mission 963 is a wash
 -- notes - mission 742 (and others), why did true system fail when it had worse degradradation parameters than the digital twin?
 -- are there trajectories with higher crash rates?
 -- trajectory 10 results in position error violation with a high percentage rage whereas this is not the case with the twin
+
+
 
 select tt.* from trajectory_tb tt;
 
