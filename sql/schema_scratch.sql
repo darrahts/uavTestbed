@@ -754,7 +754,7 @@ insert into experiment_tb (mission_ids, notes) values ('631-762', 'simulating di
 insert into experiment_tb (mission_ids, notes) values ('764-830', 'same as above, digital twin informs true system, but in some cases the true system still did exploration - computer restarted in the middle of the experiment');
 insert into experiment_tb (mission_ids, notes) values ('831-961', 'same as above, digital twin informs true system, true system doesnt explore');
 insert into experiment_tb (mission_ids, notes) values ('964-1094', 'same as above, digital twin informs true system, true system doesnt explore, but true system failed several times in the end?');
-
+insert into experiment_tb (mission_ids, notes) values ('1095-1225', 'same as above, there are still some true system failures');
 -- notes - mission 963 is a wash
 -- notes - mission 742 (and others), why did true system fail when it had worse degradradation parameters than the digital twin?
 -- are there trajectories with higher crash rates?
