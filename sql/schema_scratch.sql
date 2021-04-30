@@ -721,7 +721,7 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO read_only;
 select * from uav_tb ut;
 select * from eqc_battery_tb ebt ;
 select * from eq_motor_tb emt ;
-select mt.* from mission_tb mt order by mt.dt_start desc;
+select mt.* from mission_tb mt where trajectory_id = 10 order by mt.dt_start desc;
 select * from battery_sensor_tb bst order by dt desc;
 select fst.* from flight_sensor_tb fst order by dt desc;
 select * from degradation_parameter_tb order by mission_id desc;
