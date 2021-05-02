@@ -1,4 +1,5 @@
 
+conn = database(datasource_name, user_name, password);
 
 stop_code_res = max(find(any(stop_code.Data(:,:))));
 z_end = battery_actual.Data(end, 2);
@@ -18,6 +19,7 @@ mission_tb = table(start, stop, trajectory.id, stop_code_res, round(rul_hat, 4),
                    round(max_ctrl_err, 4), round(std_ctrl_err, 4), battery.id, octomodel.id, 'VariableNames', mission_tb_cols);
 
 sqlwrite(conn, 'mission_tb', mission_tb);
-
+conn.commit();
+conn.close();
 clear('stop_code_res', 'distance', 'z_end', 'v_end', 'avg_pos_err', 'max_pos_err', 'std_pos_err');
 clear('avg_ctrl_err', 'max_ctrl_err', 'std_ctrl_err', 'mission_tb_cols', 'mission_tb');

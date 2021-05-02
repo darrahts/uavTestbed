@@ -1,4 +1,5 @@
 
+conn = database(datasource_name, user_name, password);
 
 sensor_sample_rate = 1;
 
@@ -22,5 +23,5 @@ battery_tb.dt = cellstr(battery_tb.dt);
 
 sqlwrite(conn, 'battery_sensor_tb', battery_tb);
 conn.commit();
-
+conn.close();
 clear('battery_observed_rs', 'battery_actual_rs', 'bid_ts', 'uid_ts', 'mid_ts', 'battery_tb_cols', 'battery_tb');

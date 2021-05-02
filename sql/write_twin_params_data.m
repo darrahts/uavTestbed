@@ -1,5 +1,8 @@
 
 
+
+conn = database(datasource_name, user_name, password);
+
 twin_params_tb_cols = {'mission_id', ...
                        'trajectory_id', ...
                        'rul_hat', ...
@@ -35,4 +38,10 @@ twin_params_tb = table(mission_id, ...
 
 sqlwrite(conn, 'twin_params_tb', twin_params_tb);
 conn.commit();
+conn.close();
 clear('twin_params_tb', 'twin_params_tb_cols');
+
+
+
+
+

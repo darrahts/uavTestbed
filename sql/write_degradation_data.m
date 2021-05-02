@@ -1,6 +1,6 @@
 
 
-
+conn = database(datasource_name, user_name, password);
 
 
 if i > lookback
@@ -22,3 +22,5 @@ end
     
 sqlwrite(conn, 'degradation_parameter_tb', degradation_tb);
 conn.commit();
+
+conn.close();
