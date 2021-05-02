@@ -3,8 +3,8 @@ function trajectory = get_trajectory(file_name, max_flight_time)
     %trajectory_tb = sqlread(conn, 'trajectory_tb');
     trajectory_tb = readtable(file_name);
     
-    if rand > .8
-        flight_duration = max_flight_time + 2;
+    if rand > .7
+        flight_duration = max_flight_time + 3;
         limit = 2;
     else
         flight_duration = max_flight_time;
