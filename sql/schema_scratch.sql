@@ -721,7 +721,7 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO read_only;
 select * from uav_tb ut;
 select * from eqc_battery_tb ebt ;
 select * from eq_motor_tb emt ;
-select mt.* from mission_tb mt where trajectory_id = 10 order by mt.dt_start desc;
+select mt.* from mission_tb mt order by mt.id desc;
 select * from battery_sensor_tb bst order by dt desc;
 select fst.* from flight_sensor_tb fst order by dt desc;
 select * from degradation_parameter_tb order by mission_id desc;
@@ -733,6 +733,7 @@ select * from trajectory_tb where id = 20;
 
 select * from trajectory_tb order by path_time desc;
 
+select * from mission_tb mt;
 
 --drop table experiment_tb;
 create table experiment_tb(
@@ -755,6 +756,11 @@ insert into experiment_tb (mission_ids, notes) values ('764-830', 'same as above
 insert into experiment_tb (mission_ids, notes) values ('831-961', 'same as above, digital twin informs true system, true system doesnt explore');
 insert into experiment_tb (mission_ids, notes) values ('964-1094', 'same as above, digital twin informs true system, true system doesnt explore, but true system failed several times in the end?');
 insert into experiment_tb (mission_ids, notes) values ('1095-1225', 'same as above, there are still some true system failures');
+insert into experiment_tb (mission_ids, notes) values ('1227-1359', 'same as above, there are still some true system failures');
+insert into experiment_tb (mission_ids, notes) values ('1360-1490', 'same as above, there are still some true system failures');
+insert into experiment_tb (mission_ids, notes) values ('1360-1490', 'same as above, decreased initial variance some, increased exploration rate');
+insert into experiment_tb (mission_ids, notes) values ('1492-1620', 'same as above, decreased initial variance some, increased exploration rate');
+
 -- notes - mission 963 is a wash
 -- notes - mission 742 (and others), why did true system fail when it had worse degradradation parameters than the digital twin?
 -- are there trajectories with higher crash rates?
@@ -762,22 +768,23 @@ insert into experiment_tb (mission_ids, notes) values ('1095-1225', 'same as abo
 
 
 
-select tt.* from trajectory_tb tt;
+select tt.* from trajectory_tb tt order by path_time desc;
 
+select * from uav_tb;
 
 
 --insert into trajectory_tb (x_waypoints) values ('{30, 200, 100, 410, 450, 201}');
 
 --alter degradation_parameter_tb set q_var = round(q_var, 2);
-select * from degradation_parameter_tb order by mission_id desc;
+select dpt.*, mt.* from degradation_parameter_tb dpt join mission_tb mt on mt.id = dpt.mission_id order by mission_id desc;
 
-select * from mission_tb;
-
-update table mission_tb add column experiment;
+select * from mission_tb order by id desc;
 
 --drop table twin_params_tb ;
 
-select * from twin_params_tb order by id desc;
+select * from degradation_parameter_tb dpt order by mission_id desc;
+
+select * from twin_params_tb order by mission_id desc;
 
 create table twin_params_tb(
 	id serial primary key,
