@@ -2,8 +2,9 @@
 
 conn = database(datasource_name, user_name, password);
 
+i = sample_num;
 
-if i > lookback
+if mission_idx > lookback
     degradation_tb_cols = {'mission_id', 'q_deg', 'q_var', 'q_slope', 'q_intercept', ...
         'r_deg', 'r_var', 'r_slope', 'r_intercept', 'm_deg', 'm_var', 'm_slope', 'm_intercept', ...
         'battery_id', 'motor2_id', 'uav_id'};

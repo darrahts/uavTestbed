@@ -21,8 +21,8 @@ octomodel.sampletime = .01;
 twin_sample_rate = .05;
 true_sample_rate = .025;
 
-pos_err_threshold = 4.5;
-min_soc = .4;
+pos_err_threshold = 5.5;
+min_soc = .3;
 
 stoptimetotal = 2200;
 
