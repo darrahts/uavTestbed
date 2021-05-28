@@ -766,6 +766,10 @@ insert into experiment_tb (mission_ids, notes) values ('1492-1620', 'same as abo
 -- are there trajectories with higher crash rates?
 -- trajectory 10 results in position error violation with a high percentage rage whereas this is not the case with the twin
 
+select * from system_parameter_tb order by dt desc;
+
+--alter table system_parameter_tb add column mission_id_start int;
+--alter table system_parameter_tb add column mission_id_stop int;
 
 
 select tt.* from trajectory_tb tt order by path_time desc;
