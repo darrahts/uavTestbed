@@ -21,9 +21,6 @@ octomodel.sampletime = .01;
 twin_sample_rate = .05;
 true_sample_rate = .025;
 
-pos_err_threshold = 5.5;
-min_soc = .3;
-
 stoptimetotal = 2200;
 
 posNoise = [.0125 .0125];

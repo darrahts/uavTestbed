@@ -3,12 +3,12 @@ function trajectory = get_trajectory(file_name, max_flight_time)
     %trajectory_tb = sqlread(conn, 'trajectory_tb');
     trajectory_tb = readtable(file_name);
     
-    if rand > .7
+    if rand > 1.0
         flight_duration = max_flight_time + 3;
         limit = 2;
     else
         flight_duration = max_flight_time;
-        limit = 4;
+        limit = 1;
     end
     trajectory_tb = trajectory_tb(trajectory_tb.path_time < flight_duration, :);
     trajectory_tb = sortrows(trajectory_tb, "path_time", 'descend');
@@ -22,6 +22,7 @@ function trajectory = get_trajectory(file_name, max_flight_time)
     else
         idx = 1;
     end
+    
     trajectory = table2struct(trajectory_tb(idx,:));
     trajectory.x_waypoints = str2double(regexp(trajectory.x_waypoints,'[+-]?\d+\.?\d*','match'));
     trajectory.y_waypoints = str2double(regexp(trajectory.y_waypoints,'[+-]?\d+\.?\d*','match'));

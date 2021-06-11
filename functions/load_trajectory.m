@@ -1,7 +1,8 @@
 %load trajectories/short1/path.mat
 %load trajectories/short1/path_points.mat
 %load trajectories/short1/waypoints.mat
-trajectory = get_trajectory('trajectories.csv', rul_hat);
+
+trajectory = get_trajectory('trajectories.csv', rft_hat);
 
 sampletimetraj=1; % seconds by default
 desiredvelocity=1.3; % 1 m/s
