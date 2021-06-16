@@ -7,13 +7,9 @@ import psycopg2
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
-import pickle
 import sys
 import traceback
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-import seaborn as sns
-import tensorflow as tf
+
 
 
 class DB:
@@ -165,5 +161,31 @@ del(params)
 db_tables = DB.get_tables(db)
 print(db_tables)
 
-
+# output
+# """
+#    [INFO] connecting to db.
+#    [INFO] connected.
+#                      table_name
+#    0                   model_tb
+#    1        system_parameter_tb
+#    2                eq_motor_tb
+#    3   degradation_parameter_tb
+#    4                 mission_tb
+#    5         pg_stat_statements
+#    6          battery_sensor_tb
+#    7              experiment_tb
+#    8             twin_params_tb
+#    9              trajectory_tb
+#    10               airframe_tb
+#    11             asset_type_tb
+#    12                  asset_tb
+#    13       default_airframe_tb
+#    14               dc_motor_tb
+#    15            eqc_battery_tb
+#    16                    uav_tb
+#    17                      test
+#
+#    Process finished with exit code 0
+# """
+#
 
