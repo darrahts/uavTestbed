@@ -10,6 +10,8 @@ function dc_motor = create_default_motor(conn, owner, type_id, serial_number, ag
     %           age - a unitless quantity that expresses age
     %           units - the unit of measurement for age
     %
+    %       @returns: battery model as a struct
+    %
     %       @constraints: 
     %           unique(serial_number)
     %           exists(type_id)

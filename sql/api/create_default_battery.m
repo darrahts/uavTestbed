@@ -10,6 +10,8 @@ function eqc_battery = create_default_battery(conn, owner, type_id, serial_numbe
     %           age - a unitless quantity that expresses age
     %           units - the unit of measurement for age
     %
+    %       @returns: battery model as a struct
+    %
     %       @constraints: 
     %           unique(serial_number)
     %           exists(type_id)
