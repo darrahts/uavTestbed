@@ -733,7 +733,7 @@ select * from trajectory_tb where id = 20;
 
 select * from trajectory_tb order by path_time desc;
 
-select * from mission_tb mt;
+select * from mission_tb mt order by id desc;
 
 --drop table experiment_tb;
 create table experiment_tb(
@@ -744,6 +744,8 @@ create table experiment_tb(
 );
 
 select * from experiment_tb;
+
+
 
 insert into experiment_tb (mission_ids, notes) values ('1-52', 'first experiment with degradation curves downsampled to about 100 missions. motor degradation was too high');
 insert into experiment_tb (mission_ids, notes) values ('55-187', 'second experiment with motor degradation back to original (500 cycles) and battery degradation at half (180 cycles)');
@@ -760,6 +762,21 @@ insert into experiment_tb (mission_ids, notes) values ('1227-1359', 'same as abo
 insert into experiment_tb (mission_ids, notes) values ('1360-1490', 'same as above, there are still some true system failures');
 insert into experiment_tb (mission_ids, notes) values ('1360-1490', 'same as above, decreased initial variance some, increased exploration rate');
 insert into experiment_tb (mission_ids, notes) values ('1492-1620', 'same as above, decreased initial variance some, increased exploration rate');
+insert into experiment_tb (mission_ids, notes) values ('2348-2487', 'new after meeting');
+insert into experiment_tb (mission_ids, notes) values ('2488-2614', 'new after meeting');
+insert into experiment_tb (mission_ids, notes) values ('2615-2747', 'new after meeting');
+insert into experiment_tb (mission_ids, notes) values ('2748-2878', 'new after meeting');
+
+
+select * from mission_tb mt;
+
+alter table mission_tb add column experiment_id int references experiment_tb(id);
+
+insert into experiment_tb (mission_ids, notes) values ('2879-', 'new after meeting');
+
+delete from mission_tb mission_tb where id = 2356;
+
+
 
 -- notes - mission 963 is a wash
 -- notes - mission 742 (and others), why did true system fail when it had worse degradradation parameters than the digital twin?
@@ -776,11 +793,12 @@ select tt.* from trajectory_tb tt order by path_time desc;
 
 select * from uav_tb;
 
+select * from experiment_tb et;
 
 --insert into trajectory_tb (x_waypoints) values ('{30, 200, 100, 410, 450, 201}');
 
 --alter degradation_parameter_tb set q_var = round(q_var, 2);
-select dpt.*, mt.* from degradation_parameter_tb dpt join mission_tb mt on mt.id = dpt.mission_id order by mission_id desc;
+select dpt.*, mt.* from degradation_parameter_tb dpt join mission_tb mt on mt.id = dpt.mission_id where mt.prior_rul = -1 order by idx, mission_id desc;
 
 select * from mission_tb order by id desc;
 
