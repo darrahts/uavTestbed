@@ -1,6 +1,7 @@
 function eqc_battery = create_default_battery(conn, owner, type_id, serial_number, age, units)
     %%
-    %       @brief: creates a battery asset
+    %       @brief: Creates a default battery asset. To be replaced by
+    %       <create_default_component.m> in a future update.
     %
     %       @params: 
     %           conn - the database connection object

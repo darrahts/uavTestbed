@@ -1,6 +1,7 @@
 function airframe = create_default_airframe(conn, owner, type_id, serial_number, num_motors, age, units)
     %%
-    %       @brief: creates an airframe asset
+    %       @brief: Creates a default airframe asset. To be replaced by
+    %       <create_default_component.m> in a future update.
     %
     %       @params: 
     %           conn - the database connection object

@@ -1,6 +1,7 @@
 function dc_motor = create_default_motor(conn, owner, type_id, serial_number, age, units)
     %%
-    %       @brief: creates a dc motor
+    %       @brief: Creates a default dc motor. To be replaced by
+    %       <create_default_component.m> in a future update.
     %
     %       @params: 
     %           conn - the database connection object

@@ -1,6 +1,9 @@
 function component = create_default_component(conn, owner, type, serial_number, age, units)
     %%
-    %       @brief: 
+    %       @brief: Work In Progress [WIP]. Replaces
+    %           <create_default_airframe.m>
+    %           <create_default_battery.m>
+    %           <create_default_motor.m>
     %
     %       @params: 
     %           conn - the database connection object
