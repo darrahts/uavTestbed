@@ -6,5 +6,5 @@ slprj/*
 *.asv
 dig/*
 */dig
-get_password.m
 load_db_params.m
+

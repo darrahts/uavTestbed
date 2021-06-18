@@ -57,7 +57,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
+TODO ----- UPDATE README!! 6/18/2021
 Currenlty conducting several run-to-failure experiments in effort to collect telementry and mission data to facilitate research into deep learning approaches to problems such as remaining useful life (RUL) estimation, fault detection & isolation (FDI), or decision making (among others).
 
 TODO

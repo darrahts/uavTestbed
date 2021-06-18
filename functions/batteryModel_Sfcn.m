@@ -59,17 +59,17 @@ function InitConditions(block)
     %% Initialize Dwork
     % Initialize 5 states and outputs
     battery = block.DialogPrm(1).Data;
-    init = [battery.z, battery.Ir, battery.h];
+    init = [double(battery.z), double(battery.Ir), double(battery.h)];
     for i=1:3
         block.Dwork(1).Data(i) = init(i);
     end
     
-    block.OutputPort(1).Data = battery.v;
-    block.OutputPort(2).Data = battery.z;
-    block.OutputPort(3).Data = battery.R0;
-    block.OutputPort(4).Data = battery.Ir;
-    block.OutputPort(5).Data = battery.h;
-    block.OutputPort(6).Data = battery.Q;
+    block.OutputPort(1).Data = double(battery.v);
+    block.OutputPort(2).Data = double(battery.z);
+    block.OutputPort(3).Data = double(battery.R0);
+    block.OutputPort(4).Data = double(battery.Ir);
+    block.OutputPort(5).Data = double(battery.h);
+    block.OutputPort(6).Data = double(battery.Q);
   
 %endfunction
 
@@ -79,11 +79,11 @@ function Output(block)
     dt = block.DialogPrm(2).Data;
     
     %parameters
-    M0 = battery.M0;
-    M = battery.M;
-    R0 = battery.R0;
-    R = battery.R;
-    Q = battery.Q;
+    M0 = double(battery.M0);
+    M = double(battery.M);
+    R0 = double(battery.R0);
+    R = double(battery.R);
+    Q = double(battery.Q);
     
     %input current
     u = block.InputPort(1).Data;
