@@ -9,6 +9,7 @@ create table asset_type_tb(
     unique ("type", "subtype", "description")
 );
 
+
 /*
         description here
 */
@@ -21,6 +22,7 @@ create table asset_tb(
     "eol" float(16),
     "units" varchar(32)
 );
+
 
 /*
         description here
@@ -43,10 +45,11 @@ create table default_airframe_tb(
 	"l" float not null default 0.45
 );
 
+
 /*
         description here
 */
-create table public.dc_motor_tb(
+create table dc_motor_tb(
     "id" int primary key references asset_tb(id),
     "motor_number" int,
     "Req" float default 0.2371,
@@ -55,6 +58,7 @@ create table public.dc_motor_tb(
     "Df" float default 0.0,
     "cq" float default 0.00000013678
 );
+
 
 /*
         description here
@@ -68,7 +72,7 @@ create table eqc_battery_tb (
 	"M0" float not null default 0.0019,
 	"RC" float not null default 3.6572,
 	"R" float not null default 0.00028283,
-	"R0" float not null default -0.0011,
+	"R0" float not null default 0.0011,
 	"n" float not null default 0.9987,
 	"EOD" float not null default 3.04,
 	"z" float not null default 1.0,
@@ -78,6 +82,7 @@ create table eqc_battery_tb (
 	"v0" float not null default 4.2,
 	"dt" float not null default 1.0
 );
+
 
 /*
         description here
@@ -97,6 +102,7 @@ create table uav_tb(
 	"max_flight_time" float not null default 18.0
 );
 
+
 /*
         description here
 */
@@ -113,3 +119,54 @@ create table trajectory_tb(
 	"reward" float not null default 1.0,
 	unique(path_distance, path_time, x_waypoints, y_waypoints, sample_time, reward)
  );
+ 
+
+/*
+        description here
+*/
+create table stop_code_tb(
+	id serial primary key not null,
+	description varchar(256) unique not null
+);
+
+
+/*
+        description here
+*/
+create table flight_summary_tb(
+	id serial primary key not null,
+	stop_code int not null references stop_code_tb(id),
+	z_end float not null,
+	v_end float not null,
+	avg_pos_err float not null,
+	max_pos_err float not null,
+	std_pos_err float not null,
+	avg_ctrl_err float not null,
+	max_ctrl_err float not null,
+	std_ctrl_err float not null,
+	distance float not null,
+	flight_time float not null,
+	avg_current float not null,
+	amp_hours float not null,
+	dt_start timestamptz not null,
+	dt_stop timestamptz not null,
+	trajectory_id int not null references trajectory_tb(id),
+	uav_id int not null references uav_tb(id),
+	unique (dt_start, dt_stop, uav_id)
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
