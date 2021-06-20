@@ -51,8 +51,10 @@ function uav = load_uav(conn, serial_number)
     motors_tb = select(conn, LOAD_UAV_MOTORS);
     
     % convert all tables to structs
-    uav.uav = table2struct(uav_tb);
+    uav.uav = table2struct(uav_tb); 
     uav.airframe = table2struct(airframe_tb);
+    uav.battery = table2struct(battery_tb);
+    uav.motors = table2struct(motors_tb);
     
     % the Jb matrix is stored as a double array in postgres, but matlab
     % reads it as a char array / string
@@ -60,12 +62,12 @@ function uav = load_uav(conn, serial_number)
     uav.airframe.Jb = erase(uav.airframe.Jb, "}");
     uav.airframe.Jb = reshape(str2num(uav.airframe.Jb), [3,3]);
     
-    uav.battery = table2struct(battery_tb);
+    % this is the relationship between state of charge and voltage
     uav.battery.soc_ocv = load('degradation/soc_ocv.mat').soc_ocv;
-    uav.motors = table2struct(motors_tb);
     
-    % uav.uav contains high level 
+    % easier access to some variable
     uav.max_flight_time = uav.uav.max_flight_time;
+    uav.id = uav.uav.id;
     
     % the current implementation assumes the entire mass value is captured in
     % the airframe (a mass field could be added to the asset class...)
