@@ -152,13 +152,33 @@ create table flight_summary_tb(
 	dt_stop timestamptz not null,
 	trajectory_id int not null references trajectory_tb(id),
 	uav_id int not null references uav_tb(id),
+	flight_num int not null,
 	unique (dt_start, dt_stop, uav_id)
 );
 
 
 
-
-
+/*
+        description here
+*/
+create table flight_degradation_tb (
+	id serial not null primary key,
+	flight_id int not null references flight_summary_tb(id),
+	q_deg float not null,
+	q_var float not null,
+	q_slope float,
+	q_intercept float,
+	r_deg float not null,
+	r_var float not null,
+	r_slope float,
+	r_intercept float,
+	m_deg float not null,
+	m_var float not null,
+	m_slope float,
+	m_intercept float,
+	uav_id int not null references uav_tb(id),
+	unique(flight_id, q_deg, q_var, r_deg, r_var, m_deg, m_var, uav_id)
+);
 
 
 
