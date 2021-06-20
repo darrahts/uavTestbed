@@ -61,7 +61,7 @@ function uav = load_uav(conn, serial_number)
     uav.airframe.Jb = reshape(str2num(uav.airframe.Jb), [3,3]);
     
     uav.battery = table2struct(battery_tb);
-    uav.battery.soc_ocv = load('params/soc_ocv.mat').soc_ocv;
+    uav.battery.soc_ocv = load('degradation/soc_ocv.mat').soc_ocv;
     uav.motors = table2struct(motors_tb);
     
     % uav.uav contains high level 
