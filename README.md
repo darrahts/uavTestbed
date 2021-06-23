@@ -26,7 +26,7 @@
   <h1 align="center">UAV Simulation Testbed</h3>
 
   <p align="center">
-    A testbed for the development of prognostic, health management, and decision making algorithms using MATLAB and Simulink.
+    A testbed for the development of prognostic, health management, and decision making algorithms. 
     <br />
     <a href="https://github.com/darrahts/uavTestbed2"><strong>Explore the docs »</strong></a>
     <br />
@@ -57,31 +57,18 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-TODO ----- UPDATE README!! 6/18/2021
-Currenlty conducting several run-to-failure experiments in effort to collect telementry and mission data to facilitate research into deep learning approaches to problems such as remaining useful life (RUL) estimation, fault detection & isolation (FDI), or decision making (among others).
+This work aims to bring a unified framework to data and model management for researchers developing new prognostic technologies. A Postgres database schema (tables only - it is left to the researcher how to set up their database for users and access) and an API in MATLAB and Python (release date - tbd). This framework will support a wide variety of simulation-based experiments as well as real-world experiments using the same interface.  
+
+Currenlty we are conducting several run-to-failure experiments in effort to collect telementry and degradation data to facilitate research into deep learning approaches to problems such as remaining useful life (RUL) estimation, fault detection & isolation (FDI), decision making, and others.  
 
 TODO
-- ~~update [truesystem.slx](https://github.com/darrahts/uavTestbed2/blob/main/truesystem.slx)~~
-    - ~~output to workspace variables organized~~
-    - ~~condition monitors redone~~
-    - ~~ukf covariance outputs~~
-- ~~fix degradation parameter standard deviation~~
-    - ~~start large, update based on ukf~~
-    - ~~dont forget the motor filter!~~
-- integrate parallelization
-    - ~~WORK IN PROGRESS~~
-    - ~~see below `scratch paper` section of [next_paper.mlx](https://github.com/darrahts/uavTestbed2/blob/main/next_paper.mlx)~~
-- ~~rewrite RUL experiment from last paper using new framework~~
-    - parallel execution of digitaltwin [TODO - Fix here!]
-    - ~~rul distribution~~
-    - ~~execute real system~~
-    - ~~update degradation parameters~~
-    - ~~repeat until digitaltwin fails~~
-- ~~integrate database~~
-- ~~create training data set~~
-- ~~randomize route priorities~~
+- finish data collection experiment
+- write interface to pull data from db and generate plots
+- update degradation models from cycle based to usage based
+- data curation and preparation
 - build NN model to decide on mission or maintenance
-- add power demand estimation based on trajectory (ask Chris about this)
+- add power demand estimation based on trajectory
+- add in trajectory risk / reward 
 - add in-mission decision making and actions
     - activities such as drop package, take picture, transmit data, etc
     - appropriate power demand based on activity
@@ -95,32 +82,32 @@ TODO
     - Parallel Computing Toolbox
     - Simulink
     - Robotics System Toolbox
+    - Database Toolbox
+
+* PostgreSQL ~12 (other versions are probably fine but untested)
+
 
 ### Installation
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/darrahts/uavTestbed2.git
+   git clone https://github.com/darrahts/uavTestbed.git
    ```
+2. Next step... [TODO] finish
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-(`next_paper.mlx` needs updated, see `experiment_b2.mlx` for a complete example)
-Open the livescript `next_paper.mlx`  
-- To do one simulation run of the real system, execute the first cells before "Simulation Loop" title
-- find "Simulation Loop" title, and execute cell to 
+Run the file <li><a href="https://github.com/darrahts/uavTestbed/blob/main/livescripts/example.mlx">example.mlx</a></li>
+
 
 
 Discuss the following: 
 - database schema
-- software as a service (SAAS) implementation 
-- parallelized PF-based RUL estimation
 - trajectory selection
 - RUL estimation
 - Degradation
-- parameter approximation
-- parameter value estimation
+- parameter estimation
 - train/test/validation data
 
 <!-- ROADMAP -->
