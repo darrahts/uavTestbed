@@ -7,4 +7,5 @@ slprj/*
 dig/*
 */dig
 load_db_params.m
-
+*/figures
+figures/*
