@@ -125,8 +125,8 @@ create table trajectory_tb(
         description here
 */
 create table stop_code_tb(
-	id serial primary key not null,
-	description varchar(256) unique not null
+	"id" serial primary key not null,
+	"description" varchar(256) unique not null
 );
 
 
@@ -134,25 +134,25 @@ create table stop_code_tb(
         description here
 */
 create table flight_summary_tb(
-	id serial primary key not null,
-	stop_code int not null references stop_code_tb(id),
-	z_end float not null,
-	v_end float not null,
-	avg_pos_err float not null,
-	max_pos_err float not null,
-	std_pos_err float not null,
-	avg_ctrl_err float not null,
-	max_ctrl_err float not null,
-	std_ctrl_err float not null,
-	distance float not null,
-	flight_time float not null,
-	avg_current float not null,
-	amp_hours float not null,
-	dt_start timestamptz not null,
-	dt_stop timestamptz not null,
-	trajectory_id int not null references trajectory_tb(id),
-	uav_id int not null references uav_tb(id),
-	flight_num int not null,
+	"id" serial primary key not null,
+	"stop_code" int not null references stop_code_tb(id),
+	"z_end" float not null,
+	"v_end" float not null,
+	"avg_pos_err" float not null,
+	"max_pos_err" float not null,
+	"std_pos_err" float not null,
+	"avg_ctrl_err" float not null,
+	"max_ctrl_err" float not null,
+	"std_ctrl_err" float not null,
+	"distance" float not null,
+	"flight_time" float not null,
+	"avg_current" float not null,
+	"amp_hours" float not null,
+	"dt_start" timestamptz not null,
+	"dt_stop" timestamptz not null,
+	"trajectory_id" int not null references trajectory_tb(id),
+	"uav_id" int not null references uav_tb(id),
+	"flight_num" int not null,
 	unique (dt_start, dt_stop, uav_id)
 );
 
@@ -162,28 +162,51 @@ create table flight_summary_tb(
         description here
 */
 create table flight_degradation_tb (
-	id serial not null primary key,
-	flight_id int not null references flight_summary_tb(id),
-	q_deg float not null,
-	q_var float not null,
-	q_slope float,
-	q_intercept float,
-	r_deg float not null,
-	r_var float not null,
-	r_slope float,
-	r_intercept float,
-	m_deg float not null,
-	m_var float not null,
-	m_slope float,
-	m_intercept float,
-	uav_id int not null references uav_tb(id),
+	"id" serial not null primary key,
+	"flight_id" int not null references flight_summary_tb(id),
+	"q_deg" float not null,
+	"q_var" float not null,
+	"q_slope" float,
+	"q_intercept" float,
+	"r_deg" float not null,
+	"r_var" float not null,
+	"r_slope" float,
+	"r_intercept" float,
+	"m_deg" float not null,
+	"m_var" float not null,
+	"m_slope" float,
+	"m_intercept" float,
+	"uav_id" int not null references uav_tb(id),
 	unique(flight_id, q_deg, q_var, r_deg, r_var, m_deg, m_var, uav_id)
 );
 
 
-
-
-
+/*
+        description here
+*/
+create table flight_telemetry_tb (
+	"dt" timestamptz not null,
+	"v_batt" float not null,
+	"z_batt" float not null,
+	"r_batt" float not null,
+	"i_batt" float8 not null,
+	"ctrl_err" float8 not null,
+	"pos_err" float8 not null,
+	"x_pos" float8 not null,
+	"y_pos" float8 not null,
+	"z_pos" float8 not null default 10.0,
+	"r_motor1" float,
+	"r_motor2" float,
+	"r_motor3" float,
+	"r_motor4" float,
+	"r_motor5" float,
+	"r_motor6" float,
+	"r_motor7" float,
+	"r_motor8" float,
+	"uav_id" int not null references uav_tb(id),
+	"flight_id" int not null references flight_summary_tb(id),
+	unique(dt, v_batt, z_batt, pos_err, x_pos, y_pos, uav_id, flight_id)
+);
 
 
 
