@@ -10,7 +10,7 @@ function setup(block)
   
   %% Register number of input and output ports
   block.NumInputPorts  = 1;
-  block.NumOutputPorts = 6;
+  block.NumOutputPorts = 5;
 
   %% Setup functional port properties to dynamically
   %% inherited.
@@ -21,7 +21,7 @@ function setup(block)
   block.InputPort(1).DirectFeedthrough = false;
   block.InputPort(1).SamplingMode      = 'Sample';
   
-  for i = 1:6
+  for i = 1:5
     block.OutputPort(i).Dimensions       = 1;
     block.OutputPort(i).SamplingMode     = 'Sample';
   end
@@ -69,7 +69,6 @@ function InitConditions(block)
     block.OutputPort(3).Data = double(battery.R0);
     block.OutputPort(4).Data = double(battery.Ir);
     block.OutputPort(5).Data = double(battery.h);
-    block.OutputPort(6).Data = double(battery.Q);
   
 %endfunction
 
@@ -83,7 +82,6 @@ function Output(block)
     M = double(battery.M);
     R0 = double(battery.R0);
     R = double(battery.R);
-    Q = double(battery.Q);
     
     %input current
     u = block.InputPort(1).Data;
@@ -99,7 +97,6 @@ function Output(block)
     block.OutputPort(3).Data = R0;
     block.OutputPort(4).Data = Ir;
     block.OutputPort(5).Data = h;
-    block.OutputPort(6).Data = Q;
   
 %endfunction
 
