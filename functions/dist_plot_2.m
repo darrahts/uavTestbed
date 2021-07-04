@@ -28,7 +28,7 @@ function ret_fig = dist_plot_1(mean_vals, std_vals, style, earliest_failure)
     elseif style == 'v'
         title("Output Voltage Distribution Over Time");
         xlabel("Flight Number");
-        ylabel("Voltage (V)");
+        ylabel("Voltage at the end of flight (V)");
         legend([bounds avg], '95% CB', 'mean');
         
     elseif style == 'a'
@@ -41,6 +41,11 @@ function ret_fig = dist_plot_1(mean_vals, std_vals, style, earliest_failure)
         xlabel("Flight Number");
         ylabel("Euclidean Position Error (std)(m)");
 
+    elseif style == 'q'
+        title("Charge Capacitance Over Time");
+        xlabel("Flight Number");
+        ylabel("Capacitance (Ah)");
+        
     end
     
 end

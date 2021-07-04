@@ -7,19 +7,27 @@ function ret_fig = dist_plot_1(dist_data, idx_vals, style)
     plot(dist_data.(sprintf("flight_%d", idx_vals(1))){1}, dist_data.(sprintf("flight_%d", idx_vals(1))){2}, "DisplayName", "1st Flight");
     plot(dist_data.flight_25{1}, dist_data.flight_25{2}, "DisplayName", "25th Flight");
     plot(dist_data.flight_50{1}, dist_data.flight_50{2}, "DisplayName", "50th Flight");
-    plot(dist_data.flight_73{1}, dist_data.flight_73{2}, "DisplayName", "75th Flight");
-    plot(dist_data.(sprintf("flight_%d", idx_vals(5))){1}, dist_data.(sprintf("flight_%d", idx_vals(5))){2}, "DisplayName", "78th Flight");
+    plot(dist_data.(sprintf("flight_%d", idx_vals(4))){1}, dist_data.(sprintf("flight_%d", idx_vals(4))){2}, "DisplayName", sprintf("Flight %d", idx_vals(end)));
     hold off;
     legend;
     
     if style == 'z'
-        title("State of Charge Evolution");
+        title("State of Charge (end of flight) Evolution");
         xlabel("Ending State of Charge (%)");
         ylabel("Probability (%)");
         x = [.71 .39];
         y = [.495 .495];
         annotation('arrow',x, y, 'linewidth', 3, 'Color', [170 170 170]/255);
         text(.439, 40.5, 'degradation over time', 'FontSize', 11, 'Color',[170 170 170]/255);
+    elseif style == 'c'
+        title("Charge Capacitance Evolution");
+        xlabel("Charge Capacitance (%)");
+        ylabel("Probability (%)");
+        x = [.71 .39];
+        y = [.495 .495];
+        yticklabels([0 .05 .1 .15]);
+        annotation('arrow',x, y, 'linewidth', 3, 'Color', [170 170 170]/255);
+        text(12, 1.5, 'degradation over time', 'FontSize', 11, 'Color',[170 170 170]/255);
     elseif style == 'v'
         title("Output Voltage Evolution");
         xlabel("Ending Voltage (%)");
