@@ -23,10 +23,6 @@ go
 
 
 
-
-
-
-
 -- insert into process_type_tb ("type", "subtype1", "subtype2")
 -- 	values ('degradation', 'battery', 'capacitance');
 

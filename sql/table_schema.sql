@@ -23,7 +23,9 @@ create table asset_tb(
     "units" varchar(32)
 );
 
+/*
 
+*/
 create table process_type_tb(
 	"id" serial primary key not null,
 	"type" varchar(32) not null,
@@ -32,7 +34,9 @@ create table process_type_tb(
 	unique("type", "subtype1", "subtype2")
 );
 
+/*
 
+*/
 create table process_tb(
 	"id" serial primary key not null,
 	"type_id" int not null references process_type_tb,
