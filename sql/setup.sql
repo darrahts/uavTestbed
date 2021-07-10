@@ -8,16 +8,10 @@ create user :user with encrypted password :passwd;
 -- grant permissions
 grant all privileges on database uav_db to :user;
 
-go
-
 use uav_db;
-
-go
 
 
 @table_schema.sql;
-
-go
 
 
 
