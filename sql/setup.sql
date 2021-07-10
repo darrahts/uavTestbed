@@ -8,4 +8,4 @@ create user :user with encrypted password :passwd;
 -- grant permissions
 grant all privileges on database uav_db to :user;
 
-alter :user with superuser;
+alter user :user with superuser;
