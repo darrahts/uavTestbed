@@ -15,13 +15,33 @@ create table asset_type_tb(
 */
 create table asset_tb(
     "id" serial primary key not null,
-    "owner" varchar(32) not null,
+    "owner" varchar(32) not null default(current_user),
     "type_id" int references asset_type_tb(id),
     "serial_number" varchar(32) unique,
     "age" float(16),
     "eol" float(16),
     "units" varchar(32)
 );
+
+
+create table process_type_tb(
+	"id" serial primary key not null,
+	"type" varchar(32) not null,
+	"subtype1" varchar(64) not null,
+	"subtype2" varchar(64),
+	unique("type", "subtype1", "subtype2")
+);
+
+
+create table process_tb(
+	"id" serial primary key not null,
+	"type_id" int not null references process_type_tb,
+	"description" varchar(256) not null,
+    "source" varchar(256) not null,
+	"parameters" json not null,
+	unique("type_id", "description", "source")
+);
+
 
 
 /*
@@ -35,9 +55,9 @@ create table default_airframe_tb(
 	"mass" float not null default 1.8,
 	"Jb" float[9] not nullnull default '{0.0429, 0.0, 0.0,    0.0, 0.0429, 0.0,   0.0, 0.0, 0.0748}',
 	"cd" float not null default 1.0,
-	"Axy" float not null default 0.04,
-	"Axz" float not null default 0.04,
-	"Ayz" float not null default 0.04,
+	"Axy" float not null default 0.9,
+	"Axz" float not null default 0.5,
+	"Ayz" float not null default 0.5,
 	"rho" float not null default 1.2,
 	"lx" float not null default 0.2,
 	"ly" float not null default 0.2,
@@ -91,14 +111,14 @@ create table uav_tb(
 	"id" int primary key references asset_tb(id),
 	"airframe_id" int not null references asset_tb(id),
 	"battery_id" int not null references asset_tb(id),
-	"motor1_id" int not null references asset_tb(id),
-	"motor2_id" int not null references asset_tb(id),
-	"motor3_id" int not null references asset_tb(id),
-	"motor4_id" int references asset_tb(id),
-	"motor5_id" int references asset_tb(id),
-	"motor6_id" int references asset_tb(id),
-	"motor7_id" int references asset_tb(id),
-	"motor8_id" int references asset_tb(id),
+	"m1_id" int not null references asset_tb(id),
+	"m2_id" int not null references asset_tb(id),
+	"m3_id" int not null references asset_tb(id),
+	"m4_id" int references asset_tb(id),
+	"m5_id" int references asset_tb(id),
+	"m6_id" int references asset_tb(id),
+	"m7_id" int references asset_tb(id),
+	"m8_id" int references asset_tb(id),
 	"max_flight_time" float not null default 18.0
 );
 
@@ -138,6 +158,14 @@ create table flight_summary_tb(
 	"stop_code" int not null references stop_code_tb(id),
 	"z_end" float not null,
 	"v_end" float not null,
+	"m1_avg_current" float,
+	"m2_avg_current" float,
+	"m3_avg_current" float,
+	"m4_avg_current" float,
+	"m5_avg_current" float,
+	"m6_avg_current" float,
+	"m7_avg_current" float,
+	"m8_avg_current" float,
 	"avg_pos_err" float not null,
 	"max_pos_err" float not null,
 	"std_pos_err" float not null,
@@ -153,7 +181,8 @@ create table flight_summary_tb(
 	"trajectory_id" int not null references trajectory_tb(id),
 	"uav_id" int not null references uav_tb(id),
 	"flight_num" int not null,
-	unique (dt_start, dt_stop, uav_id)
+	"group_num" int,
+	unique (dt_start, dt_stop, uav_id, flight_num)
 );
 
 
@@ -195,18 +224,24 @@ create table flight_telemetry_tb (
 	"x_pos" float8 not null,
 	"y_pos" float8 not null,
 	"z_pos" float8 not null default 10.0,
-	"r_motor1" float,
-	"r_motor2" float,
-	"r_motor3" float,
-	"r_motor4" float,
-	"r_motor5" float,
-	"r_motor6" float,
-	"r_motor7" float,
-	"r_motor8" float,
+	"m1_r" float,
+	"m2_r" float,
+	"m3_r" float,
+	"m4_r" float,
+	"m5_r" float,
+	"m6_r" float,
+	"m7_r" float,
+	"m8_r" float,
 	"uav_id" int not null references uav_tb(id),
 	"flight_id" int not null references flight_summary_tb(id),
 	unique(dt, v_batt, z_batt, pos_err, x_pos, y_pos, uav_id, flight_id)
 );
+
+
+
+
+
+
 
 
 
