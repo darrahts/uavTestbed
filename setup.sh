@@ -24,5 +24,5 @@ read -p "setup database? (y/n): " ans2
 
 if [[ $ans2 = y ]]
 then
-    setup.sql $USER
+    sudo -u postgres psql/setup.sql $USER
 fi
