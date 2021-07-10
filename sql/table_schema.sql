@@ -55,7 +55,7 @@ create table asset_tb(
     "serial_number" varchar(32) unique not null,
     "age" float(16),
     "eol" float(16),
-    "units" varchar(32),
+    "units" varchar(32)
 );
 
 /*
