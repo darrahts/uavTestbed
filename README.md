@@ -63,9 +63,7 @@ Currenlty we are conducting several run-to-failure experiments in effort to coll
 
 TODO
 - finish data collection experiment
-- write interface to pull data from db and generate plots
 - update degradation models from cycle based to usage based
-- data curation and preparation
 - build NN model to decide on mission or maintenance
 - add power demand estimation based on trajectory
 - add in trajectory risk / reward 
@@ -90,12 +88,13 @@ TODO
 ### Installation
 
 1. Clone the repo
-   ```sh
-   git clone https://github.com/darrahts/uavTestbed.git
-   ```
-2. Next step... [TODO] finish
+   ```git clone https://github.com/darrahts/uavTestbed.git```
+2. Make setup in the root directory executable 
+  ```chmod +x setup.sh```
+3. Execute the setup script
+  ```./setup.sh```
+4. The default port is ```5432```, and the username is your currently logged in user. Welcome to PostgreSQL :) 
 
-<!-- USAGE EXAMPLES -->
 ## Usage
 
 Run the file <li><a href="https://github.com/darrahts/uavTestbed/blob/main/livescripts/example.mlx">example.mlx</a></li>
@@ -128,14 +127,14 @@ To be incorporated:
 * more...
 
 <!-- CONTRIBUTING -->
-## Contributing
-Project contributors (direct or indirect):  
+## Mentors 
 - Marcos Quinones  
 - Gautam Biswas  
 - Chetan Kulkarni  
 - Chris Teubert  
 - Jeremy Frank  
-- Ibrahim Ahmed  
+
+## Technical contributors
   
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
