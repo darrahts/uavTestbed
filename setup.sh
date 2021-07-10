@@ -20,10 +20,18 @@ then
 fi
 
 unset ans
-read -p "setup database? (y/n): " ans2
-read -p "enter your password: " passwd
+read -p "setup database? (y/n): " ans
 
-if [[ $ans2 = y ]]
+if [[ $ans = y ]]
 then
+    read -p "enter your password: " passwd
     sudo -u postgres psql -f sql/setup.sql -v user="$USER" -v passwd="'$passwd'"
+fi
+
+unset ans
+read -p "setup table schema? (y/n): " ans
+
+if [[ $ans = y ]]
+then
+    psql -f sql/table_schema.sql
 fi
