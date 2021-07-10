@@ -1,12 +1,10 @@
 #!/bin/bash
 
-
 # install PostgreSQL
 read -p "install postgreSQL? (y/n): " ans
 
-if [ $ans = y ]
+if [[ $ans = y ]]
 then
-    
     # Create the file repository configuration:
     sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
 
@@ -19,4 +17,12 @@ then
     # # Install the latest version of PostgreSQL.
     # # If you want a specific version, use 'postgresql-12' or similar instead of 'postgresql':
     sudo apt-get -y install postgresql
+fi
+
+unset ans
+read -p "setup database? (y/n): " ans2
+
+if [[ $ans2 = y ]]
+then
+    setup.sql $USER
 fi
