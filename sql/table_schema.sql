@@ -1,3 +1,35 @@
+
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+/*
+            This is the table schema for the data management system. It includes the following tables 
+                - asset_type_tb
+                - asset_tb
+                - process_type_tb
+				- process_tb   
+				- stop_code_tb
+				- trajectory_tb     
+				- default_airframe_tb
+				- dc_motor_tb
+				- eqc_battery_tb
+				- uav_tb
+				- flight_summary_tb
+				- flight_degradation_tb
+				- flight_telemetry_tb
+				- environment_data_tb (todo) 
+
+
+            Contributing and extending this is not difficult and needed!
+
+            Tim Darrah
+            NASA Fellow
+            PhD Student
+            Vanderbilt University
+            timothy.s.darrah@vanderbilt.edu
+*/
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+
 /*
         description here
 */
@@ -11,16 +43,19 @@ create table asset_type_tb(
 
 
 /*
-        description here
+    Table to hold asset data
+
+	There is not a table-wide unique constraint on this table because we can have more than one battery of the same type,
+	only the serial number has to be unique.
 */
 create table asset_tb(
     "id" serial primary key not null,
     "owner" varchar(32) not null default(current_user),
     "type_id" int references asset_type_tb(id),
-    "serial_number" varchar(32) unique,
+    "serial_number" varchar(32) unique not null,
     "age" float(16),
     "eol" float(16),
-    "units" varchar(32)
+    "units" varchar(32),
 );
 
 /*
@@ -46,6 +81,47 @@ create table process_tb(
 	unique("type_id", "description", "source")
 );
 
+/*
+    Table to hold stop code information used during simulations
+
+	example:
+		low soc is the stop code when the flight is terminated due to violating a minimum soc threshold.
+		the id can then used for further analysis
+*/
+create table stop_code_tb(
+	"id" serial primary key not null,
+	"description" varchar(256) unique not null
+);
+
+
+/*
+    Table to hold trajectory information
+	
+	fields:
+		path_distance: distance of flight in meters
+		risk_factor: risk of collision 
+		<x/y>_waypoints: the main waypoints of the trajectory
+		<x/y>_ref_points: reference points along the trajectory at "sample_time" intervals,
+			can be left null and generated at run time
+		sample_time: sample time of the <x/y>_ref_points
+		reward: reward for this trajectory
+
+	constraints:
+		duplicate entries not allowed
+*/
+create table trajectory_tb(
+	"id" serial primary key,
+	"path_distance" float not null,
+	"path_time" float not null,
+	"risk_factor" float default .01,
+	"x_waypoints" float[16] not null,
+	"y_waypoints" float[16] not null,
+	"x_ref_points" float[1280],
+	"y_ref_points" float[1280],
+	"sample_time" int not null default 1,
+	"reward" float default 1.0,
+	unique(path_distance, path_time, x_waypoints, y_waypoints, sample_time, reward)
+ );
 
 
 /*
@@ -126,32 +202,6 @@ create table uav_tb(
 	"max_flight_time" float not null default 18.0
 );
 
-
-/*
-        description here
-*/
-create table trajectory_tb(
-	"id" serial primary key,
-	"path_distance" float not null,
-	"path_time" float not null,
-	"risk_factor" float not null default .01,
-	"x_waypoints" float[16] not null,
-	"y_waypoints" float[16] not null,
-	"x_ref_points" float[1280] not null,
-	"y_ref_points" float[1280] not null,
-	"sample_time" int not null default 1,
-	"reward" float not null default 1.0,
-	unique(path_distance, path_time, x_waypoints, y_waypoints, sample_time, reward)
- );
- 
-
-/*
-        description here
-*/
-create table stop_code_tb(
-	"id" serial primary key not null,
-	"description" varchar(256) unique not null
-);
 
 
 /*
@@ -240,13 +290,6 @@ create table flight_telemetry_tb (
 	"flight_id" int not null references flight_summary_tb(id),
 	unique(dt, v_batt, z_batt, pos_err, x_pos, y_pos, uav_id, flight_id)
 );
-
-
-
-
-
-
-
 
 
 
