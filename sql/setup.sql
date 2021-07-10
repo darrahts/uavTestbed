@@ -7,4 +7,4 @@
 
 -- -- grant permissions
 -- grant all privileges on database uav_db to johndoe;
-raise notice 'value: %', &1;
+select :user;
