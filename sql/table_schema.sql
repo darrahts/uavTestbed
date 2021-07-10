@@ -57,7 +57,7 @@ create table default_airframe_tb(
 	"ct" float not null default 0.0000085486,
 	"cq" float not null default 0.00000013678,
 	"mass" float not null default 1.8,
-	"Jb" float[9] not nullnull default '{0.0429, 0.0, 0.0,    0.0, 0.0429, 0.0,   0.0, 0.0, 0.0748}',
+	"Jb" float[9] not null default '{0.0429, 0.0, 0.0,    0.0, 0.0429, 0.0,   0.0, 0.0, 0.0748}',
 	"cd" float not null default 1.0,
 	"Axy" float not null default 0.9,
 	"Axz" float not null default 0.5,
