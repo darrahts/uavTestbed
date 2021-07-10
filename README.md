@@ -100,8 +100,9 @@ TODO
     - [setup_defaults.sql](https://github.com/darrahts/uavTestbed/blob/main/sql/setup_defaults.sql)
 4. The default port is ```5432```, and the username is your currently logged in user. Welcome to PostgreSQL :) A guide that might be helpful can be found <a href="https://blog.logrocket.com/setting-up-a-remote-postgres-database-server-on-ubuntu-18-04/">here</a>.
 
-## Usage
+### Usage
 
+TODO - update usage section
 Run the file <li><a href="https://github.com/darrahts/uavTestbed/blob/main/livescripts/example.mlx">example.mlx</a></li>
 
 
