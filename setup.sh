@@ -25,4 +25,5 @@ read -p "enter your password: " passwd
 
 if [[ $ans2 = y ]]
 then
-    sudo -u postgres psql -f sql/setup.sql -v user="'$USER'" -v passwd="'$passwd'"
+    sudo -u postgres psql -f sql/setup.sql -v user="$USER" -v passwd="'$passwd'"
+fi
