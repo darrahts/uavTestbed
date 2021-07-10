@@ -33,5 +33,5 @@ read -p "setup table schema? (y/n): " ans
 
 if [[ $ans = y ]]
 then
-    psql -f sql/table_schema.sql
+    psql -d uav_db -f sql/table_schema.sql
 fi
