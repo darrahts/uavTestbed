@@ -85,6 +85,7 @@ TODO
 * PostgreSQL ~12 (other versions are probably fine but untested)
 
 
+
 ### Installation
 
 1. Clone the repo
@@ -93,7 +94,7 @@ TODO
   ```chmod +x setup.sh```
 3. Execute the setup script
   ```./setup.sh```
-4. The default port is ```5432```, and the username is your currently logged in user. Welcome to PostgreSQL :) 
+4. The default port is ```5432```, and the username is your currently logged in user. Welcome to PostgreSQL :) A guide that might be helpful can be found <a href="https://blog.logrocket.com/setting-up-a-remote-postgres-database-server-on-ubuntu-18-04/">here</a>.
 
 ## Usage
 
