@@ -21,8 +21,8 @@ fi
 
 unset ans
 read -p "setup database? (y/n): " ans2
+read -p "enter your password: " passwd
 
 if [[ $ans2 = y ]]
 then
-    sudo -u postgres psql -f sql/setup.sql -v user="'$USER'"
-fi
+    sudo -u postgres psql -f sql/setup.sql -v user="'$USER'" -v passwd="'$passwd'"
