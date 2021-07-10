@@ -4,7 +4,7 @@
 # install PostgreSQL
 read -p "install postgreSQL? (y/n): " ans
 
-if [ $ans = y]
+if [ $ans = y ]
 then
     echo 'yes'
     # Create the file repository configuration:
