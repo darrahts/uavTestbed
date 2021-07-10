@@ -1,23 +1,26 @@
 #!/bin/bash
 
-"""
-            This script will promt the user to 
-                1. install PostgreSQL
-                    copy and pasted code from https://www.postgresql.org/download/linux/ubuntu/
-                2. setup the database and user
-                    creates uav_db and the current user
-                3. setup the table schema
-                    executes table_schema.sql
-                4. setup defaults
-                    executes setup_defaults.sql
-
-            Tim Darrah
-            NASA Fellow
-            PhD Student
-            Vanderbilt University
-            timothy.s.darrah@vanderbilt.edu
-
-"""
+################################################################################
+################################################################################
+#
+#            This script will promt the user to 
+#                1. install PostgreSQL
+#                    copy and pasted code from https://www.postgresql.org/download/linux/ubuntu/
+#                2. setup the database and user
+#                    creates uav_db and the current user
+#                3. setup the table schema
+#                    executes table_schema.sql
+#                4. setup defaults
+#                    executes setup_defaults.sql
+#
+#            Tim Darrah
+#            NASA Fellow
+#            PhD Student
+#            Vanderbilt University
+#            timothy.s.darrah@vanderbilt.edu
+#
+################################################################################
+################################################################################
 
 # install PostgreSQL
 read -p "install postgreSQL? (y/n): " ans
