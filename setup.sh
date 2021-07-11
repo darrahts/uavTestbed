@@ -24,7 +24,6 @@
 
 # install PostgreSQL
 read -p "install postgreSQL? (y/n): " ans
-
 if [[ $ans = y ]]
 then
     # Create the file repository configuration:
@@ -61,8 +60,22 @@ unset ans
 
 # create a uav and degradation processes with default parameters
 read -p "setup defaults? (y/n): " ans
-
 if [[ $ans = y ]]
 then
     psql -d uav_db -f sql/setup_defaults.sql
 fi
+unset ans
+
+# setup a readonly user? Note, access to future tables will have to be granted manually.
+read -p "create a guest user account? (y/n): " ans
+if [[ $ans = y ]]
+then
+    psql -d uav_db -f sql/setup_readonly_guest.sql
+fi
+
+
+echo 'restarting postgresql service...'
+sudo service postgresql restart
+echo 'service restarted...'
+echo 'configuration complete.'
+echo ' '
