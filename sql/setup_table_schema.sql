@@ -2,30 +2,30 @@
 ------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------
 /*
-			This is the table schema for the data management system. It includes the following tables 
-				- asset_type_tb
-				- asset_tb
-				- process_type_tb
-				- process_tb   
-				- stop_code_tb
-				- trajectory_tb     
-				- default_airframe_tb
-				- dc_motor_tb
-				- eqc_battery_tb
-				- uav_tb
-				- flight_summary_tb
-				- flight_degradation_tb
-				- flight_telemetry_tb
-				- environment_data_tb (todo) 
+	This is the table schema for the data management system. It includes the following tables 
+		- asset_type_tb
+		- asset_tb
+		- process_type_tb
+		- process_tb   
+		- stop_code_tb
+		- trajectory_tb     
+		- default_airframe_tb
+		- dc_motor_tb
+		- eqc_battery_tb
+		- uav_tb
+		- flight_summary_tb
+		- flight_degradation_tb
+		- flight_telemetry_tb
+		- environment_data_tb (todo) 
 
 
-            Contributing and extending this is not difficult and needed!
+	Contributing and extending this is not difficult and needed!
 
-            Tim Darrah
-            NASA Fellow
-            PhD Student
-            Vanderbilt University
-            timothy.s.darrah@vanderbilt.edu
+	Tim Darrah
+	NASA Fellow
+	PhD Student
+	Vanderbilt University
+	timothy.s.darrah@vanderbilt.edu
 */
 ------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------
