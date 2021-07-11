@@ -2,10 +2,10 @@
 ------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------
 /*
-            This is the table schema for the data management system. It includes the following tables 
-                - asset_type_tb
-                - asset_tb
-                - process_type_tb
+			This is the table schema for the data management system. It includes the following tables 
+				- asset_type_tb
+				- asset_tb
+				- process_type_tb
 				- process_tb   
 				- stop_code_tb
 				- trajectory_tb     
