@@ -9,3 +9,4 @@ dig/*
 load_db_params.m
 */figures
 figures/*
+db_connect.m
