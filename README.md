@@ -90,20 +90,17 @@ TODO
 
 1. Clone the repo
    ```git clone https://github.com/darrahts/uavTestbed.git```
-2. Make [setup.sh](https://github.com/darrahts/uavTestbed/blob/main/setup.sh) in the root directory executable 
+2. Make setup in the root directory executable 
   ```chmod +x setup.sh```
 3. Execute the setup script
   ```./setup.sh```
-  The setup script calls three scripts (pending 'y' on user prompts) in the [sql directory](https://github.com/darrahts/uavTestbed/tree/main/sql)
-    - [setup_db_user.sql](https://github.com/darrahts/uavTestbed/blob/main/sql/setup_db_user.sql)
-    - [setup_table_schema.sql](https://github.com/darrahts/uavTestbed/blob/main/sql/setup_table_schema.sql)
-    - [setup_defaults.sql](https://github.com/darrahts/uavTestbed/blob/main/sql/setup_defaults.sql)
-4. The default port is ```5432```, and the username is your currently logged in user. Welcome to PostgreSQL :) <a href="https://blog.logrocket.com/setting-up-a-remote-postgres-database-server-on-ubuntu-18-04/"> A guide that might be helpful can be found here</a>.
+4. The default port is ```5432```, and the username is your currently logged in user. Welcome to PostgreSQL :) A guide that might be helpful can be found <a href="https://blog.logrocket.com/setting-up-a-remote-postgres-database-server-on-ubuntu-18-04/">here</a>.
 
-### Usage
+Misc tidbit: If developing on a remote server and do not have a jupyter notebook server set up, a local instance of [VS Code has built in remote support that takes less than 5 minutes to set up](https://code.visualstudio.com/docs/remote/ssh).
 
-TODO - update usage section
+## Usage
 
+Run the file <li><a href="https://github.com/darrahts/uavTestbed/blob/main/livescripts/example.mlx">example.mlx</a></li>
 
 
 
@@ -133,13 +130,12 @@ To be incorporated:
 * more...
 
 <!-- CONTRIBUTING -->
-## Mentors  
+## Mentors 
+- Marcos Quinones  
 - Gautam Biswas  
-- Jeremy Frank 
-- Marcos Quinones 
 - Chetan Kulkarni  
 - Chris Teubert  
- 
+- Jeremy Frank  
 
 ## Technical contributors
   
