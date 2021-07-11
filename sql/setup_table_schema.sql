@@ -45,7 +45,7 @@ create table asset_type_tb(
 /*
     Table to hold asset data
 
-	There is not a table-wide unique constraint on this table because we can have more than one battery of the same type,
+	There is not a table-wide unique constraint on this table because we can have more than one component of the same type,
 	only the serial number has to be unique.
 */
 create table asset_tb(
