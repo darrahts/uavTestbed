@@ -103,7 +103,7 @@ TODO
 ### Usage
 
 TODO - update usage section
-Run the file <li><a href="https://github.com/darrahts/uavTestbed/blob/main/livescripts/example.mlx">example.mlx</a></li>
+~~Run the file <li><a href="https://github.com/darrahts/uavTestbed/blob/main/livescripts/example.mlx">example.mlx</a></li>~~
 
 
 
