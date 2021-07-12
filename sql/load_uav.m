@@ -30,20 +30,20 @@ function uav = load_uav(conn, serial_number)
     
     % the motors are a bit different, first see how many motors there are
     % either 8, 6, 4, or 3 motors are valid motor numbers.
-    if uav_tb.motor8_id > 0
+    if uav_tb.m8_id > 0
         num_motors = 8;
-    elseif uav_tb.motor6_id > 0
+    elseif uav_tb.m6_id > 0
         num_motors = 6;
-    elseif uav_tb.motor4_id > 0
+    elseif uav_tb.m4_id > 0
         num_motors = 4;
     else
         num_motors = 3;
     end
  
     % next the query is dynamically generated based on the number of motors
-    LOAD_UAV_MOTORS = sprintf("select ast.*, mt.* from asset_tb ast inner join dc_motor_tb mt on mt.id = ast.id where mt.id = %d", uav_tb.motor1_id);
+    LOAD_UAV_MOTORS = sprintf("select ast.*, mt.* from asset_tb ast inner join dc_motor_tb mt on mt.id = ast.id where mt.id = %d", uav_tb.m1_id);
     for i=2:num_motors
-         s = sprintf(" or mt.id = %d", uav_tb.(sprintf("motor%d_id", i)));
+         s = sprintf(" or mt.id = %d", uav_tb.(sprintf("m%d_id", i)));
          LOAD_UAV_MOTORS = join([LOAD_UAV_MOTORS s]);
     end
     % all sql queries should end with a ;
@@ -68,6 +68,9 @@ function uav = load_uav(conn, serial_number)
     % easier access to some variable
     uav.max_flight_time = uav.uav.max_flight_time;
     uav.id = uav.uav.id;
+    
+    % sample rate for the airframe dynamics
+    uav.dynamics_srate = .025;
     
     % the current implementation assumes the entire mass value is captured in
     % the airframe (a mass field could be added to the asset class...)
