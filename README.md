@@ -137,12 +137,13 @@ To be incorporated:
 * more...
 
 <!-- CONTRIBUTING -->
-## Mentors 
-- Marcos Quinones  
-- Gautam Biswas  
+## Mentors  
+- Gautam Biswas 
+- Jeremy Frank  
+- Marcos Quinones 
 - Chetan Kulkarni  
 - Chris Teubert  
-- Jeremy Frank  
+
 
 ## Technical contributors
   
