@@ -168,7 +168,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Tim Darrah - timothy.s.darrah@vanderbilt.edu
 
-Project Link: [https://github.com/darrahts/uavTestbed2](https://github.com/darrahts/uavTestbed2)
+Project Link: [https://github.com/darrahts/uavTestbed](https://github.com/darrahts/uavTestbed)
 
 <!-- PUBLICATIONS -->
 ## Publications
