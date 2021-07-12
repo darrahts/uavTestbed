@@ -106,7 +106,11 @@ Misc tidbit: If developing on a remote server and do not have a jupyter notebook
 TODO - update usage section
 ## Usage
 
+Run the file [example.mlx](https://github.com/darrahts/uavTestbed/blob/main/livescripts/example.mlx). Note, after opening the file, ensure you are in the root directory to add the necessary paths. 
 
+**Prerequisites**
+  - setup a database following the above instructions and included the default setups
+  - have the database connection setup in MATLAB ([instructions here](https://www.mathworks.com/help/database/ug/configuring-driver-and-data-source.html))
 
 
 
