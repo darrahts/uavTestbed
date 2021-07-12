@@ -99,6 +99,7 @@ TODO
     - [setup_readonly_guest](https://github.com/darrahts/uavTestbed/blob/main/sql/setup_readonly_guest.sql)
 4. The default port is ```5432```, and the username is your currently logged in user. Welcome to PostgreSQL :) <a href="https://blog.logrocket.com/setting-up-a-remote-postgres-database-server-on-ubuntu-18-04/"> A guide that might be helpful can be found here</a>.
 
+5. **Optional** Install [DBeaver](https://dbeaver.io/download/), a database management application and follow [the guide here](https://github.com/darrahts/uavTestbed/blob/main/postgres_dbeaver_guide.pdf) to set up a remote connection to your database.  
 
 Misc tidbit: If developing on a remote server and do not have a jupyter notebook server set up, a local instance of [VS Code has built in remote support that takes less than 5 minutes to set up](https://code.visualstudio.com/docs/remote/ssh).
 
