@@ -172,6 +172,7 @@ Project Link: [https://github.com/darrahts/uavTestbed](https://github.com/darrah
 
 <!-- PUBLICATIONS -->
 ## Publications
+* To Appear: **A Data Management Framework & UAV Simulation Testbed for the Study of Prognostics Technologies**, [PHM 2021. Nashville, TN.](https://phm2021.phmsociety.org/)
 * [Prognostics Based Decision Making for Safe and Optimal UAV Operations (2021)](https://arc.aiaa.org/doi/abs/10.2514/6.2021-0394)
 * [The Effects of Component Degradation on System-Level Prognostics for the Electric Powertrain System of UAVs (2020)](https://arc.aiaa.org/doi/abs/10.2514/6.2020-1626)
 * [A Decision-Making Framework for Safe Operations of Unmanned Aerial Vehicles in Urban Scenarios (2020)](https://phmpapers.org/index.php/phmconf/article/view/1190)
