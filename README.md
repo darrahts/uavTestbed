@@ -94,10 +94,11 @@ TODO
   ```chmod +x setup.sh```
 3. Execute the setup script
   ```./setup.sh```
-  The setup script calls three scripts (pending 'y' on user prompts) in the [sql directory](https://github.com/darrahts/uavTestbed/tree/main/sql)
+  The setup script calls four scripts (pending 'y' on user prompts) in the [sql directory](https://github.com/darrahts/uavTestbed/tree/main/sql)
     - [setup_db_user.sql](https://github.com/darrahts/uavTestbed/blob/main/sql/setup_db_user.sql)
     - [setup_table_schema.sql](https://github.com/darrahts/uavTestbed/blob/main/sql/setup_table_schema.sql)
     - [setup_defaults.sql](https://github.com/darrahts/uavTestbed/blob/main/sql/setup_defaults.sql)
+    - [setup_readonly_guest](https://github.com/darrahts/uavTestbed/blob/main/sql/setup_readonly_guest.sql)
 4. The default port is ```5432```, and the username is your currently logged in user. Welcome to PostgreSQL :) <a href="https://blog.logrocket.com/setting-up-a-remote-postgres-database-server-on-ubuntu-18-04/"> A guide that might be helpful can be found here</a>.
 
 
