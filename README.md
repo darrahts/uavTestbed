@@ -76,15 +76,13 @@ TODO
 
 ### Prerequisites
 
-* MATLAB >= R2020a
+* PostgreSQL ~12 (other versions are probably fine but untested)
+
+* **NOTE** MATLAB >= R2020a is **NOT** required to utilize the data management framework. It is required to execute the examples, because python examples have not been developed yet.
     - Parallel Computing Toolbox
     - Simulink
     - Robotics System Toolbox
     - Database Toolbox
-
-* PostgreSQL ~12 (other versions are probably fine but untested)
-
-
 
 ### Installation
 
