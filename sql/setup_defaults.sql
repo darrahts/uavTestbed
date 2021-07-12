@@ -82,15 +82,15 @@ do $$
 			values (airframe_id, num_motors);
 		insert into eqc_battery_tb ("id")
 			values (battery_id);
-		insert into dc_motor_tb (id)
-			values (motor_ids[1]),
-				(motor_ids[2]),
-				(motor_ids[3]),
-				(motor_ids[4]),
-				(motor_ids[5]),
-				(motor_ids[6]),
-				(motor_ids[7]),
-				(motor_ids[8]);
+		insert into dc_motor_tb (id, motor_number)
+			values (motor_ids[1], 1)
+				(motor_ids[2], 2),
+				(motor_ids[3], 3),
+				(motor_ids[4], 4),
+				(motor_ids[5], 5),
+				(motor_ids[6], 6),
+				(motor_ids[7], 7),
+				(motor_ids[8], 8);
 		insert into uav_tb("id", 
 				"airframe_id", 
 				"battery_id", 
