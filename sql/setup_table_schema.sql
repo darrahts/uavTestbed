@@ -205,7 +205,8 @@ create table uav_tb(
 
 
 /*
-        description here
+        This table is for end-of-flight metrics. Some columns could be added, such as z_start or v_start, for example
+		 if we wanted to track or simulate use cases where the UAV is flown multiple times in between charges
 */
 create table flight_summary_tb(
 	"id" serial primary key not null,
@@ -235,8 +236,8 @@ create table flight_summary_tb(
 	"trajectory_id" int not null references trajectory_tb(id),
 	"uav_id" int not null references uav_tb(id),
 	"flight_num" int not null,
-	"group_num" int,
-	unique (dt_start, dt_stop, uav_id, flight_num)
+	"group_id" int references group_tb(id),
+	unique (dt_start, dt_stop, uav_id, flight_num, group_num)
 );
 
 
@@ -269,32 +270,68 @@ create table flight_degradation_tb (
 */
 create table flight_telemetry_tb (
 	"dt" timestamptz not null,
-	"v_batt" float not null,
-	"z_batt" float not null,
-	"r_batt" float not null,
-	"i_batt" float8 not null,
-	"ctrl_err" float8 not null,
-	"pos_err" float8 not null,
-	"x_pos_true" float8 not null,
-	"y_pos_true" float8 not null,
-	"z_pos_true" float8 not null default 10.0,
-	"x_pos_gps" float8 not null,
-	"y_pos_gps" float8 not null,
-	"z_pos_gps" float8 not null default 10.0,
-	"m1_params" float[4],
-	"m2_params" float[4],
-	"m3_params" float[4],
-	"m4_params" float[4],
-	"m5_params" float[4],
-	"m6_params" float[4],
-	"m7_params" float[4],
-	"m8_params" float[4],
-	"uav_id" int not null references uav_tb(id),
-	"flight_id" int not null references flight_summary_tb(id),
-	unique(dt, v_batt, z_batt, pos_err, x_pos, y_pos, uav_id, flight_id)
+    "battery_true_v" float not null,
+    "battery_true_z" float not null,
+    "battery_true_r" float,
+    "battery_true_i" float not null,
+    "battery_hat_v" float,
+    "battery_hat_z" float, 
+    "battery_hat_r" float,
+    "battery_hat_z_var" float,
+    "battery_hat_r_var" float,
+    "wind_gust-1" float,
+    "wind_gust-2" float,
+    "wind_gust-3" float,
+    "m1_rpm" float,
+    "m1_etorque" float,
+    "m1_current" float,
+    "m2_rpm" float,
+    "m2_etorque" float,
+    "m2_current" float,
+    "m2_r_hat" float,
+    "m2_r_var" float,
+    "m3_rpm" float,
+    "m3_etorque" float,
+    "m3_current" float,
+    "m4_rpm" float,
+    "m4_etorque" float,
+    "m4_current" float,
+    "m5_rpm" float,
+    "m5_etorque" float,
+    "m5_current" float,
+    "m6_rpm" float,
+    "m6_etorque" float,
+    "m6_current" float,
+    "m7_rpm" float,
+    "m7_etorque" float,
+    "m7_current" float,
+    "m8_rpm" float,
+    "m8_etorque" float,
+    "m8_current" float,
+    "euclidean_pos_err" float,
+    "x_pos_err" float,
+    "y_pos_err" float,
+    "x_ctrl_err" float,
+    "y_ctrl_err" float,
+	"x_pos_gps" float,
+    "y_pos_gps" float,
+    "z_pos_gps" float,
+    "x_pos_true" float not null,
+    "y_pos_true" float not null,
+    "z_pos_true" float not null,
+	"flight_id" int references flight_summary_tb(id),
+	unique(dt, battery_true_v, battery_hat_r, wind_gust-1, m5_etorque, pos_err_x_flight_id)
 );
 
 
 
+/*
+	This is a helper table that is used in conjunction with flight_summary_tb to help organize multiple flights.
+	The first group has an id of 1 with info of "example".
+*/
+create table group_tb(
+	id serial primary key not null,
+	info varchar(256) unique not null
+);
 
 
