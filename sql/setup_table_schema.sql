@@ -94,6 +94,19 @@ create table stop_code_tb(
 );
 
 
+
+/*
+	This is a helper table that is used in conjunction with flight_summary_tb to help organize multiple flights.
+	The first group has an id of 1 with info of "example".
+*/
+create table group_tb(
+	id serial primary key not null,
+	info varchar(256) unique not null
+);
+
+
+
+
 /*
     Table to hold trajectory information
 	
@@ -237,7 +250,7 @@ create table flight_summary_tb(
 	"uav_id" int not null references uav_tb(id),
 	"flight_num" int not null,
 	"group_id" int references group_tb(id),
-	unique (dt_start, dt_stop, uav_id, flight_num, group_num)
+	unique (dt_start, dt_stop, uav_id, flight_num, group_id)
 );
 
 
@@ -260,13 +273,20 @@ create table flight_degradation_tb (
 	"m_var" float not null,
 	"m_slope" float,
 	"m_intercept" float,
-	"uav_id" int not null references uav_tb(id),
-	unique(flight_id, q_deg, q_var, r_deg, r_var, m_deg, m_var, uav_id)
+	unique(flight_id, q_deg, q_var, r_deg, r_var, m_deg, m_var)
 );
 
 
 /*
-        description here
+        this table holds in-flight telemetry data and at a minimum if used must record 
+		- battery_true_v
+		- battery_true_z
+		- battery_true_i
+		- x_pos_true
+		- y_pos_true
+		- z_pos_true
+
+		new fields are easily added. 
 */
 create table flight_telemetry_tb (
 	"dt" timestamptz not null,
@@ -279,9 +299,9 @@ create table flight_telemetry_tb (
     "battery_hat_r" float,
     "battery_hat_z_var" float,
     "battery_hat_r_var" float,
-    "wind_gust-1" float,
-    "wind_gust-2" float,
-    "wind_gust-3" float,
+    "wind_gust_x" float,
+    "wind_gust_y" float,
+    "wind_gust_z" float,
     "m1_rpm" float,
     "m1_etorque" float,
     "m1_current" float,
@@ -320,18 +340,7 @@ create table flight_telemetry_tb (
     "y_pos_true" float not null,
     "z_pos_true" float not null,
 	"flight_id" int references flight_summary_tb(id),
-	unique(dt, battery_true_v, battery_hat_r, wind_gust-1, m5_etorque, pos_err_x_flight_id)
-);
-
-
-
-/*
-	This is a helper table that is used in conjunction with flight_summary_tb to help organize multiple flights.
-	The first group has an id of 1 with info of "example".
-*/
-create table group_tb(
-	id serial primary key not null,
-	info varchar(256) unique not null
+	unique(dt, battery_true_v, battery_hat_r, wind_gust_x, m5_etorque, x_pos_err, flight_id)
 );
 
 
