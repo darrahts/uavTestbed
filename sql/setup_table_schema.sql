@@ -219,6 +219,7 @@ create table uav_tb(
 
 /*
         This table is for end-of-flight metrics
+		- flight_time is in minutes
 */
 create table flight_summary_tb(
 	"id" serial primary key not null,
