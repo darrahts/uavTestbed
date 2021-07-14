@@ -198,7 +198,8 @@ create table eqc_battery_tb (
 
 
 /*
-        description here
+        The uav_tb is basically a container and can easily be extended with other parameters. Some parameters are added in
+		the simulation that could be moved here for example.
 */
 create table uav_tb(
 	"id" int primary key references asset_tb(id),
@@ -261,18 +262,18 @@ create table flight_summary_tb(
         description here
 */
 create table flight_degradation_tb (
-	"id" serial not null primary key,
+	"id" serial primary key,
 	"flight_id" int not null references flight_summary_tb(id),
 	"q_deg" float not null,
-	"q_var" float not null,
+	"q_var" float,
 	"q_slope" float,
 	"q_intercept" float,
 	"r_deg" float not null,
-	"r_var" float not null,
+	"r_var" float,
 	"r_slope" float,
 	"r_intercept" float,
 	"m_deg" float not null,
-	"m_var" float not null,
+	"m_var" float,
 	"m_slope" float,
 	"m_intercept" float,
 	unique(flight_id, q_deg, q_var, r_deg, r_var, m_deg, m_var)
