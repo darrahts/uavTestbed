@@ -79,7 +79,6 @@ TODO
 * PostgreSQL ~12 (other versions are probably fine but untested)
 
 * **NOTE** MATLAB >= R2020a is **NOT** required to utilize the data management framework. It is required to execute the examples, because python examples have not been developed yet.
-    - Parallel Computing Toolbox
     - Simulink
     - Robotics System Toolbox
     - Database Toolbox
@@ -106,7 +105,7 @@ Misc tidbit: If developing on a remote server and do not have a jupyter notebook
 TODO - update usage section
 ## Usage
 
-Run the file [example.mlx](https://github.com/darrahts/uavTestbed/blob/main/livescripts/example.mlx). Note, after opening the file, ensure you are in the root directory to add the necessary paths. 
+Run the file [example.mlx](https://github.com/darrahts/uavTestbed/blob/main/livescripts/example.mlx). Note, after opening the file, ensure you are in the root directory /uavtestbed to add the necessary paths. 
 
 **Prerequisites**
   - setup a database following the above instructions and included the default setups
@@ -115,11 +114,11 @@ Run the file [example.mlx](https://github.com/darrahts/uavTestbed/blob/main/live
 
 
 Discuss the following: 
-- database schema
-- trajectory selection
+-database schema (PHM 2021 paper)
+- trajectory selection (aerospace journal paper)
+- Degradation (2020 AIAA paper)
 - RUL estimation
-- Degradation
-- parameter estimation
+- parameter estimation 
 - train/test/validation data
 
 <!-- ROADMAP -->
@@ -127,6 +126,7 @@ Discuss the following:
 
 To be incorporated:  
 
+* takeoff and landing 
 * prognostics-based waypoint selection
 * power estimation based on trajectory
 * 4D flight plan
