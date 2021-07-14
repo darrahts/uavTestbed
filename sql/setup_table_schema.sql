@@ -218,13 +218,14 @@ create table uav_tb(
 
 
 /*
-        This table is for end-of-flight metrics. Some columns could be added, such as z_start or v_start, for example
-		 if we wanted to track or simulate use cases where the UAV is flown multiple times in between charges
+        This table is for end-of-flight metrics
 */
 create table flight_summary_tb(
 	"id" serial primary key not null,
 	"stop_code" int not null references stop_code_tb(id),
+	"z_start" float not null,
 	"z_end" float not null,
+	"v_start" float not null,
 	"v_end" float not null,
 	"m1_avg_current" float,
 	"m2_avg_current" float,
