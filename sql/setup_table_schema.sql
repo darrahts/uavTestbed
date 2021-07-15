@@ -259,7 +259,19 @@ create table flight_summary_tb(
 
 
 /*
-        description here
+        This holds degradation data for
+		- battery charge capacitance (q_deg)
+			where q_deg = battery.Q 
+		- variance in the charge capacitance degradation
+			this comes from the degradation model being supplied
+			other factors can possibly influence this parameter 
+		- rate of change (q_slope) in the battery capacitance degradation
+		- bias (q_intercept) of the rate of change approximation
+		- battery internal resistance (r_deg)
+		- same with variance, rate of change, and bias
+		- the same 4 parameters as above for one motor of choice
+
+		more could be added and this isn't the only way to handle the data
 */
 create table flight_degradation_tb (
 	"id" serial primary key,
@@ -292,7 +304,7 @@ create table flight_degradation_tb (
 		new fields are easily added. 
 */
 create table flight_telemetry_tb (
-	"dt" timestamptz not null,
+	"dt" timestamp(6) not null,
     "battery_true_v" float not null,
     "battery_true_z" float not null,
     "battery_true_r" float,
@@ -343,7 +355,8 @@ create table flight_telemetry_tb (
     "y_pos_true" float not null,
     "z_pos_true" float not null,
 	"flight_id" int references flight_summary_tb(id),
-	unique(dt, battery_true_v, battery_hat_r, wind_gust_x, m5_etorque, x_pos_err, flight_id)
+	unique(battery_true_v, battery_true_z, battery_true_i),
+	unique(x_pos_true, y_pos_true, z_pos_true, flight_id)
 );
 
 
