@@ -112,7 +112,7 @@ Run the file [example.mlx](https://github.com/darrahts/uavTestbed/blob/main/live
   - have the database connection setup in MATLAB ([instructions here](https://www.mathworks.com/help/database/ug/configuring-driver-and-data-source.html))
 
 **Note**
-  - There is an (active support case)[https://www.mathworks.com/matlabcentral/answers/685033-sqlwrite-broken-in-r2020b-vs-r2020a-for-date-time-types] regarding an error with code in MATLAB's database toolbox that drops miliseconds from the datetime. 
+  - There is an [active support case](https://www.mathworks.com/matlabcentral/answers/685033-sqlwrite-broken-in-r2020b-vs-r2020a-for-date-time-types) regarding an error with code in MATLAB's database toolbox that drops miliseconds from the datetime. 
 
 
 Discuss the following: 
