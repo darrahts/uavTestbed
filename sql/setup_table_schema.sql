@@ -304,7 +304,7 @@ create table flight_degradation_tb (
 		new fields are easily added. 
 */
 create table flight_telemetry_tb (
-	"dt" timestamp(6) not null,
+	"dt" timestamp(6) unique not null,
     "battery_true_v" float not null,
     "battery_true_z" float not null,
     "battery_true_r" float,
@@ -354,9 +354,7 @@ create table flight_telemetry_tb (
     "x_pos_true" float not null,
     "y_pos_true" float not null,
     "z_pos_true" float not null,
-	"flight_id" int references flight_summary_tb(id),
-	unique(battery_true_v, battery_true_z, battery_true_i),
-	unique(x_pos_true, y_pos_true, z_pos_true, flight_id)
+	"flight_id" int references flight_summary_tb(id)
 );
 
 
