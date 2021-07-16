@@ -116,7 +116,7 @@ Run the file [example.mlx](https://github.com/darrahts/uavTestbed/blob/main/live
 
 
 Discuss the following: 
--database schema (PHM 2021 paper)
+- database schema (PHM 2021 paper)
 - trajectory selection (aerospace journal paper)
 - Degradation (2020 AIAA paper)
 - RUL estimation
