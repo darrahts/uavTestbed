@@ -62,9 +62,10 @@ This work aims to bring a unified framework to data and model management for res
 Currenlty we are conducting several run-to-failure experiments in effort to collect telementry and degradation data to facilitate research into deep learning approaches to problems such as remaining useful life (RUL) estimation, fault detection & isolation (FDI), decision making, and others.  
 
 TODO
-- finish data collection experiment
-- update degradation models from cycle based to usage based
+- analysis of data from first experiment
 - build NN model to decide on mission or maintenance
+- reorganize dynamics blocks 
+- update degradation models from cycle based to usage based
 - add power demand estimation based on trajectory
 - add in trajectory risk / reward 
 - add in-mission decision making and actions
@@ -102,7 +103,6 @@ TODO
 
 Misc tidbit: If developing on a remote server and do not have a jupyter notebook server set up, a local instance of [VS Code has built in remote support that takes less than 5 minutes to set up](https://code.visualstudio.com/docs/remote/ssh).
 
-TODO - update usage section
 ## Usage
 
 Run the file [example.mlx](https://github.com/darrahts/uavTestbed/blob/main/livescripts/example.mlx). Note, after opening the file, ensure you are in the root directory /uavtestbed to add the necessary paths. 
@@ -112,7 +112,7 @@ Run the file [example.mlx](https://github.com/darrahts/uavTestbed/blob/main/live
   - have the database connection setup in MATLAB ([instructions here](https://www.mathworks.com/help/database/ug/configuring-driver-and-data-source.html))
 
 **Note**
-  - There is an [active support case](https://www.mathworks.com/matlabcentral/answers/685033-sqlwrite-broken-in-r2020b-vs-r2020a-for-date-time-types) regarding an error with code in MATLAB's database toolbox that drops miliseconds from the datetime. 
+  - There is an [active support case](https://www.mathworks.com/matlabcentral/answers/685033-sqlwrite-broken-in-r2020b-vs-r2020a-for-date-time-types) regarding an error with code in MATLAB's database toolbox that drops miliseconds from the datetime. This causes the transaction to fail due to violating the unique constraint on the dt column. This has not been an issue with Python and so a current workaround until a full simulation environment in Python is finished is to dump the telemetry data to a temporary file and use Python to read and insert. 
 
 
 Discuss the following: 
