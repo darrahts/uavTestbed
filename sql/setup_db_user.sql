@@ -13,16 +13,11 @@
 ------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------
 
-
--- create the database
-create database uav_db;
-
 -- create a database user (you)
 create user :user with encrypted password :passwd;
-
--- grant permissions to you
-grant all privileges on database uav_db to :user;
 
 -- give yourself admin access
 alter user :user with superuser;
 
+-- create the database
+create database uav_db with owner :user;

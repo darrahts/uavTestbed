@@ -54,7 +54,7 @@ unset ans
 read -p "setup table schema? (y/n): " ans
 if [[ $ans = y ]]
 then
-    psql -d uav_db -f sql/setup_table_schema.sql
+    psql -d uav_db -f sql/setup_table_schema.sql -U $USER 
 fi
 unset ans
 
@@ -62,7 +62,7 @@ unset ans
 read -p "setup defaults? (y/n): " ans
 if [[ $ans = y ]]
 then
-    psql -d uav_db -f sql/setup_defaults.sql
+    psql -d uav_db -f sql/setup_defaults.sql -U $USER
 fi
 unset ans
 

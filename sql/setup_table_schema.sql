@@ -51,8 +51,9 @@ create table asset_type_tb(
 create table asset_tb(
     "id" serial primary key not null,
     "owner" varchar(32) not null default(current_user),
-    "type_id" int references asset_type_tb(id),
+    "type_id" int not null references asset_type_tb(id),
     "serial_number" varchar(32) unique not null,
+	"common_name" varchar(32),
     "age" float(16),
     "eol" float(16),
     "units" varchar(32)
@@ -138,24 +139,25 @@ create table trajectory_tb(
 
 
 /*
-        description here
+       Creates an airframe with default parameters, other parameter values can be supplied to model different UAVs that use the same dynamics
+	   To create an airframe that uses "different" parameters, create a different asset and subsequent airframe table for that specific model.
+
+	   num_motors: 3, 4, 6, or 8
 */
 create table default_airframe_tb(
 	"id" int primary key references asset_tb(id),
 	"num_motors" int not null default 8,
 	"ct" float not null default 0.0000085486,
 	"cq" float not null default 0.00000013678,
+	"cq2" float not null default 0.0,
 	"mass" float not null default 1.8,
 	"Jb" float[9] not null default '{0.0429, 0.0, 0.0,    0.0, 0.0429, 0.0,   0.0, 0.0, 0.0748}',
 	"cd" float not null default 1.0,
 	"Axy" float not null default 0.9,
 	"Axz" float not null default 0.5,
 	"Ayz" float not null default 0.5,
-	"rho" float not null default 1.2,
-	"lx" float not null default 0.2,
-	"ly" float not null default 0.2,
-	"lz" float not null default 0.2,
-	"l" float not null default 0.45
+	"l" float not null default 0.45,
+	constraint check_num_motors check (num_motors in (3, 4, 6, 8))
 );
 
 
@@ -317,29 +319,37 @@ create table flight_telemetry_tb (
     "wind_gust_x" float,
     "wind_gust_y" float,
     "wind_gust_z" float,
+	"m1_vref" float,
     "m1_rpm" float,
     "m1_etorque" float,
     "m1_current" float,
+	"m2_vref" float,
     "m2_rpm" float,
     "m2_etorque" float,
     "m2_current" float,
     "m2_r_hat" float,
     "m2_r_var" float,
+	"m3_vref" float,
     "m3_rpm" float,
     "m3_etorque" float,
     "m3_current" float,
+	"m4_vref" float,
     "m4_rpm" float,
     "m4_etorque" float,
     "m4_current" float,
+	"m5_vref" float,
     "m5_rpm" float,
     "m5_etorque" float,
     "m5_current" float,
+	"m6_vref" float,
     "m6_rpm" float,
     "m6_etorque" float,
     "m6_current" float,
+	"m7_vref" float,
     "m7_rpm" float,
     "m7_etorque" float,
     "m7_current" float,
+	"m8_vref" float,
     "m8_rpm" float,
     "m8_etorque" float,
     "m8_current" float,
