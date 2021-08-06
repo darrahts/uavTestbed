@@ -364,6 +364,12 @@ create table flight_telemetry_tb (
     "x_pos_true" float not null,
     "y_pos_true" float not null,
     "z_pos_true" float not null,
+	"x_vel_gps" float,
+    "y_vel_gps" float,
+    "z_vel_gps" float,
+    "x_vel_true" float not null,
+    "y_vel_true" float not null,
+    "z_vel_true" float not null,
 	"flight_id" int references flight_summary_tb(id)
 );
 
