@@ -92,11 +92,11 @@ function Output(block)
     
     v = getOCV(z, battery) + M*h + M0*sign(u) - R*Ir - R0*u;
       
-    block.OutputPort(1).Data = v;
-    block.OutputPort(2).Data = z;
-    block.OutputPort(3).Data = R0;
-    block.OutputPort(4).Data = Ir;
-    block.OutputPort(5).Data = h;
+    block.OutputPort(1).Data = double(v);
+    block.OutputPort(2).Data = double(z);
+    block.OutputPort(3).Data = double(R0);
+    block.OutputPort(4).Data = double(Ir);
+    block.OutputPort(5).Data = double(h);
   
 %endfunction
 
