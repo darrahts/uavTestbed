@@ -20,7 +20,8 @@ trajectory_tb = table(path_distance, ...
 % qotes vs single quotes that postgres wants
 %sqlwrite(conn, 'trajectory_tb', trajectory_tb);
 
-qer = sprintf("insert into trajectory_tb (path_distance, path_time, x_waypoints, y_waypoints, x_ref_points, y_ref_points) values (%.2f, %.2f, '%s', '%s', '%s', '%s');", path_distance, path_time, x_waypoints, y_waypoints, x_points, y_points)
+%qer = sprintf("insert into trajectory_tb (path_distance, path_time, x_waypoints, y_waypoints, x_ref_points, y_ref_points) values (%.2f, %.2f, '%s', '%s', '%s', '%s');", path_distance, path_time, x_waypoints, y_waypoints, x_points, y_points)
+qer = sprintf("insert into trajectory_tb (path_distance, path_time, x_waypoints, y_waypoints) values (%.2f, %.2f, '%s', '%s');", path_distance, path_time, x_waypoints, y_waypoints)
 fid = fopen('query.txt', 'wt');
 fprintf(fid, qer);
 fclose(fid);
