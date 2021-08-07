@@ -63,6 +63,7 @@ read -p "setup defaults? (y/n): " ans
 if [[ $ans = y ]]
 then
     psql -d uav_db -f sql/setup_defaults.sql -U $USER
+    psql -d uav_db -f sql/create_tarot_uav.sql -U $USER
 fi
 unset ans
 
