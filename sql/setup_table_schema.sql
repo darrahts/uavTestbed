@@ -128,13 +128,16 @@ create table trajectory_tb(
 	"path_distance" float not null,
 	"path_time" float not null,
 	"risk_factor" float default .01,
+	"start" float[2] not null,
+	"destination" float[2] not null,
 	"x_waypoints" float[16] not null,
 	"y_waypoints" float[16] not null,
 	"x_ref_points" float[1280],
 	"y_ref_points" float[1280],
 	"sample_time" int not null default 1,
 	"reward" float default 1.0,
-	unique(path_distance, path_time, x_waypoints, y_waypoints, sample_time, reward)
+	"map" varchar(32) not null default 'map',
+	unique(path_distance, path_time, "start", destination, x_waypoints, y_waypoints, sample_time, reward)
  );
 
 
