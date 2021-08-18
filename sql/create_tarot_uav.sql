@@ -29,18 +29,18 @@ do $$
 		motor_ids integer[] = (array(select id from asset_tb where "type_id" = (select id from asset_type_tb where "type" ilike 'motor') order by id desc limit 8));
 		uav_id integer := (select id from asset_tb where "type_id" = (select id from asset_type_tb where "type" ilike 'uav') order by id desc limit 1);
 	begin
-		insert into default_airframe_tb ("id", "num_motors", "ct", "cq", "mass", "Jb", "cd", "Axy", "Axz", "Ayz", "l")
-								 values (airframe_id, num_motors, .000098419, .0000018503, 10.66, '{0.2506,0.0, 0.0,     0.0, 0.2506, 0.0,   0.0, 0.0, 0.4538}', 1.0, 1.6129, 0.508, 0.508, .635);
+		insert into default_airframe_tb ("id", "num_motors", "mass", "Jb", "cd", "Axy", "Axz", "Ayz", "l")
+								 values (airframe_id, num_motors, 10.66, '{0.2506,0.0, 0.0,     0.0, 0.2506, 0.0,   0.0, 0.0, 0.4538}', 1.0, 1.6129, 0.508, 0.508, .635);
 		insert into eqc_battery_tb ("id", "Q", "EOD", "v", "v0") values (battery_id, 22, 17.54, 22.2, 22.2);
-		insert into dc_motor_tb ("id", "motor_number", "Req", "Ke_eq", "J")
-			values (motor_ids[1], 1, .27, .0265, .00005),
-				(motor_ids[2], 2, .27, .0265, .00005),
-				(motor_ids[3], 3, .27, .0265, .00005),
-				(motor_ids[4], 4, .27, .0265, .00005),
-				(motor_ids[5], 5, .27, .0265, .00005),
-				(motor_ids[6], 6, .27, .0265, .00005),
-				(motor_ids[7], 7, .27, .0265, .00005),
-				(motor_ids[8], 8, .27, .0265, .00005);
+		insert into dc_motor_tb ("id", "motor_number", "Req", "Ke_eq", "J", "cd", "ct", "cq", "cq2", "current_limit")
+			values (motor_ids[1], 1, .27, .0265, .00005, .0000018503, .000098419, .00000002138, -.00001279, 38),
+				   (motor_ids[2], 2, .27, .0265, .00005, .0000018503, .000098419, .00000002138, -.00001279, 38),
+				   (motor_ids[3], 3, .27, .0265, .00005, .0000018503, .000098419, .00000002138, -.00001279, 38),
+				   (motor_ids[4], 4, .27, .0265, .00005, .0000018503, .000098419, .00000002138, -.00001279, 38),
+				   (motor_ids[5], 5, .27, .0265, .00005, .0000018503, .000098419, .00000002138, -.00001279, 38),
+				   (motor_ids[6], 6, .27, .0265, .00005, .0000018503, .000098419, .00000002138, -.00001279, 38),
+				   (motor_ids[7], 7, .27, .0265, .00005, .0000018503, .000098419, .00000002138, -.00001279, 38),
+				   (motor_ids[8], 8, .27, .0265, .00005, .0000018503, .000098419, .00000002138, -.00001279, 38);
 		insert into uav_tb("id", 
 				"airframe_id", 
 				"battery_id", 

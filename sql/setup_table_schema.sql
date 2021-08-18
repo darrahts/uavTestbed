@@ -146,13 +146,13 @@ create table trajectory_tb(
 	   To create an airframe that uses "different" parameters, create a different asset and subsequent airframe table for that specific model.
 
 	   num_motors: 3, 4, 6, or 8
+
+	   NOTE: "ct" and "cq" are thrust and torque constants of the MOTOR, not airframe. these parameters will stay here to remain 
+	   backwards compatable with previous simulations but will be removed in the future. 
 */
 create table default_airframe_tb(
 	"id" int primary key references asset_tb(id),
 	"num_motors" int not null default 8,
-	"ct" float not null default 0.0000085486,
-	"cq" float not null default 0.00000013678,
-	"cq2" float not null default 0.0,
 	"mass" float not null default 1.8,
 	"Jb" float[9] not null default '{0.0429, 0.0, 0.0,    0.0, 0.0429, 0.0,   0.0, 0.0, 0.0748}',
 	"cd" float not null default 1.0,
@@ -170,11 +170,15 @@ create table default_airframe_tb(
 create table dc_motor_tb(
     "id" int primary key references asset_tb(id),
     "motor_number" int,
-    "Req" float default 0.2371,
-    "Ke_eq" float default 0.0107,
-    "J" float default 0.00002,
+    "Req" float not null default 0.2371,
+    "Ke_eq" float not null default 0.0107,
+    "J" float not null default 0.00002,
     "Df" float default 0.0,
-    "cq" float default 0.00000013678
+	"cd" float default 0.0,
+	"ct" float not null default 0.0000085486,
+	"cq" float not null default 0.00000013678,
+	"cq2" float default 0.0,
+	"current_limit" float default 11.0
 );
 
 
@@ -324,37 +328,35 @@ create table flight_telemetry_tb (
     "wind_gust_z" float,
 	"m1_vref" float,
     "m1_rpm" float,
-    "m1_etorque" float,
+    "m1_torque" float,
     "m1_current" float,
 	"m2_vref" float,
     "m2_rpm" float,
-    "m2_etorque" float,
+    "m2_torque" float,
     "m2_current" float,
-    "m2_r_hat" float,
-    "m2_r_var" float,
 	"m3_vref" float,
     "m3_rpm" float,
-    "m3_etorque" float,
+    "m3_torque" float,
     "m3_current" float,
 	"m4_vref" float,
     "m4_rpm" float,
-    "m4_etorque" float,
+    "m4_torque" float,
     "m4_current" float,
 	"m5_vref" float,
     "m5_rpm" float,
-    "m5_etorque" float,
+    "m5_torque" float,
     "m5_current" float,
 	"m6_vref" float,
     "m6_rpm" float,
-    "m6_etorque" float,
+    "m6_torque" float,
     "m6_current" float,
 	"m7_vref" float,
     "m7_rpm" float,
-    "m7_etorque" float,
+    "m7_torque" float,
     "m7_current" float,
 	"m8_vref" float,
     "m8_rpm" float,
-    "m8_etorque" float,
+    "m8_torque" float,
     "m8_current" float,
     "euclidean_pos_err" float,
     "x_pos_err" float,
