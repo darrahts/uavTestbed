@@ -48,7 +48,8 @@ function trajectory = get_trajectory(trajectory_tb, id)
         time_samples = [1:trajectory.sample_time:trajectory.path_time*60]';
         trajectory.x_ref_points = str2double(regexp(trajectory.x_ref_points,'[+-]?\d+\.?\d*','match'))';
         trajectory.y_ref_points = str2double(regexp(trajectory.y_ref_points,'[+-]?\d+\.?\d*','match'))';
-        trajectory.x_ref_points = [time_samples trajectory.x_ref_points]
+        trajectory.x_ref_points = [time_samples trajectory.x_ref_points];
+        trajectory.y_ref_points = [time_samples trajectory.y_ref_points];
     end
     trajectory = rmfield(trajectory, {'x_waypoints', 'y_waypoints'});
 
