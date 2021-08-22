@@ -141,7 +141,7 @@ function InitConditions(block)
     block.Dwork(1).Data(5) = battery.v0;
     
     % gets the soc given the current voltage
-    block.OutputPort(1).Data = find(battery.soc_ocv>=battery.v0,1);
+    block.OutputPort(1).Data = find(ukfBatteryParams.soc_ocv>=battery.v0,1);
     
     % init internal resistance state and variance uncertainty
     block.Dwork(5).Data(1) = ukfBatteryParams.R0init;
@@ -284,7 +284,7 @@ function Update(block)
     if any(idx < 1)
         idx(idx < 1) = 1;
     end
-    ocv = battery.soc_ocv(idx);    
+    ocv = ukfBatteryParams.soc_ocv(idx);    
     
     Y = ocv + M*x_hat_post(2,:) + M0*u_sign - R*x_hat_post(1,:) - R0*current + ynoise(1,:);
 
@@ -372,7 +372,7 @@ function Update(block)
     elseif any(idx < 1)
         idx(idx < 1) = 1;
     end
-    ocv = battery.soc_ocv(idx);  
+    ocv = ukfBatteryParams.soc_ocv(idx);  
     D = ocv*[1 1 1] -W*ik;
     % Next line is enhanced output equation -- uncomment the next line for two quiz questions!
     D = D + M*xhat(hkInd) - R*xhat(irInd);
