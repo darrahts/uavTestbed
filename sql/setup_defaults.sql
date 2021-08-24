@@ -143,15 +143,15 @@ do $$
 
 		insert into process_tb("type_id", "description", "source", "parameters")
 			values (q_deg_id, 'continuous usage based', 'NASA prognostics data set', '{"q_coef": [-4.89511264247582e-08, 2.57136010019803e-05, 21.7779510188925]}'),
-			values (r_deg_id, 'continuous usage based', 'NASA prognostics data set', '{"r_coef": [-6.45448007483688e-30, 1.28205128205128e-09, -6.00406078520637e-21, 0.00110000000000001]}'),
-			values (m_deg_id, 'continuous usage based', 'experimentation', '{"r_coef": [9.50624857260528e-10,7.36450668948172e-06,0.263497796082376]}'),
-			values (m_deg_id, 'continuous usage based', 'experimentation', '{"r_coef": [8.06755398661245e-10,6.52894024631680e-06,0.262289662927966]}'),
-			values (m_deg_id, 'continuous usage based', 'experimentation', '{"r_coef": [9.29515615816656e-11,8.94737997218633e-06,0.268694863884113]}'),
-			values (m_deg_id, 'continuous usage based', 'experimentation', '{"r_coef": [1.70509987509355e-10,9.81058750961606e-06,0.265337769108691]}'),
-			values (m_deg_id, 'continuous usage based', 'experimentation', '{"r_coef": [2.82792767894577e-10,1.53025640617371e-05,0.266051480761262]}'),
-			values (m_deg_id, 'continuous usage based', 'experimentation', '{"r_coef": [2.54237790214439e-10,9.40419648401406e-06,0.265391730156094]}'),
-			values (m_deg_id, 'continuous usage based', 'experimentation', '{"r_coef": [4.17473351928237e-10,1.47027567469104e-05,0.261595719415796]}'),
-			values (m_deg_id, 'continuous usage based', 'experimentation', '{"r_coef": [3.97802703577498e-10,1.62865097051639e-05,0.262471936739113]}');
+				(r_deg_id, 'continuous usage based', 'NASA prognostics data set', '{"r_coef": [-6.45448007483688e-30, 1.28205128205128e-09, -6.00406078520637e-21, 0.00110000000000001]}'),
+				(m_deg_id, 'continuous usage based v1', 'experimentation', '{"r_coef": [9.50624857260528e-10,7.36450668948172e-06,0.263497796082376]}'),
+				(m_deg_id, 'continuous usage based v2', 'experimentation', '{"r_coef": [8.06755398661245e-10,6.52894024631680e-06,0.262289662927966]}'),
+				(m_deg_id, 'continuous usage based v3', 'experimentation', '{"r_coef": [9.29515615816656e-11,8.94737997218633e-06,0.268694863884113]}'),
+				(m_deg_id, 'continuous usage based v4', 'experimentation', '{"r_coef": [1.70509987509355e-10,9.81058750961606e-06,0.265337769108691]}'),
+				(m_deg_id, 'continuous usage based v5', 'experimentation', '{"r_coef": [2.82792767894577e-10,1.53025640617371e-05,0.266051480761262]}'),
+				(m_deg_id, 'continuous usage based v6', 'experimentation', '{"r_coef": [2.54237790214439e-10,9.40419648401406e-06,0.265391730156094]}'),
+				(m_deg_id, 'continuous usage based v7', 'experimentation', '{"r_coef": [4.17473351928237e-10,1.47027567469104e-05,0.261595719415796]}'),
+				(m_deg_id, 'continuous usage based v8', 'experimentation', '{"r_coef": [3.97802703577498e-10,1.62865097051639e-05,0.262471936739113]}');
 end $$;
 
 

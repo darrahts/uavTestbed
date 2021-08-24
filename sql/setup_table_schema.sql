@@ -203,8 +203,6 @@ create table eqc_battery_tb (
 	"v" float not null default 4.2,
 	"v0" float not null default 4.2,
 	"dt" float not null default 1.0,
-	"amp_hours" float default 0.0,
-	"lifetime_amp_hours" float default 0.0,
 	"soc_ocv" json default '{}'
 );
 

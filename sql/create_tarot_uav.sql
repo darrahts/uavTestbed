@@ -65,5 +65,5 @@ do $$
 				motor_ids[6],
 				motor_ids[7],
 				motor_ids[8],
-				16);	  
+				14.9);	  
 end $$;
