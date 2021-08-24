@@ -54,8 +54,8 @@ create table asset_tb(
     "type_id" int not null references asset_type_tb(id),
     "serial_number" varchar(32) unique not null,
 	"common_name" varchar(32),
-    "age" float(16),
-    "eol" float(16),
+    "age" float(16) default 0,
+    "eol" float(16) default 0,
     "units" varchar(32)
 );
 
@@ -202,7 +202,10 @@ create table eqc_battery_tb (
 	"h" float not null default 0.0,
 	"v" float not null default 4.2,
 	"v0" float not null default 4.2,
-	"dt" float not null default 1.0
+	"dt" float not null default 1.0,
+	"amp_hours" float default 0.0,
+	"lifetime_amp_hours" float default 0.0,
+	"soc_ocv" json default '{}'
 );
 
 
@@ -222,7 +225,8 @@ create table uav_tb(
 	"m6_id" int references asset_tb(id),
 	"m7_id" int references asset_tb(id),
 	"m8_id" int references asset_tb(id),
-	"max_flight_time" float not null default 18.0
+	"max_flight_time" float not null default 18.0,
+	"dynamics_srate" float not null default .025
 );
 
 

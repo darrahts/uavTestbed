@@ -30,8 +30,9 @@ do $$
 		uav_id integer := (select id from asset_tb where "type_id" = (select id from asset_type_tb where "type" ilike 'uav') order by id desc limit 1);
 	begin
 		insert into default_airframe_tb ("id", "num_motors", "mass", "Jb", "cd", "Axy", "Axz", "Ayz", "l")
-								 values (airframe_id, num_motors, 10.66, '{0.2506,0.0, 0.0,     0.0, 0.2506, 0.0,   0.0, 0.0, 0.4538}', 1.0, 1.6129, 0.508, 0.508, .635);
-		insert into eqc_battery_tb ("id", "Q", "EOD", "v", "v0") values (battery_id, 22, 17.54, 22.2, 22.2);
+			values (airframe_id, num_motors, 10.66, '{0.2506,0.0, 0.0,     0.0, 0.2506, 0.0,   0.0, 0.0, 0.4538}', 1.0, 1.6129, 0.508, 0.508, .635);
+		insert into eqc_battery_tb ("id", "Q", "EOD", "v", "v0", "RC") 
+			values (battery_id, 22, 17.01, 22.2, 22.2, 14.25);
 		insert into dc_motor_tb ("id", "motor_number", "Req", "Ke_eq", "J", "cd", "ct", "cq", "cq2", "current_limit")
 			values (motor_ids[1], 1, .27, .0265, .00005, .0000018503, .000098419, .00000002138, -.00001279, 38),
 				   (motor_ids[2], 2, .27, .0265, .00005, .0000018503, .000098419, .00000002138, -.00001279, 38),
@@ -64,5 +65,5 @@ do $$
 				motor_ids[6],
 				motor_ids[7],
 				motor_ids[8],
-				25);	  
+				16);	  
 end $$;
