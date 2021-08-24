@@ -154,7 +154,6 @@ do $$
 				(m_deg_id, 'continuous usage based v8', 'experimentation', '{"r_coef": [3.97802703577498e-10,1.62865097051639e-05,0.262471936739113]}');
 end $$;
 
-
 /*
     include some different stop codes (not an exhaustive list, nothing is an exhaustive list...)
 */
