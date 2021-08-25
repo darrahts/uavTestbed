@@ -15,18 +15,16 @@ function uav = load_uav(conn, serial_number)
     %       @bugs:
     %           does not properly read NULL value, reads as -2147483648
     %%
+    api = jsondecode(fileread('sql/api.json'));
     
     % load the UAV record from the db
-    LOAD_UAV_BY_SERIAL = sprintf("select ast.*, ut.* from asset_tb ast inner join uav_tb ut on ast.id = ut.id where ast.serial_number like '%s';", serial_number);
-    uav_tb = select(conn, LOAD_UAV_BY_SERIAL);
+    uav_tb = select(conn, eval(api.matlab.assets.LOAD_UAV_BY_SERIAL));
  
     % load the airframe associated with the UAV
-    LOAD_UAV_AIRFRAME = sprintf("select af.* from default_airframe_tb af inner join uav_tb ut on ut.airframe_id = af.id where af.id = %d;", uav_tb.airframe_id);
-    airframe_tb = select(conn, LOAD_UAV_AIRFRAME);
+    airframe_tb = select(conn, eval(api.matlab.assets.LOAD_UAV_AIRFRAME));
     
     % load the battery associated with the UAV
-    LOAD_UAV_BATTERY = sprintf("select bt.* from eqc_battery_tb bt inner join uav_tb ut on ut.battery_id = bt.id where bt.id = %d;", uav_tb.battery_id);
-    battery_tb = select(conn, LOAD_UAV_BATTERY);
+    battery_tb = select(conn, eval(api.matlab.assets.LOAD_UAV_BATTERY));
     
     % the motors are a bit different, first see how many motors there are
     % either 8, 6, 4, or 3 motors are valid motor numbers.
@@ -41,9 +39,9 @@ function uav = load_uav(conn, serial_number)
     end
  
     % next the query is dynamically generated based on the number of motors
-    LOAD_UAV_MOTORS = sprintf("select ast.*, mt.* from asset_tb ast inner join dc_motor_tb mt on mt.id = ast.id where mt.id = %d", uav_tb.m1_id);
+    LOAD_UAV_MOTORS = eval(api.matlab.assets.LOAD_UAV_MOTORS);
     for i=2:num_motors
-         s = sprintf(" or mt.id = %d", uav_tb.(sprintf("m%d_id", i)));
+         s = sprintf(' or mt.id = %d', uav_tb.(sprintf('m%d_id', i)));
          LOAD_UAV_MOTORS = join([LOAD_UAV_MOTORS s]);
     end
     % all sql queries should end with a ;
@@ -63,7 +61,10 @@ function uav = load_uav(conn, serial_number)
     uav.airframe.Jb = reshape(str2num(uav.airframe.Jb), [3,3]);
     
     % this is the relationship between state of charge and voltage
-    uav.battery.soc_ocv = load('degradation/soc_ocv.mat').soc_ocv;
+    % here for backwards compatability, to be removed in the future
+    if uav.battery.v0 > 4.1 && uav.battery.v0 < 4.3
+        uav.battery.soc_ocv = load('degradation/soc_ocv.mat').soc_ocv;
+    end
     
     % easier access to some variable
     uav.max_flight_time = uav.uav.max_flight_time;
