@@ -1,0 +1,46 @@
+
+
+{
+    "matlab": {
+        "metadata": {
+            "LOAD_UAV_BY_SERIAL": {
+                "parameters": "serial number of the uav to load (serial_number)", 
+                "returns": "uav data as table (uav_tb)"
+                },
+            "LOAD_UAV_AIRFRAME": {
+                "parameters": "id of the airframe for the uav (uav_tb.airframe_id)", 
+                "returns": "airframe data as table (airframe_tb)"
+                },
+            "LOAD_UAV_BATTERY": {
+                "parameters": "id of the battery for the uav (uav_tb.battery_id)", 
+                "returns": "battery data as table (battery_tb)"
+                },
+            "LOAD_UAV_MOTORS": {
+                "parameters": "id of motor 1 for the uav (uav_tb.m1_id), number of motors (num_motors)",
+                "comments": "this only loads the first motor, use in conjunction with the following code block to load all motors:\nfor i=2:num_motors\n\ts = sprintf(' or mt.id = %d', uav_tb.(sprintf('m%d_id', i)));\n\tLOAD_UAV_MOTORS = join([LOAD_UAV_MOTORS s]);\nend\nLOAD_UAV_MOTORS.append(';');",
+                "returns": "motor data as table (motors_tb)"
+                }
+        },
+
+        "assets": { 
+            "LOAD_UAV_BY_SERIAL": "sprintf(\"select ast.*, ut.* from asset_tb ast inner join uav_tb ut on ast.id = ut.id where ast.serial_number like '%s';\", serial_number);",
+
+            "LOAD_UAV_AIRFRAME": "sprintf(\"select af.* from default_airframe_tb af inner join uav_tb ut on ut.airframe_id = af.id where af.id = %d;\", uav_tb.airframe_id);",
+    
+            "LOAD_UAV_BATTERY": "sprintf(\"select bt.* from eqc_battery_tb bt inner join uav_tb ut on ut.battery_id = bt.id where bt.id = %d;\", uav_tb.battery_id);",
+    
+            "LOAD_UAV_MOTORS": "sprintf(\"select ast.*, mt.* from asset_tb ast inner join dc_motor_tb mt on mt.id = ast.id where mt.id = %d\", uav_tb.m1_id);"
+        },
+        
+        "process": {
+            "LOAD_PROCESS": "sprintf(\"select ptt.*, pst.* from process_type_tb ptt inner join process_tb pst on pst.type_id = ptt.id where ptt.type ilike '%%%s%%' and ptt.subtype1 ilike '%%%s%%' and ptt.subtype2 ilike '%%%s%%' and pst.description ilike '%%%s%%';\", process_type, subtype1, subtype2, description)",
+            
+            "LOAD_ALL_PROCESSES": "sprintf(\"select ptt.*, pst.* from process_type_tb ptt inner join process_tb pst on pst.type_id = ptt.id where ptt.type ilike '%%%s%%';\", process_type)"
+        }
+    },
+    
+
+    "python": {
+
+    }
+}
