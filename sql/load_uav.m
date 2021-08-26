@@ -1,4 +1,4 @@
-function uav = load_uav(conn, serial_number)
+function uav = load_uav(conn, serial_number, api)
     %%
     %       @brief: Loads a complete UAV model by serial number
     %
@@ -15,8 +15,7 @@ function uav = load_uav(conn, serial_number)
     %       @bugs:
     %           does not properly read NULL value, reads as -2147483648
     %%
-    api = jsondecode(fileread('sql/api.json'));
-    
+
     % load the UAV record from the db
     uav_tb = select(conn, eval(api.matlab.assets.LOAD_UAV_BY_SERIAL));
  

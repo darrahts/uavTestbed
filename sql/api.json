@@ -3,26 +3,44 @@
 {
     "matlab": {
         "metadata": {
-            "LOAD_UAV_BY_SERIAL": {
-                "parameters": "serial number of the uav to load (serial_number)", 
-                "returns": "uav data as table (uav_tb)"
+            "assets": { 
+                "LOAD_ALL_UAVS": {
+                    "parameters": "none",
+                    "returns": "all uav data as a table (uav_tb)"
                 },
-            "LOAD_UAV_AIRFRAME": {
-                "parameters": "id of the airframe for the uav (uav_tb.airframe_id)", 
-                "returns": "airframe data as table (airframe_tb)"
+                "LOAD_UAV_BY_SERIAL": {
+                    "parameters": "serial number of the uav to load (serial_number)", 
+                    "returns": "uav data as table (uav_tb)"
+                    },
+                "LOAD_UAV_AIRFRAME": {
+                    "parameters": "id of the airframe for the uav (uav_tb.airframe_id)", 
+                    "returns": "airframe data as table (airframe_tb)"
+                    },
+                "LOAD_UAV_BATTERY": {
+                    "parameters": "id of the battery for the uav (uav_tb.battery_id)", 
+                    "returns": "battery data as table (battery_tb)"
+                    },
+                "LOAD_UAV_MOTORS": {
+                    "parameters": "id of motor 1 for the uav (uav_tb.m1_id), number of motors (num_motors)",
+                    "comments": "this only loads the first motor, use in conjunction with the following code block to load all motors:\nfor i=2:num_motors\n\ts = sprintf(' or mt.id = %d', uav_tb.(sprintf('m%d_id', i)));\n\tLOAD_UAV_MOTORS = join([LOAD_UAV_MOTORS s]);\nend\nLOAD_UAV_MOTORS.append(';');",
+                    "returns": "motor data as table (motors_tb)"
+                    }
                 },
-            "LOAD_UAV_BATTERY": {
-                "parameters": "id of the battery for the uav (uav_tb.battery_id)", 
-                "returns": "battery data as table (battery_tb)"
+            "process": {
+                "LOAD_PROCESS": {
+                    "parameters": "process_type, subtype1, subtype2, description (i.e. degradation, battery, capacitance, continuous)",
+                    "returns": "the process data as a table (process_tb)"
                 },
-            "LOAD_UAV_MOTORS": {
-                "parameters": "id of motor 1 for the uav (uav_tb.m1_id), number of motors (num_motors)",
-                "comments": "this only loads the first motor, use in conjunction with the following code block to load all motors:\nfor i=2:num_motors\n\ts = sprintf(' or mt.id = %d', uav_tb.(sprintf('m%d_id', i)));\n\tLOAD_UAV_MOTORS = join([LOAD_UAV_MOTORS s]);\nend\nLOAD_UAV_MOTORS.append(';');",
-                "returns": "motor data as table (motors_tb)"
+                "LOAD_ALL_PROCESSES": {
+                    "parameters": "process_type (degradation, environment, etc)",
+                    "returns": "all process data of the specified type as a table (process_tb)"
                 }
+            }
         },
 
         "assets": { 
+            "LOAD_ALL_UAVS": "select asset_tb.serial_number, asset_tb.common_name, uav_tb.* from uav_tb join asset_tb on asset_tb.id = uav_tb.id;",
+
             "LOAD_UAV_BY_SERIAL": "sprintf(\"select ast.*, ut.* from asset_tb ast inner join uav_tb ut on ast.id = ut.id where ast.serial_number like '%s';\", serial_number);",
 
             "LOAD_UAV_AIRFRAME": "sprintf(\"select af.* from default_airframe_tb af inner join uav_tb ut on ut.airframe_id = af.id where af.id = %d;\", uav_tb.airframe_id);",
