@@ -60,7 +60,10 @@ create table asset_tb(
 );
 
 /*
-
+	fields:
+		type: refers to the process such as degradation, environment, etc
+		subtype:1: refers to the component such as battery, motor, wind, etc
+		subtype2: refers to what within the component such as capacitance, resistance, gust, etc
 */
 create table process_type_tb(
 	"id" serial primary key not null,
@@ -71,7 +74,8 @@ create table process_type_tb(
 );
 
 /*
-
+	fields:
+		description: details about how the process evolves such as continuous or discrete, etc
 */
 create table process_tb(
 	"id" serial primary key not null,
