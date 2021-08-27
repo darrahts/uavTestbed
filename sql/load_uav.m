@@ -59,10 +59,17 @@ function uav = load_uav(conn, serial_number, api)
     uav.airframe.Jb = erase(uav.airframe.Jb, "}");
     uav.airframe.Jb = reshape(str2num(uav.airframe.Jb), [3,3]);
     
+    if contains(uav.uav.common_name, 'tarot')
     % this is the relationship between state of charge and voltage
     % here for backwards compatability, to be removed in the future
-    if uav.battery.v0 > 4.1 && uav.battery.v0 < 4.3
-        uav.battery.soc_ocv = load('degradation/soc_ocv.mat').soc_ocv;
+        res = jsondecode(uav.battery.soc_ocv);
+        if contains(fieldnames(res), 'z_coef')
+           uav.battery.z_coef = res.z_coef'; 
+        end
+    else
+        if uav.battery.v0 > 4.1 && uav.battery.v0 < 4.3
+            uav.battery.soc_ocv = load('degradation/soc_ocv.mat').soc_ocv;
+        end
     end
     
     % easier access to some variable
