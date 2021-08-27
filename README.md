@@ -62,10 +62,7 @@ This work aims to bring a unified framework to data and model management for res
 Currenlty we are conducting several run-to-failure experiments in effort to collect telementry and degradation data to facilitate research into deep learning approaches to problems such as remaining useful life (RUL) estimation, fault detection & isolation (FDI), decision making, and others.  
 
 TODO
-- analysis of data from first experiment
-- build NN model to decide on mission or maintenance
-- reorganize dynamics blocks 
-- update degradation models from cycle based to usage based
+- finish refactoring the framework
 - add power demand estimation based on trajectory
 - add in trajectory risk / reward 
 - add in-mission decision making and actions
@@ -105,14 +102,17 @@ Misc tidbit: If developing on a remote server and do not have a jupyter notebook
 
 ## Usage
 
-Run the file [example.mlx](https://github.com/darrahts/uavTestbed/blob/main/livescripts/example.mlx). Note, after opening the file, ensure you are in the root directory /uavtestbed to add the necessary paths. 
+**Note**
+  - There is an [active support case](https://www.mathworks.com/matlabcentral/answers/685033-sqlwrite-broken-in-r2020b-vs-r2020a-for-date-time-types) regarding an error with code in MATLAB's database toolbox that drops miliseconds from the telemetry data. This causes the transaction to fail due to violating the unique constraint on the dt column. The current workaround is to sample the at 1hz. 
+
+**NOTE** This has been tested on Windows 10 with ODBC driver and R2020a. Currently working on a Linux implementation with the native postgres driver and R2021a. Here is [another active support case](https://www.mathworks.com/matlabcentral/answers/1441564-sqlwrite-still-broken-in-r2021a-for-datatype-conversions?s_tid=srchtitle) regarding the errors within MATLAB.
+
+Run the file [example.mlx](https://github.com/darrahts/uavTestbed/blob/main/livescripts/example.mlx). The original octocopter and dynamics are no longer supported (although still work), and therefore it is recommended to use the tarot uav instead (it is also alot faster due to different implementation of the dynamics). 
 
 **Prerequisites**
   - setup a database following the above instructions and included the default setups
   - have the database connection setup in MATLAB ([instructions here](https://www.mathworks.com/help/database/ug/configuring-driver-and-data-source.html))
 
-**Note**
-  - There is an [active support case](https://www.mathworks.com/matlabcentral/answers/685033-sqlwrite-broken-in-r2020b-vs-r2020a-for-date-time-types) regarding an error with code in MATLAB's database toolbox that drops miliseconds from the datetime. This causes the transaction to fail due to violating the unique constraint on the dt column. This has not been an issue with Python and so a current workaround until a full simulation environment in Python is finished is to dump the telemetry data to a temporary file and use Python to read and insert. 
 
 
 Discuss the following: 
