@@ -31,8 +31,8 @@ do $$
 	begin
 		insert into default_airframe_tb ("id", "num_motors", "mass", "Jb", "cd", "Axy", "Axz", "Ayz", "l")
 			values (airframe_id, num_motors, 10.66, '{0.2506,0.0, 0.0,     0.0, 0.2506, 0.0,   0.0, 0.0, 0.4538}', 1.0, 1.6129, 0.508, 0.508, .635);
-		insert into eqc_battery_tb ("id", "Q", "EOD", "v", "v0", "RC") 
-			values (battery_id, 22, 17.01, 22.2, 22.2, 14.25);
+		insert into eqc_battery_tb ("id", "Q", "EOD", "v", "v0", "RC", "soc_ocv") 
+			values (battery_id, 22, 17.01, 22.2, 22.2, 14.25, '{"z_coef": [1.508751457102164e-11,3.858124930644635e-09,-2.019172143263859e-06,2.774710592348129e-04,-0.017479820176959,0.527755975723267,15.000000953674316]');
 		insert into dc_motor_tb ("id", "motor_number", "Req", "Ke_eq", "J", "cd", "ct", "cq", "cq2", "current_limit")
 			values (motor_ids[1], 1, .27, .0265, .00005, .0000018503, .000098419, .00000002138, -.00001279, 38),
 				   (motor_ids[2], 2, .27, .0265, .00005, .0000018503, .000098419, .00000002138, -.00001279, 38),
@@ -65,5 +65,5 @@ do $$
 				motor_ids[6],
 				motor_ids[7],
 				motor_ids[8],
-				14.9);	  
+				15);	  
 end $$;
