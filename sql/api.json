@@ -39,13 +39,13 @@
         },
 
         "assets": { 
-            "LOAD_ALL_UAVS": "select asset_tb.serial_number, asset_tb.common_name, uav_tb.* from uav_tb join asset_tb on asset_tb.id = uav_tb.id;",
+            "LOAD_ALL_UAVS": "select ast.serial_number, ast.common_name, ut.* from asset_tb ast inner join uav_tb ut on ast.id = ut.id;",
 
             "LOAD_UAV_BY_SERIAL": "sprintf(\"select ast.*, ut.* from asset_tb ast inner join uav_tb ut on ast.id = ut.id where ast.serial_number like '%s';\", serial_number);",
 
-            "LOAD_UAV_AIRFRAME": "sprintf(\"select af.* from default_airframe_tb af inner join uav_tb ut on ut.airframe_id = af.id where af.id = %d;\", uav_tb.airframe_id);",
+            "LOAD_UAV_AIRFRAME": "sprintf(\"select ast.*, af.* from asset_tb ast inner join default_airframe_tb af on ast.id = af.id inner join uav_tb ut on ut.airframe_id = af.id where af.id = %d;\", uav_tb.airframe_id);",
     
-            "LOAD_UAV_BATTERY": "sprintf(\"select bt.* from eqc_battery_tb bt inner join uav_tb ut on ut.battery_id = bt.id where bt.id = %d;\", uav_tb.battery_id);",
+            "LOAD_UAV_BATTERY": "sprintf(\"select ast.*, bt.* from asset_tb ast inner join eqc_battery_tb bt on bt.id = ast.id inner join uav_tb ut on ut.battery_id = bt.id where bt.id = %d;\", uav_tb.battery_id);",
     
             "LOAD_UAV_MOTORS": "sprintf(\"select ast.*, mt.* from asset_tb ast inner join dc_motor_tb mt on mt.id = ast.id where mt.id = %d\", uav_tb.m1_id);"
         },
