@@ -1,15 +1,13 @@
-function trajectory = get_trajectory(trajectory_tb, id)
+function trajectory = get_trajectory(trajectory_tb, idx)
 %%
 %
-%       TODO: function comments, refactor into the api folder. update.
-%       clean. 
+%       TODO: function comments
 %
-%       discuss briefly how the trajectories are generated and what they
-%       are
+%       
 %
 %%
     
-    trajectory = table2struct(trajectory_tb(1,:));
+    trajectory = table2struct(trajectory_tb(idx,:));
     trajectory.x_waypoints = str2double(regexp(trajectory.x_waypoints,'[+-]?\d+\.?\d*','match'));
     trajectory.y_waypoints = str2double(regexp(trajectory.y_waypoints,'[+-]?\d+\.?\d*','match'));
     trajectory.waypoints = [trajectory.x_waypoints' trajectory.y_waypoints'];
@@ -19,12 +17,11 @@ function trajectory = get_trajectory(trajectory_tb, id)
     trajectory.destination = str2double(regexp(trajectory.destination,'[+-]?\d+\.?\d*','match'));
     trajectory.destination = [trajectory.destination];
     
-    
     if sum(strcmp(fieldnames(trajectory), 'path')) == 0
         map = load(sprintf('trajectories/%s.mat', trajectory.map)).(sprintf('%s', trajectory.map));
         prm = mobileRobotPRM;
         prm.Map = map;
-        prm.NumNodes = 2000;
+        prm.NumNodes = 1000;
         prm.ConnectionDistance = 50;
 
         trajectory.path = findpath(prm, trajectory.start, trajectory.waypoints(1,:));
@@ -34,8 +31,8 @@ function trajectory = get_trajectory(trajectory_tb, id)
         end
     end
 
-    if isempty(trajectory.x_ref_points)
-        trajectory.reference_velocity = 1.3;        
+    if isempty(trajectory.x_ref_points) || isnan(trajectory.x_ref_points)
+        trajectory.reference_velocity = 1.0;        
         trajectory.path_distance = calculatedistance(trajectory.path); % total distance to be covered
         time_interval = calculatetime(trajectory.path_distance,trajectory.reference_velocity); 
         trajectory.path_time = time_interval(2)/60;
