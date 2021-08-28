@@ -53,6 +53,20 @@ function uav = load_uav(conn, serial_number, api)
     uav.battery = table2struct(battery_tb);
     uav.motors = table2struct(motors_tb);
     
+    % check if there are any new components and if so sample the the
+    % initial degradation parameter values
+    % battery
+    if uav.battery.age == 0
+       uav.battery.Q = normrnd(uav.battery.Q, .02*uav.battery.Q);
+       uav.battery.R0 = normrnd(uav.battery.R0, .02*uav.battery.R0);
+    end
+    % motors
+    for i = 1:num_motors
+       if uav.motors(i).age == 0
+           uav.motors(i).Req = normrnd(uav.motors(i).Req, .02*uav.motors(i).Req);
+       end
+    end
+    
     % the Jb matrix is stored as a double array in postgres, but matlab
     % reads it as a char array / string
     uav.airframe.Jb = erase(uav.airframe.Jb, "{");
