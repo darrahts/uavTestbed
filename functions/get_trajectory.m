@@ -31,7 +31,7 @@ function trajectory = get_trajectory(trajectory_tb, idx)
         end
     end
 
-    if isempty(trajectory.x_ref_points) || isnan(trajectory.x_ref_points)
+    if isempty(trajectory.x_ref_points) | isnan(trajectory.x_ref_points)
         trajectory.reference_velocity = 1.0;        
         trajectory.path_distance = calculatedistance(trajectory.path); % total distance to be covered
         time_interval = calculatetime(trajectory.path_distance,trajectory.reference_velocity); 
