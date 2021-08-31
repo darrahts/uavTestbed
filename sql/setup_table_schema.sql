@@ -52,6 +52,7 @@ create table asset_tb(
     "id" serial primary key not null,
     "owner" varchar(32) not null default(current_user),
     "type_id" int not null references asset_type_tb(id),
+	"process_id" int references process_tb(id),
     "serial_number" varchar(32) unique not null,
 	"common_name" varchar(32),
     "age" float(16) default 0,
@@ -168,6 +169,15 @@ create table default_airframe_tb(
 );
 
 
+create table sensor_tb(
+	"id" int primary key references asset_tb(id),
+	"voltage_supply" float not null default 12.0,
+	"avg_watts" float not null default 8.26,
+	"std_watts" float not null default .02,
+	"params" json default '{}'
+);
+
+
 /*
         description here
 */
@@ -227,6 +237,7 @@ create table uav_tb(
 	"m6_id" int references asset_tb(id),
 	"m7_id" int references asset_tb(id),
 	"m8_id" int references asset_tb(id),
+	"gps_id" int references asset_tb(id),
 	"max_flight_time" float not null default 18.0,
 	"dynamics_srate" float not null default .025
 );
