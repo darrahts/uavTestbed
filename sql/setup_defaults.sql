@@ -79,7 +79,7 @@ do $$
 		airframe_id integer = (select id from asset_tb where "type_id" = (select id from asset_type_tb where "type" ilike 'airframe') order by id desc limit 1);
 		battery_id integer = (select id from asset_tb where "type_id" = (select id from asset_type_tb where "type" ilike 'battery') order by id desc limit 1);
 		motor_ids integer[] = (array(select id from asset_tb where "type_id" = (select id from asset_type_tb where "type" ilike 'motor') order by id desc limit 8));
-		gps_id integer = select id from  asset_tb where "type_id" = (select id from asset_type_tb where "type" ilike 'sensor') order by id desc limit 1);
+		gps_id integer = (select id from  asset_tb where "type_id" = (select id from asset_type_tb where "type" ilike 'sensor') order by id desc limit 1);
 		uav_id integer := (select id from asset_tb where "type_id" = (select id from asset_type_tb where "type" ilike 'uav') order by id desc limit 1);
 	begin
 		insert into default_airframe_tb ("id", "num_motors")
@@ -106,7 +106,8 @@ do $$
 				"m5_id",
 				"m6_id",
 				"m7_id",
-				"m8_id")
+				"m8_id",
+				"gps_id")
 			values (uav_id,
 				airframe_id,
 				battery_id,
@@ -117,7 +118,8 @@ do $$
 				motor_ids[5],
 				motor_ids[6],
 				motor_ids[7],
-				motor_ids[8]);	  
+				motor_ids[8],
+				gps_id);	  
 end $$;
 
 /*

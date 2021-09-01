@@ -3,6 +3,7 @@ do $$
 		airframe_type_id integer := (select id from asset_type_tb where "type" ilike 'airframe');	 
 		battery_type_id integer := (select id from asset_type_tb where "type" ilike 'battery');
 		motor_type_id integer := (select id from asset_type_tb where "type" ilike 'motor');
+		gps_type_id integer := (select id from asset_type_tb where "type" ilike 'sensor');
 		uav_type_id integer := (select id from asset_type_tb where "type" ilike 'uav');
 	begin
 		insert into asset_tb("owner", "type_id", "serial_number", "common_name")
@@ -17,6 +18,7 @@ do $$
 				(current_user, motor_type_id, (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 2400, 'amp-hours'),
 				(current_user, motor_type_id, (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 2400, 'amp-hours'),
 				(current_user, motor_type_id, (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 2400, 'amp-hours'),
+				(current_user, gps_type_id, (select upper(substr(md5(random()::text), 0, 7))), 'tarot gps', 9999, 'hours'),
 				(current_user, motor_type_id, (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 2400, 'amp-hours');
 		
 		insert into asset_tb("owner", "type_id", "serial_number", "common_name")
@@ -30,6 +32,7 @@ do $$
 		airframe_id integer = (select id from asset_tb where "type_id" = (select id from asset_type_tb where "type" ilike 'airframe') order by id desc limit 1);
 		battery_id integer = (select id from asset_tb where "type_id" = (select id from asset_type_tb where "type" ilike 'battery') order by id desc limit 1);
 		motor_ids integer[] = (array(select id from asset_tb where "type_id" = (select id from asset_type_tb where "type" ilike 'motor') order by id desc limit 8));
+		gps_id integer = (select id from  asset_tb where "type_id" = (select id from asset_type_tb where "type" ilike 'sensor') order by id desc limit 1);
 		uav_id integer := (select id from asset_tb where "type_id" = (select id from asset_type_tb where "type" ilike 'uav') order by id desc limit 1);
 	begin
 		insert into default_airframe_tb ("id", "num_motors", "mass", "Jb", "cd", "Axy", "Axz", "Ayz", "l")
@@ -45,6 +48,7 @@ do $$
 				   (motor_ids[6], 6, .27, .0265, .00005, .0000018503, .000098419, .00000002138, -.00001279, 38),
 				   (motor_ids[7], 7, .27, .0265, .00005, .0000018503, .000098419, .00000002138, -.00001279, 38),
 				   (motor_ids[8], 8, .27, .0265, .00005, .0000018503, .000098419, .00000002138, -.00001279, 38);
+		insert into sensor_tb("id") values (gps_id);
 		insert into uav_tb("id", 
 				"airframe_id", 
 				"battery_id", 
@@ -56,6 +60,7 @@ do $$
 				"m6_id",
 				"m7_id",
 				"m8_id", 
+				"gps_id",
 				"max_flight_time")
 			values (uav_id,
 				airframe_id,
@@ -68,5 +73,6 @@ do $$
 				motor_ids[6],
 				motor_ids[7],
 				motor_ids[8],
+				gps_id,
 				15);	  
 end $$;

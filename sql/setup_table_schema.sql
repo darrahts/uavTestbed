@@ -31,6 +31,36 @@
 ------------------------------------------------------------------------------------------------
 
 /*
+	fields:
+		type: refers to the process such as degradation, environment, etc
+		subtype:1: refers to the component such as battery, motor, wind, etc
+		subtype2: refers to what within the component such as capacitance, resistance, gust, etc
+*/
+create table process_type_tb(
+	"id" serial primary key not null,
+	"type" varchar(32) not null,
+	"subtype1" varchar(64) not null,
+	"subtype2" varchar(64),
+	unique("type", "subtype1", "subtype2")
+);
+
+/*
+	fields:
+		description: details about how the process evolves such as continuous or discrete, etc
+*/
+create table process_tb(
+	"id" serial primary key not null,
+	"type_id" int not null references process_type_tb,
+	"description" varchar(256) not null,
+    "source" varchar(256) not null,
+	"parameters" json not null,
+	unique("type_id", "description", "source")
+);
+
+
+
+
+/*
         description here
 */
 create table asset_type_tb(
@@ -60,32 +90,6 @@ create table asset_tb(
     "units" varchar(32)
 );
 
-/*
-	fields:
-		type: refers to the process such as degradation, environment, etc
-		subtype:1: refers to the component such as battery, motor, wind, etc
-		subtype2: refers to what within the component such as capacitance, resistance, gust, etc
-*/
-create table process_type_tb(
-	"id" serial primary key not null,
-	"type" varchar(32) not null,
-	"subtype1" varchar(64) not null,
-	"subtype2" varchar(64),
-	unique("type", "subtype1", "subtype2")
-);
-
-/*
-	fields:
-		description: details about how the process evolves such as continuous or discrete, etc
-*/
-create table process_tb(
-	"id" serial primary key not null,
-	"type_id" int not null references process_type_tb,
-	"description" varchar(256) not null,
-    "source" varchar(256) not null,
-	"parameters" json not null,
-	unique("type_id", "description", "source")
-);
 
 /*
     Table to hold stop code information used during simulations
@@ -168,14 +172,6 @@ create table default_airframe_tb(
 	constraint check_num_motors check (num_motors in (3, 4, 6, 8))
 );
 
-
-create table sensor_tb(
-	"id" int primary key references asset_tb(id),
-	"voltage_supply" float not null default 12.0,
-	"avg_watts" float not null default 8.26,
-	"std_watts" float not null default .02,
-	"params" json default '{}'
-);
 
 
 /*
@@ -282,6 +278,13 @@ create table flight_summary_tb(
 	unique (dt_start, dt_stop, uav_id, flight_num, group_id)
 );
 
+create table sensor_tb(
+	"id" int primary key references asset_tb(id),
+	"voltage_supply" float not null default 12.0,
+	"avg_watts" float not null default 8.26,
+	"std_watts" float not null default .02,
+	"params" json default '{}'
+);
 
 
 /*
