@@ -49,6 +49,8 @@
     
             "LOAD_UAV_MOTORS": "sprintf(\"select ast.*, mt.* from asset_tb ast inner join dc_motor_tb mt on mt.id = ast.id where mt.id = %d\", uav_tb.m1_id);",
         
+            "LOAD_UAV_GPS": "sprintf(\"select ast.*, st.* from asset_tb ast inner join sensor_tb st on st.id = ast.id where st.id = %d;\", uav_tb.gps_id);",
+            
             "UPDATE_BATTERY_AGE": "sprintf(\"update asset_tb set age = %f where id = %d;\", uav.battery.age, uav.battery.id)", 
 
             "UPDATE_MOTOR_AGE": "sprintf(\"update asset_tb set age = %f where id = %d;\", uav.motors(i).age, uav.motors(i).id)",
