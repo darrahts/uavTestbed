@@ -41,7 +41,7 @@ function uav = create_default_uav(conn, owner, type_id, serial_number, age, unit
     num_motors = length(motor_ids);
     motor_names = string.empty;
     for i=1:num_motors
-        motor_names(i) = sprintf("motor%d_id", i);
+        motor_names(i) = sprintf("m%d_id", i);
     end
     
     % these are column names in the table, this table does not autopopulate
