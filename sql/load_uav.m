@@ -25,6 +25,9 @@ function uav = load_uav(conn, serial_number, api)
     % load the battery associated with the UAV
     battery_tb = select(conn, eval(api.matlab.assets.LOAD_UAV_BATTERY));
     
+    % load the gps associated with the UAV
+    gps_tb = select(conn, eval(api.matlab.assets.LOAD_UAV_GPS));
+    
     % the motors are a bit different, first see how many motors there are
     % either 8, 6, 4, or 3 motors are valid motor numbers.
     if uav_tb.m8_id > 0
@@ -52,6 +55,7 @@ function uav = load_uav(conn, serial_number, api)
     uav.airframe = table2struct(airframe_tb);
     uav.battery = table2struct(battery_tb);
     uav.motors = table2struct(motors_tb);
+    uav.gps = table2struct(gps_tb);
     
     % check if there are any new components and if so sample the the
     % initial degradation parameter values
@@ -79,12 +83,17 @@ function uav = load_uav(conn, serial_number, api)
         res = jsondecode(uav.battery.soc_ocv);
         if contains(fieldnames(res), 'z_coef')
            uav.battery.z_coef = res.z_coef'; 
+           uav.battery = rmfield(uav.battery, 'soc_ocv');
         end
     else
         if uav.battery.v0 > 4.1 && uav.battery.v0 < 4.3
             uav.battery.soc_ocv = load('degradation/soc_ocv.mat').soc_ocv;
+            
         end
     end
+    
+    % load the sensors
+    
     
     % easier access to some variable
     uav.max_flight_time = uav.uav.max_flight_time;
