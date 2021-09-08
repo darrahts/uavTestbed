@@ -63,6 +63,10 @@
             "LOAD_PROCESS": "sprintf(\"select ptt.*, pst.* from process_type_tb ptt inner join process_tb pst on pst.type_id = ptt.id where ptt.type ilike '%%%s%%' and ptt.subtype1 ilike '%%%s%%' and ptt.subtype2 ilike '%%%s%%' and pst.description ilike '%%%s%%';\", process_type, subtype1, subtype2, description)",
             
             "LOAD_ALL_PROCESSES": "sprintf(\"select ptt.*, pst.* from process_type_tb ptt inner join process_tb pst on pst.type_id = ptt.id where ptt.type ilike '%%%s%%';\", process_type)"
+        },
+
+        "misc": {
+            "GET_NEW_SERIAL_NUMBER": "select ast.serial_number from asset_tb ast inner join uav_tb ut on ast.id = ut.id order by ut.id desc limit 1;"
         }
     },
     
