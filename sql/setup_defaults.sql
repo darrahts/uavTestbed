@@ -152,14 +152,14 @@ do $$
 			values (q_deg_id, 'continuous usage based v1', 'NASA prognostics data set', '{"q_coef": [-1.066833707744579e-07,3.189004105646720e-05,21.778944640347570]}'),
 				(q_deg_id, 'continuous usage based v2', 'NASA prognostics data set', '{"q_coef": [-2.133667415489170e-07,6.378008211294554e-05,21.557889280695125]}'),
 				(r_deg_id, 'continuous usage based', 'NASA prognostics data set', '{"r_coef": [1.209742676232072e-09,3.756102295903853e-06,0.0011]}'),
-				(m_deg_id, 'continuous usage based v1', 'experimentation', '{"r_coef": [1.70385330152147e-08,1.75997067488300e-05,0.267928136723949]}'),
-				(m_deg_id, 'continuous usage based v2', 'experimentation', '{"r_coef": [3.34437039546440e-08,3.60872609959544e-05,0.263791651395807]}'),
-				(m_deg_id, 'continuous usage based v3', 'experimentation', '{"r_coef": [6.32510726727509e-09,8.11793972719502e-05,0.268211406227682]}'),
-				(m_deg_id, 'continuous usage based v4', 'experimentation', '{"r_coef": [1.17098467850816e-08,8.98328426678898e-05,0.264528794972439]}'),
-				(m_deg_id, 'continuous usage based v5', 'experimentation', '{"r_coef": [1.17361598867370e-08,8.46760638388651e-05,0.267611217459820]}'),
-				(m_deg_id, 'continuous usage based v6', 'experimentation', '{"r_coef": [2.48158573705962e-08,2.24023378991176e-05,0.267290228635053]}'),
-				(m_deg_id, 'continuous usage based v7', 'experimentation', '{"r_coef": [9.90114836688121e-09,4.64937223836166e-05,0.265878113205950]}'),
-				(m_deg_id, 'continuous usage based v8', 'experimentation', '{"r_coef": [9.43070784363140e-09,5.14805667702705e-05,0.266827239473087]}');
+				(m_deg_id, 'continuous usage based v1', 'experimentation', '{"r_coef": [2.91940637233805e-08,2.51296556203587e-05,0.267534750087853]}'),
+				(m_deg_id, 'continuous usage based v2', 'experimentation', '{"r_coef": [5.03203644599304e-08,4.52482807162499e-05,0.263602775657784]}'),
+				(m_deg_id, 'continuous usage based v3', 'experimentation', '{"r_coef": [1.17951512300631e-08,0.000126153758759434,0.267388743143241]}'),
+				(m_deg_id, 'continuous usage based v4', 'experimentation', '{"r_coef": [2.02884959369022e-08,0.000129703751104999,0.263620266868153]}'),
+				(m_deg_id, 'continuous usage based v5', 'experimentation', '{"r_coef": [2.00949753003282e-08,0.000120820568496029,0.266781531939975]}'),
+				(m_deg_id, 'continuous usage based v6', 'experimentation', '{"r_coef": [4.93684103069012e-08,3.71391496681986e-05,0.266256395026620]}'),
+				(m_deg_id, 'continuous usage based v7', 'experimentation', '{"r_coef": [1.81206612180933e-08,7.09090300154583e-05,0.265032260682462]}'),
+				(m_deg_id, 'continuous usage based v8', 'experimentation', '{"r_coef": [2.12003523904136e-08,9.64408128994080e-05,0.265046939982291]}');
 end $$;
 
 /*

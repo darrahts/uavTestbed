@@ -39,7 +39,7 @@
         },
 
         "assets": { 
-            "LOAD_ALL_UAVS": "select ast.serial_number, ast.common_name, ut.* from asset_tb ast inner join uav_tb ut on ast.id = ut.id;",
+            "LOAD_ALL_UAVS": "select ast.age, ast.serial_number, ast.common_name, ut.* from asset_tb ast inner join uav_tb ut on ast.id = ut.id;",
 
             "LOAD_UAV_BY_SERIAL": "sprintf(\"select ast.*, ut.* from asset_tb ast inner join uav_tb ut on ast.id = ut.id where ast.serial_number like '%s';\", serial_number);",
 

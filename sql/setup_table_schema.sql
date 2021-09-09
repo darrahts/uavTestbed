@@ -307,16 +307,25 @@ create table flight_degradation_tb (
 	"flight_id" int not null references flight_summary_tb(id),
 	"q_deg" float not null,
 	"q_var" float,
-	"q_slope" float,
-	"q_intercept" float,
 	"r_deg" float not null,
 	"r_var" float,
-	"r_slope" float,
-	"r_intercept" float,
-	"m_deg" float not null,
-	"m_var" float,
-	"m_slope" float,
-	"m_intercept" float,
+	"m1_deg" float not null,
+	"m1_var" float,
+	"m2_deg" float not null,
+	"m2_var" float,
+	"m3_deg" float not null,
+	"m3_var" float,
+	"m4_deg" float not null,
+	"m4_var" float,
+	"m5_deg" float not null,
+	"m5_var" float,
+	"m6_deg" float not null,
+	"m6_var" float,
+	"m7_deg" float not null,
+	"m7_var" float,
+	"m8_deg" float not null,
+	"m8_var" float,
+
 	unique(flight_id, q_deg, q_var, r_deg, r_var, m_deg, m_var)
 );
 
@@ -398,4 +407,40 @@ create table flight_telemetry_tb (
 	"flight_id" int references flight_summary_tb(id)
 );
 
+/*
+	helper table used by the monte carlo experiment, component ages of the true system
 
+*/
+create table true_age_tb(
+	"id" serial primary key not null,
+	"flight_id" int references flight_summary_tb(id),
+	"uav_age" float not null,
+	"battery_age" float not null,
+	"m1_age" float not null,
+	"m2_age" float not null,
+	"m3_age" float not null,
+	"m4_age" float not null,
+	"m5_age" float not null,
+	"m6_age" float not null,
+	"m7_age" float not null,
+	"m8_age" float not null
+);
+
+/*
+	helper table used by the monte carlo experiment, component ages of the particles
+
+*/
+create table stochastic_tb(
+	"id" serial primary key not null,
+	"flight_id" int references flight_summary_tb(id),
+	"uav_age" float not null,
+	"battery_age" float not null,
+	"m1_age" float not null,
+	"m2_age" float not null,
+	"m3_age" float not null,
+	"m4_age" float not null,
+	"m5_age" float not null,
+	"m6_age" float not null,
+	"m7_age" float not null,
+	"m8_age" float not null
+);
