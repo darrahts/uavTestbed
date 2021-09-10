@@ -311,22 +311,22 @@ create table flight_degradation_tb (
 	"r_var" float,
 	"m1_deg" float not null,
 	"m1_var" float,
-	"m2_deg" float not null,
+	"m2_deg" float,
 	"m2_var" float,
-	"m3_deg" float not null,
+	"m3_deg" float,
 	"m3_var" float,
-	"m4_deg" float not null,
+	"m4_deg" float,
 	"m4_var" float,
-	"m5_deg" float not null,
+	"m5_deg" float,
 	"m5_var" float,
-	"m6_deg" float not null,
+	"m6_deg" float,
 	"m6_var" float,
-	"m7_deg" float not null,
+	"m7_deg" float,
 	"m7_var" float,
-	"m8_deg" float not null,
+	"m8_deg" float,
 	"m8_var" float,
 
-	unique(flight_id, q_deg, q_var, r_deg, r_var, m_deg, m_var)
+	unique(flight_id, q_deg, q_var, r_deg, r_var, m1_deg, m1_var)
 );
 
 
