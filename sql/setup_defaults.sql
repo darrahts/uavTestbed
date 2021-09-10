@@ -151,7 +151,9 @@ do $$
 		insert into process_tb("type_id", "description", "source", "parameters")
 			values (q_deg_id, 'continuous usage based v1', 'NASA prognostics data set', '{"q_coef": [-1.066833707744579e-07,3.189004105646720e-05,21.778944640347570]}'),
 				(q_deg_id, 'continuous usage based v2', 'NASA prognostics data set', '{"q_coef": [-2.133667415489170e-07,6.378008211294554e-05,21.557889280695125]}'),
-				(r_deg_id, 'continuous usage based', 'NASA prognostics data set', '{"r_coef": [1.209742676232072e-09,3.756102295903853e-06,0.0011]}'),
+				(q_deg_id, 'continuous usage based v3', 'NASA prognostics data set', '{"q_coef": [-3.964636685641575e-07,9.164360283399920e-05,21.508765867439045]}'),
+				(r_deg_id, 'continuous usage based v1', 'NASA prognostics data set', '{"r_coef": [1.209742676232072e-09,3.756102295903853e-06,0.0011]}'),
+				(r_deg_id, 'continuous usage based v2', 'NASA prognostics data set', '{"r_coef": [1.574235975754939e-09,1.318054396279285e-05,0.0011]}'),
 				(m_deg_id, 'continuous usage based v1', 'experimentation', '{"r_coef": [2.91940637233805e-08,2.51296556203587e-05,0.267534750087853]}'),
 				(m_deg_id, 'continuous usage based v2', 'experimentation', '{"r_coef": [5.03203644599304e-08,4.52482807162499e-05,0.263602775657784]}'),
 				(m_deg_id, 'continuous usage based v3', 'experimentation', '{"r_coef": [1.17951512300631e-08,0.000126153758759434,0.267388743143241]}'),
