@@ -92,20 +92,16 @@ function uav = load_uav(conn, serial_number, api)
         end
     end
     
-    % load the sensors
-    
-    
     % easier access to some variable
     uav.max_flight_time = uav.uav.max_flight_time;
     uav.id = uav.uav.id;
-    
-    % sample rate for the airframe dynamics
-    uav.dynamics_srate = .025;
     
     % the current implementation assumes the entire mass value is captured in
     % the airframe (a mass field could be added to the asset class...)
     uav.mass = uav.airframe.mass;
     
+    % this is hard coded here because loading
+    uav.dynamics_srate = .025;
     
     
 end
