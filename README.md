@@ -21,6 +21,7 @@
   </a>
   
   <p align="center"><a href="https://ti.arc.nasa.gov/tech/dash/groups/pcoe/">Prognostics Center of Excellence</a></p>
+  <p align="center"><a href="https://ti.arc.nasa.gov/tech/dash/groups/diagnostics-and-prognostics/">Diagnostics and Prognostics Group</a></p>
   <p align="center"><a href="https://ti.arc.nasa.gov/tech/asr/groups/planning-and-scheduling/">Planning and Scheduling Group</a></p>
 
   <h1 align="center">UAV Simulation Testbed</h3>
@@ -143,9 +144,9 @@ To be incorporated:
 
 <!-- CONTRIBUTING -->
 ## Mentors  
-- Gautam Biswas 
-- Jeremy Frank  
-- Marcos Quinones 
+- Gautam Biswas   
+- Marcos Quinones
+- Jeremy Frank 
 - Chetan Kulkarni  
 - Chris Teubert  
 
