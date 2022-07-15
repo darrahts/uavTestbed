@@ -80,24 +80,18 @@ TODO
 * PostgreSQL 12+ (other versions are probably fine but untested)
 * MATLAB r2020+ (r2020 had database issues, see notes below).
 
-### Installation
+### Setup
 
-1. Clone the repo
-   ```git clone https://github.com/darrahts/uavTestbed.git```
-2. Make [setup.sh](https://github.com/darrahts/uavTestbed/blob/main/setup.sh) in the root directory executable 
-  ```chmod +x setup.sh```
-3. Execute the setup script
-  ```./setup.sh```
-  The setup script calls four scripts (pending 'y' on user prompts) in the [sql directory](https://github.com/darrahts/uavTestbed/tree/main/sql)
-    - [setup_db_user.sql](https://github.com/darrahts/uavTestbed/blob/main/sql/setup_db_user.sql)
-    - [setup_table_schema.sql](https://github.com/darrahts/uavTestbed/blob/main/sql/setup_table_schema.sql)
-    - [setup_defaults.sql](https://github.com/darrahts/uavTestbed/blob/main/sql/setup_defaults.sql)
-    - [setup_readonly_guest](https://github.com/darrahts/uavTestbed/blob/main/sql/setup_readonly_guest.sql)
-4. The default port is ```5432```, and the username is your currently logged in user. Welcome to PostgreSQL :) <a href="https://blog.logrocket.com/setting-up-a-remote-postgres-database-server-on-ubuntu-18-04/"> A guide that might be helpful can be found here</a>.
+1. Clone this repo `git clone https://github.com/darrahts/uavTestbed && cd uavTestbed`
 
-5. **Optional** Install [DBeaver](https://dbeaver.io/download/), a database management application and follow [the guide here](https://github.com/darrahts/uavTestbed/blob/main/postgres_dbeaver_guide.pdf) to set up a remote connection to your database.  
+2. Clone the [data management framework repo](https://github.com/darrahts/data_management_framework) and follow the installation instructions to install postgres and timescaledb. NOTE: windows ports of some scripts are in progress. 
 
-Misc tidbit: If developing on a remote server and do not have a jupyter notebook server set up, a local instance of [VS Code has built in remote support that takes less than 5 minutes to set up](https://code.visualstudio.com/docs/remote/ssh).
+3. Execute the SQL scripts which extend the data management framework for the UAV simulation.
+
+4. **Optional** Install [DBeaver](https://dbeaver.io/download/), a database management application and follow [the guide here](https://github.com/darrahts/uavTestbed/blob/main/postgres_dbeaver_guide.pdf) to set up a remote connection to your database.  
+
+5. **Optional** Install [VS Code](https://code.visualstudio.com/docs/remote/ssh).
+
 
 ## Usage
 
