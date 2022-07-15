@@ -11,3 +11,6 @@ load_db_params.m
 figures/*
 db_connect.m
 .credentials
+data_management_framework
+.project
+*.slx.autosave

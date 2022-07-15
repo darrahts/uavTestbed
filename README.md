@@ -78,7 +78,7 @@ TODO
 ### Prerequisites
 
 * PostgreSQL 12+ (other versions are probably fine but untested)
-* MATLAB r2020+ (r2020 had database issues, see notes below).
+* MATLAB r2022a (r2020 had database issues and now some functionality has been updated in r2022a that is not backwards compatible with r2020).
 
 ### Setup
 
