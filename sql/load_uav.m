@@ -73,6 +73,7 @@ function uav = load_uav(conn, serial_number, api)
     
     % the Jb matrix is stored as a double array in postgres, but matlab
     % reads it as a char array / string
+    uav.airframe.Jb = string(uav.airframe.Jb);
     uav.airframe.Jb = erase(uav.airframe.Jb, "{");
     uav.airframe.Jb = erase(uav.airframe.Jb, "}");
     uav.airframe.Jb = reshape(str2num(uav.airframe.Jb), [3,3]);
@@ -80,7 +81,9 @@ function uav = load_uav(conn, serial_number, api)
     if contains(uav.uav.common_name, 'tarot')
     % this is the relationship between state of charge and voltage
     % here for backwards compatability, to be removed in the future
-        res = jsondecode(uav.battery.soc_ocv);
+        %print(uav.battery.soc_ocv)
+        %print(class(uav.battery.soc_ocv))
+        res = jsondecode(char(uav.battery.soc_ocv.getValue));
         if contains(fieldnames(res), 'z_coef')
            uav.battery.z_coef = res.z_coef'; 
            uav.battery = rmfield(uav.battery, 'soc_ocv');

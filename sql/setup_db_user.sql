@@ -20,4 +20,4 @@ create user :user with encrypted password :passwd;
 alter user :user with superuser;
 
 -- create the database
-create database uav_db with owner :user;
+create database uav2_db with owner :user;
