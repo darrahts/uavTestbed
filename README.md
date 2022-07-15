@@ -58,7 +58,9 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-This work aims to bring a unified framework to data and model management for researchers developing new prognostic technologies. A Postgres database schema (tables only - it is left to the researcher how to set up their database for users and access) and an API in MATLAB and Python (release date - tbd). This framework will support a wide variety of simulation-based experiments as well as real-world experiments using the same interface.  
+This is a complete UAV simulation testbed that is intended to be used with the [data management framework](https://github.com/darrahts/data_management_framework). A Postgres database schema and an API in MATLAB / python is used in conjunction. This framework will support a wide variety of simulation-based experiments as well as real-world experiments using the same interface.  
+
+This is a Work In Progress [WIP]! Updates are being made as of July 15th, 2022. Many of these steps may remain out of date for the time being.
 
 Currenlty we are conducting several run-to-failure experiments in effort to collect telementry and degradation data to facilitate research into deep learning approaches to problems such as remaining useful life (RUL) estimation, fault detection & isolation (FDI), decision making, and others.  
 
@@ -75,12 +77,8 @@ TODO
 
 ### Prerequisites
 
-* PostgreSQL ~12 (other versions are probably fine but untested)
-
-* **NOTE** MATLAB >= R2020a is **NOT** required to utilize the data management framework. It is required to execute the examples, because python examples have not been developed yet.
-    - Simulink
-    - Robotics System Toolbox
-    - Database Toolbox
+* PostgreSQL 12+ (other versions are probably fine but untested)
+* MATLAB r2020+ (r2020 had database issues, see notes below).
 
 ### Installation
 
