@@ -6,7 +6,6 @@ function trajectory = get_trajectory(trajectory_tb, idx)
 %       
 %
 %%
-    
     trajectory = table2struct(trajectory_tb(idx,:));
     trajectory.x_waypoints = str2double(regexp(trajectory.x_waypoints,'[+-]?\d+\.?\d*','match'));
     trajectory.y_waypoints = str2double(regexp(trajectory.y_waypoints,'[+-]?\d+\.?\d*','match'));

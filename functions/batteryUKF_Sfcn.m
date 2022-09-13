@@ -284,7 +284,9 @@ function Update(block)
     if any(idx < 1)
         idx(idx < 1) = 1;
     end
-    ocv = ukfBatteryParams.soc_ocv(idx);    
+    
+    ocv = polyval(battery.z_coef, idx);
+    %ocv = ukfBatteryParams.soc_ocv(idx);    
     
     Y = ocv + M*x_hat_post(2,:) + M0*u_sign - R*x_hat_post(1,:) - R0*current + ynoise(1,:);
 
@@ -411,7 +413,8 @@ function Update(block)
     hkInd = 2;
     zkInd = 3;
     spkfData.xhat=[Ir h z]';
-    ik=current;vk=voltage;
+    ik=current;
+    vk=voltage;
     spkfData.SigmaV=ukfBatteryParams.sigma_v;
     
     % Step 1a -- Qhat prediction = Qhat estimate... no code needed
