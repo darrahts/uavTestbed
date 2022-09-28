@@ -39,10 +39,11 @@
 create table process_type_tb(
 	"id" serial primary key not null,
 	"type" varchar(32) not null,
-	"subtype1" varchar(64) not null,
+	"subtype" varchar(64) not null,
 	"subtype2" varchar(64),
-	unique("type", "subtype1", "subtype2")
+	unique("type", "subtype", "subtype2")
 );
+
 
 /*
 	fields:
@@ -65,10 +66,11 @@ create table process_tb(
 */
 create table asset_type_tb(
     "id" serial primary key not null,
-    "type" varchar(32) unique not null,
-    "subtype" varchar(32) unique not null,
+    "type" varchar(32) not null,
+    "subtype" varchar(32) not null,
+    "subtype2" varchar(32) unique,
     "description" varchar(256),
-    unique ("type", "subtype", "description")
+    unique ("type", "subtype", "subtype2", "description")
 );
 
 
@@ -82,12 +84,14 @@ create table asset_tb(
     "id" serial primary key not null,
     "owner" varchar(32) not null default(current_user),
     "type_id" int not null references asset_type_tb(id),
-	"process_id" int references process_tb(id),
+	"process_id" int array,
     "serial_number" varchar(32) unique not null,
 	"common_name" varchar(32),
     "age" float(16) default 0,
     "eol" float(16) default 0,
     "units" varchar(32)
+    -- foreign key (each element of process_id) references process_tb(id),
+    -- see https://stackoverflow.com/questions/41054507/postgresql-array-of-elements-that-each-are-a-foreign-key
 );
 
 
@@ -222,7 +226,8 @@ create table eqc_battery_tb (
 		the simulation that could be moved here for example.
 */
 create table uav_tb(
-	"id" int primary key references asset_tb(id),
+	"id" int not null references asset_tb(id),
+	"version" int not null default 1,
 	"airframe_id" int not null references asset_tb(id),
 	"battery_id" int not null references asset_tb(id),
 	"m1_id" int not null references asset_tb(id),
@@ -235,16 +240,16 @@ create table uav_tb(
 	"m8_id" int references asset_tb(id),
 	"gps_id" int references asset_tb(id),
 	"max_flight_time" float not null default 18.0,
-	"dynamics_srate" float not null default .025
+	"dynamics_srate" float not null default .025,
+	unique("id", "version"),
+	primary key ("id", "version")
 );
-
-
 
 /*
         This table is for end-of-flight metrics
 		- flight_time is in minutes
 */
-create table flight_summary_tb(
+create table session_tb(
 	"id" serial primary key not null,
 	"stop_code" int not null references stop_code_tb(id),
 	"z_start" float not null,
@@ -272,11 +277,14 @@ create table flight_summary_tb(
 	"dt_start" timestamptz not null,
 	"dt_stop" timestamptz not null,
 	"trajectory_id" int not null references trajectory_tb(id),
-	"uav_id" int not null references uav_tb(id),
+	"uav_id" int not null,
+	"uav_version" int not null,
 	"flight_num" int not null,
 	"group_id" int references group_tb(id),
-	unique (dt_start, dt_stop, uav_id, flight_num, group_id)
+	unique (dt_start, dt_stop, uav_id, uav_version, flight_num, group_id),
+	foreign key (uav_id, uav_version) references uav_tb("id", "version")
 );
+
 
 create table sensor_tb(
 	"id" int primary key references asset_tb(id),
@@ -302,9 +310,9 @@ create table sensor_tb(
 
 		more could be added and this isn't the only way to handle the data
 */
-create table flight_degradation_tb (
+create table degradation_tb (
 	"id" serial primary key,
-	"flight_id" int not null references flight_summary_tb(id),
+	"flight_id" int not null references session_tb(id),
 	"q_deg" float not null,
 	"q_var" float,
 	"r_deg" float not null,
@@ -341,7 +349,7 @@ create table flight_degradation_tb (
 
 		new fields are easily added. 
 */
-create table flight_telemetry_tb (
+create table telemetry_tb (
 	"dt" timestamp(6) unique not null,
     "battery_true_v" float not null,
     "battery_true_z" float not null,
@@ -404,7 +412,7 @@ create table flight_telemetry_tb (
     "x_vel_true" float not null,
     "y_vel_true" float not null,
     "z_vel_true" float not null,
-	"flight_id" int references flight_summary_tb(id)
+	"flight_id" int references session_tb(id)
 );
 
 /*
@@ -413,7 +421,7 @@ create table flight_telemetry_tb (
 */
 create table true_age_tb(
 	"id" serial primary key not null,
-	"flight_id" int references flight_summary_tb(id),
+	"flight_id" int references session_tb(id),
 	"stop_code" int references stop_code_tb(id),
 	"trajectory_id" int references trajectory_tb(id),
 	"uav_age" float not null,
@@ -434,7 +442,7 @@ create table true_age_tb(
 */
 create table stochastic_tb(
 	"id" serial primary key not null,
-	"flight_id" int references flight_summary_tb(id),
+	"flight_id" int references session_tb(id),
 	"stop_code" int references stop_code_tb(id),
 	"trajectory_id" int references trajectory_tb(id),
 	"uav_age" float not null,
@@ -446,5 +454,65 @@ create table stochastic_tb(
 	"m5_age" float not null,
 	"m6_age" float not null,
 	"m7_age" float not null,
-	"m8_age" float not null
+	"m8_age" float not null,
+	"session_num" int not null
+);
+
+
+
+create table stochastic_summary_tb(
+	"id" serial primary key not null,
+	"stop_code" int not null references stop_code_tb(id),
+	"z_start" float not null,
+	"z_end" float not null,
+	"v_start" float not null,
+	"v_end" float not null,
+	"m1_avg_current" float,
+	"m2_avg_current" float,
+	"m3_avg_current" float,
+	"m4_avg_current" float,
+	"m5_avg_current" float,
+	"m6_avg_current" float,
+	"m7_avg_current" float,
+	"m8_avg_current" float,
+	"avg_pos_err" float not null,
+	"max_pos_err" float not null,
+	"std_pos_err" float not null,
+	"avg_ctrl_err" float not null,
+	"max_ctrl_err" float not null,
+	"std_ctrl_err" float not null,
+	"distance" float not null,
+	"flight_time" float not null,
+	"avg_current" float not null,
+	"amp_hours" float not null,
+	"trajectory_id" int not null references trajectory_tb(id),
+	"uav_id" int not null,
+	"uav_version" int not null,
+	"flight_id" int not null,
+	"flight_num" int not null,
+	"session_num" int not null,
+	unique (uav_id, flight_id, flight_num, session_num),
+	foreign key (uav_id, uav_version) references uav_tb("id", "version")
+);
+
+
+create table stochastic_degradation_tb (
+	"id" serial primary key,
+	"q_deg" float not null,
+	"r_deg" float not null,
+	"m1_deg" float not null,
+	"m2_deg" float,
+	"m3_deg" float,
+	"m4_deg" float,
+	"m5_deg" float,
+	"m6_deg" float,
+	"m7_deg" float,
+	"m8_deg" float,
+	"uav_id" int not null,
+	"uav_version" int not null,
+	"flight_id" int not null,
+	"flight_num" int not null,
+	"session_num" int not null,
+	unique(flight_id, uav_id, flight_num, q_deg, r_deg, m1_deg, session_num),
+	foreign key (uav_id, uav_version) references uav_tb("id", "version")
 );

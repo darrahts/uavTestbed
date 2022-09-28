@@ -35,7 +35,7 @@
 /*
     Create process types
 */
-insert into process_type_tb ("type", "subtype1", "subtype2")
+insert into process_type_tb ("type", "subtype", "subtype2")
 	values ('degradation', 'battery', 'capacitance'),
 		('degradation', 'battery', 'internal resistance'),
 		('degradation', 'motor', 'internal resistance'),
@@ -47,10 +47,10 @@ insert into process_type_tb ("type", "subtype1", "subtype2")
 */
 do $$
 	declare 
-		q_deg_id integer := (select id from process_type_tb ptt where "type" ilike 'degradation' and "subtype1" ilike 'battery' and "subtype2" ilike 'capacitance');
-		r_deg_id integer := (select id from process_type_tb ptt where "type" ilike 'degradation' and "subtype1" ilike 'battery' and "subtype2" ilike 'internal resistance');
-		m_deg_id integer := (select id from process_type_tb ptt where "type" ilike 'degradation' and "subtype1" ilike 'motor' and "subtype2" ilike 'internal resistance');
-		wind_id integer := (select id from process_type_tb ptt where "type" ilike 'environment' and "subtype1" ilike 'wind' and "subtype2" ilike 'gust');
+		q_deg_id integer := (select id from process_type_tb ptt where "type" ilike 'degradation' and "subtype" ilike 'battery' and "subtype2" ilike 'capacitance');
+		r_deg_id integer := (select id from process_type_tb ptt where "type" ilike 'degradation' and "subtype" ilike 'battery' and "subtype2" ilike 'internal resistance');
+		m_deg_id integer := (select id from process_type_tb ptt where "type" ilike 'degradation' and "subtype" ilike 'motor' and "subtype2" ilike 'internal resistance');
+		wind_id integer := (select id from process_type_tb ptt where "type" ilike 'environment' and "subtype" ilike 'wind' and "subtype2" ilike 'gust');
 	begin
 		insert into process_tb(type_id, description, "source", parameters)
 			values (q_deg_id, 'discrete cycle based', 'NASA prognostics data set', '{"qdeg": [15,14.99,14.98,14.97,14.95,14.94,14.93,14.92,14.91,14.89,14.88,14.87,14.85,14.84,14.83,14.81,14.8,14.79,14.77,14.76,14.74,14.73,14.71,14.7,14.68,14.67,14.65,14.64,14.62,14.6,14.58,14.57,14.55,14.53,14.52,14.5,14.48,14.46,14.44,14.42,14.35,14.33,14.31,14.29,14.27,14.25,14.23,14.21,14.19,14.16,14.14,14.12,14.1,14.07,14.05,14.03,14,13.92,13.9,13.87,13.85,13.82,13.79,13.77,13.74,13.71,13.69,13.66,13.63,13.6,13.57,13.54,13.51,13.48,13.45,13.42,13.33,13.3,13.26,13.23,13.2,13.16,13.13,13.09,13.06,13.02,12.98,12.95,12.91,12.87,12.83,12.79,12.75,12.66,12.61,12.57,12.53,12.49,12.44,12.4,12.35,12.31,12.26,12.22,12.17,12.12,12.07,12.02,11.97,11.87,11.82,11.76,11.71,11.66,11.6,11.55,11.49,11.43,11.38,11.32,11.26,11.14,11.08,11.02,10.96,10.89,10.83,10.76,10.7,10.63,10.51,10.44,10.37,10.3,10.22,10.15,10.08,10,9.93,9.85,9.77,9.69,9.61,9.53]}'),
@@ -98,19 +98,19 @@ do $$
 		gps_type_id integer := (select id from asset_type_tb where "type" ilike 'sensor');
 		uav_type_id integer := (select id from asset_type_tb where "type" ilike 'uav');
 	begin
-		insert into asset_tb("owner", "type_id", "serial_number", "common_name")
-		values (current_user, airframe_type_id, (select upper(substr(md5(random()::text), 0, 7))), 'default'),
-			(current_user, battery_type_id, (select upper(substr(md5(random()::text), 0, 7))), 'default'),
-			(current_user, motor_type_id, (select upper(substr(md5(random()::text), 0, 7))), 'default'),
-			(current_user, motor_type_id, (select upper(substr(md5(random()::text), 0, 7))), 'default'),
-			(current_user, motor_type_id, (select upper(substr(md5(random()::text), 0, 7))), 'default'),
-			(current_user, motor_type_id, (select upper(substr(md5(random()::text), 0, 7))), 'default'),
-			(current_user, motor_type_id, (select upper(substr(md5(random()::text), 0, 7))), 'default'),
-			(current_user, motor_type_id, (select upper(substr(md5(random()::text), 0, 7))), 'default'),
-			(current_user, motor_type_id, (select upper(substr(md5(random()::text), 0, 7))), 'default'),
-			(current_user, motor_type_id, (select upper(substr(md5(random()::text), 0, 7))), 'default'),
-			(current_user, gps_type_id, (select upper(substr(md5(random()::text), 0, 7))), 'default'),
-			(current_user, uav_type_id, (select upper(substr(md5(random()::text), 0, 7))), 'default');
+		insert into asset_tb("owner", "type_id", "process_id", "serial_number", "common_name")
+		values (current_user, airframe_type_id, '{4}', (select upper(substr(md5(random()::text), 0, 7))), 'default'),
+			(current_user, battery_type_id, '{8, 10}', (select upper(substr(md5(random()::text), 0, 7))), 'default'),
+			(current_user, motor_type_id, '{11}', (select upper(substr(md5(random()::text), 0, 7))), 'default'),
+			(current_user, motor_type_id, '{11}', (select upper(substr(md5(random()::text), 0, 7))), 'default'),
+			(current_user, motor_type_id, '{11}', (select upper(substr(md5(random()::text), 0, 7))), 'default'),
+			(current_user, motor_type_id, '{11}', (select upper(substr(md5(random()::text), 0, 7))), 'default'),
+			(current_user, motor_type_id, '{11}', (select upper(substr(md5(random()::text), 0, 7))), 'default'),
+			(current_user, motor_type_id, '{11}', (select upper(substr(md5(random()::text), 0, 7))), 'default'),
+			(current_user, motor_type_id, '{11}', (select upper(substr(md5(random()::text), 0, 7))), 'default'),
+			(current_user, motor_type_id, '{11}', (select upper(substr(md5(random()::text), 0, 7))), 'default'),
+			(current_user, gps_type_id, null, (select upper(substr(md5(random()::text), 0, 7))), 'default'),
+			(current_user, uav_type_id, null, (select upper(substr(md5(random()::text), 0, 7))), 'default');
 end $$;	
 
 
