@@ -15,7 +15,7 @@ function uav = load_uav(conn, serial_number, api)
     %       @bugs:
     %           does not properly read NULL value, reads as -2147483648
     %%
-
+    
     % load the UAV record from the db
     uav_tb = select(conn, eval(api.matlab.assets.LOAD_UAV_BY_SERIAL));
  
@@ -98,6 +98,7 @@ function uav = load_uav(conn, serial_number, api)
     % easier access to some variable
     uav.max_flight_time = uav.uav.max_flight_time;
     uav.id = uav.uav.id;
+    uav.version = uav.uav.version;
     
     % the current implementation assumes the entire mass value is captured in
     % the airframe (a mass field could be added to the asset class...)
