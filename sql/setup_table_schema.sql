@@ -85,13 +85,13 @@ create table asset_tb(
     "owner" varchar(32) not null default(current_user),
     "type_id" int not null references asset_type_tb(id),
 	"process_id" int array,
-    "serial_number" varchar(32) unique not null,
+    "serial_number" varchar(32) not null,
+	"version" int not null default 1,
 	"common_name" varchar(32),
     "age" float(16) default 0,
     "eol" float(16) default 0,
-    "units" varchar(32)
-    -- foreign key (each element of process_id) references process_tb(id),
-    -- see https://stackoverflow.com/questions/41054507/postgresql-array-of-elements-that-each-are-a-foreign-key
+    "units" varchar(32), 
+	unique("serial_number", "version")
 );
 
 
