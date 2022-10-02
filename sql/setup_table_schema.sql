@@ -81,17 +81,19 @@ create table asset_type_tb(
 	only the serial number has to be unique.
 */
 create table asset_tb(
-    "id" serial primary key not null,
+    "id" serial not null,
+    "version" int not null default 1,
     "owner" varchar(32) not null default(current_user),
     "type_id" int not null references asset_type_tb(id),
 	"process_id" int array,
     "serial_number" varchar(32) not null,
-	"version" int not null default 1,
 	"common_name" varchar(32),
     "age" float(16) default 0,
     "eol" float(16) default 0,
     "units" varchar(32), 
-	unique("serial_number", "version")
+	unique("serial_number", "version"),
+	unique("id", "version"),
+	primary key ("id", "version")
 );
 
 
@@ -164,7 +166,8 @@ create table trajectory_tb(
 	   backwards compatable with previous simulations but will be removed in the future. 
 */
 create table default_airframe_tb(
-	"id" int primary key references asset_tb(id),
+	"id" int not null,
+	"version" int not null default 1,
 	"num_motors" int not null default 8,
 	"mass" float not null default 1.8,
 	"Jb" float[9] not null default '{0.0429, 0.0, 0.0,    0.0, 0.0429, 0.0,   0.0, 0.0, 0.0748}',
@@ -173,7 +176,10 @@ create table default_airframe_tb(
 	"Axz" float not null default 0.5,
 	"Ayz" float not null default 0.5,
 	"l" float not null default 0.45,
-	constraint check_num_motors check (num_motors in (3, 4, 6, 8))
+	constraint check_num_motors check (num_motors in (3, 4, 6, 8)),
+	unique("id", "version"),
+	primary key ("id", "version"),
+	foreign key (id, "version") references asset_tb("id", "version")
 );
 
 
@@ -182,7 +188,8 @@ create table default_airframe_tb(
         description here
 */
 create table dc_motor_tb(
-    "id" int primary key references asset_tb(id),
+    "id" int  not null,
+    "version" int not null default 1,
     "motor_number" int,
     "Req" float not null default 0.2371,
     "Ke_eq" float not null default 0.0107,
@@ -192,7 +199,10 @@ create table dc_motor_tb(
 	"ct" float not null default 0.0000085486,
 	"cq" float not null default 0.00000013678,
 	"cq2" float default 0.0,
-	"current_limit" float default 11.0
+	"current_limit" float default 11.0,
+	unique("id", "version"),
+	primary key ("id", "version"),
+	foreign key (id, "version") references asset_tb("id", "version")
 );
 
 
@@ -200,7 +210,8 @@ create table dc_motor_tb(
         description here
 */
 create table eqc_battery_tb (
-	"id" int primary key references asset_tb(id),
+    "id" int  not null,
+    "version" int not null default 1,
 	"cycles" int  default 0,
 	"Q" float not null default 15.0,
 	"G" float not null default 163.4413,
@@ -217,7 +228,10 @@ create table eqc_battery_tb (
 	"v" float not null default 4.2,
 	"v0" float not null default 4.2,
 	"dt" float not null default 1.0,
-	"soc_ocv" json default '{}'
+	"soc_ocv" json default '{}',
+	unique("id", "version"),
+	primary key ("id", "version"),
+	foreign key (id, "version") references asset_tb("id", "version")
 );
 
 
@@ -226,23 +240,25 @@ create table eqc_battery_tb (
 		the simulation that could be moved here for example.
 */
 create table uav_tb(
-	"id" int not null references asset_tb(id),
+	"id" int not null,
 	"version" int not null default 1,
-	"airframe_id" int not null references asset_tb(id),
-	"battery_id" int not null references asset_tb(id),
-	"m1_id" int not null references asset_tb(id),
-	"m2_id" int not null references asset_tb(id),
-	"m3_id" int not null references asset_tb(id),
-	"m4_id" int references asset_tb(id),
-	"m5_id" int references asset_tb(id),
-	"m6_id" int references asset_tb(id),
-	"m7_id" int references asset_tb(id),
-	"m8_id" int references asset_tb(id),
-	"gps_id" int references asset_tb(id),
+	"airframe_id" int not null,
+	"battery_id" int not null,
+	"motors_id" int array,
+	"m1_id" int not null,
+	"m2_id" int not null,
+	"m3_id" int not null,
+	"m4_id" int,
+	"m5_id" int,
+	"m6_id" int,
+	"m7_id" int,
+	"m8_id" int,
+	"gps_id" int,
 	"max_flight_time" float not null default 18.0,
 	"dynamics_srate" float not null default .025,
 	unique("id", "version"),
-	primary key ("id", "version")
+	primary key ("id", "version"),
+	foreign key ("id", "version") references asset_tb("id", "version")
 );
 
 /*
@@ -287,11 +303,15 @@ create table session_tb(
 
 
 create table sensor_tb(
-	"id" int primary key references asset_tb(id),
+    "id" int  not null,
+    "version" int not null default 1,
 	"voltage_supply" float not null default 12.0,
 	"avg_watts" float not null default 8.26,
 	"std_watts" float not null default .02,
-	"params" json default '{}'
+	"params" json default '{}',
+	unique("id", "version"),
+	primary key ("id", "version"),
+	foreign key (id, "version") references asset_tb("id", "version")
 );
 
 
