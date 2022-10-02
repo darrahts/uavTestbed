@@ -97,12 +97,14 @@ function Output(block)
 
     % battery constants
     battery = block.DialogPrm(1).Data;
-    M0 = battery.M0;  
-    M  = battery.M;
-    R0 = battery.R0;
-    R  = battery.R;
-    Q  = battery.Q;
-    
+    M0 = normrnd(battery.M0, .00003);  
+    M  = normrnd(battery.M, .0001);
+    R0 = normrnd(battery.R0, .00005);
+
+    R  = normrnd(battery.R, .000001);
+    Q  = normrnd(battery.Q, .1);
+
+
     % inputs
     u = block.InputPort(1).Data;
     
@@ -110,6 +112,8 @@ function Output(block)
     % z
     z = block.ContStates.Data(1);
     z = min(1.02, max(-.01, z));
+
+
     block.ContStates.Data(1) = z;
     
     % h
@@ -165,11 +169,13 @@ function Derivative(block)
     
     % get battery constants
     battery = block.DialogPrm(1).Data;  
-    M  = battery.M;
     RC = battery.RC;
     n  = battery.n;
-    Q  = battery.Q;
     G  = battery.G;
+ 
+    M  = normrnd(battery.M, .0001);
+    Q  = normrnd(battery.Q, .1);
+
     
     % get battery state parameters 
     Ir = block.ContStates.Data(2);
