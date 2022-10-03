@@ -24,7 +24,7 @@ end $$
 -- insert uav asset into db 
 do $$
 	declare 
-		ser_num varchar(6) := '5E0C28';
+		ser_num varchar(6) := '9E196B';
 		uav_type_id integer := (select id from asset_type_tb where "type" ilike 'uav');
 		vers integer := (select "version" from asset_tb where serial_number ilike ser_num) + 1;
 		uav_id integer := (select "id" from asset_tb where serial_number ilike ser_num);
@@ -38,9 +38,9 @@ end $$
 -- copy record, update battery id
 do $$
 	declare 
-		ser_num varchar(6) := '5E0C28';
-		uav_id integer := (select "id" from asset_tb where serial_number ilike ser_num);
-		battery_id integer = (select id from asset_tb where "type_id" = (select id from asset_type_tb where "type" ilike 'battery') order by id desc limit 1);
+		ser_num varchar(6) := '9E196B';
+		uav_id integer := (select max("id") from asset_tb where serial_number ilike ser_num);
+		batt_id integer = (select id from asset_tb where "type_id" = (select id from asset_type_tb where "type" ilike 'battery') order by id desc limit 1);
 		vers integer := (select max("version") from asset_tb where id = uav_id);
 		
 	begin
@@ -53,9 +53,9 @@ do $$
 					"max_flight_time", 
 					"dynamics_srate", 
 					"motors_id")  
-		SELECT 24, 2, 
+		SELECT uav_id, vers, 
 				"airframe_id", 
-				25, 
+				batt_id, 
 				"m1_id", "m2_id", "m3_id", "m4_id", 
 				"m5_id", "m6_id", "m7_id", "m8_id", 
 				"gps_id", 
