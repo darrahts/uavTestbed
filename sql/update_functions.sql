@@ -35,7 +35,6 @@ do $$
 end $$
 
 -- insert uav component into component table
--- copy record, update battery id
 do $$
 	declare 
 		ser_num varchar(6) := '9E196B';
@@ -63,6 +62,6 @@ do $$
 				"dynamics_srate", 
 				"motors_id"
 		  FROM uav_tb
-		 WHERE id = 24 and "version" = 1;
+		 WHERE id = uav_id and "version" = vers - 1;
 end $$
 
