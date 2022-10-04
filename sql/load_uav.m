@@ -1,4 +1,4 @@
-function uav = load_uav(conn, serial_number, api)
+function uav = load_uav(conn, serial_number, version, api)
     %%
     %       @brief: Loads a complete UAV model by serial number
     %
