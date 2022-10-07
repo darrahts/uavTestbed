@@ -13,9 +13,10 @@ function trajectory = get_trajectory(trajectory_tb, idx)
     trajectory.start = str2double(regexp(trajectory.start,'[+-]?\d+\.?\d*','match'));
     trajectory.start = [trajectory.start];
 
-    trajectory.destination = str2double(regexp(trajectory.destination,'[+-]?\d+\.?\d*','match'));
-    trajectory.destination = [trajectory.destination];
-    
+    % trajectory.destination = str2double(regexp(trajectory.destination,'[+-]?\d+\.?\d*','match'));
+    % trajectory.destination = [trajectory.destination];
+    trajectory.destination = trajectory.start;
+    trajectory.sample_time = 10;
     if sum(strcmp(fieldnames(trajectory), 'path')) == 0
         map = load(sprintf('trajectories/%s.mat', trajectory.map)).(sprintf('%s', trajectory.map));
         prm = mobileRobotPRM;
@@ -28,6 +29,8 @@ function trajectory = get_trajectory(trajectory_tb, idx)
            p = findpath(prm, trajectory.waypoints(i-1,:), trajectory.waypoints(i,:));
            trajectory.path = [trajectory.path; p];
         end
+        p = findpath(prm, trajectory.waypoints(i,:), trajectory.destination);
+        trajectory.path = [trajectory.path; p];
     end
 
     if isempty(trajectory.x_ref_points) | isnan(trajectory.x_ref_points)
