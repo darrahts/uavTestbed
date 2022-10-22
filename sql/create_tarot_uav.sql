@@ -10,15 +10,15 @@ do $$
 			values (current_user, airframe_type_id, '{4}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot airframe');
 		
 		insert into asset_tb("owner", "type_id", "process_id", "serial_number", "common_name", "eol", "units")
-			values (current_user, battery_type_id, '{8, 10}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot battery', 7000, 'amp-hours'),
-				(current_user, motor_type_id, '{11}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 2000, 'amp-hours'),
-				(current_user, motor_type_id, '{11}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 2000, 'amp-hours'),
-				(current_user, motor_type_id, '{11}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 2000, 'amp-hours'),
-				(current_user, motor_type_id, '{11}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 2000, 'amp-hours'),
-				(current_user, motor_type_id, '{11}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 2000, 'amp-hours'),
-				(current_user, motor_type_id, '{11}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 2000, 'amp-hours'),
-				(current_user, motor_type_id, '{11}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 2000, 'amp-hours'),
-				(current_user, motor_type_id, null, (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 2000, 'amp-hours'),
+			values (current_user, battery_type_id, '{7, 9}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot battery', 7000, 'amp-hours'),
+				(current_user, motor_type_id, '{120, 170}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 2000, 'amp-hours'),
+				(current_user, motor_type_id, '{127, 173}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 2000, 'amp-hours'),
+				(current_user, motor_type_id, '{132, 181}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 2000, 'amp-hours'),
+				(current_user, motor_type_id, '{136, 188}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 2000, 'amp-hours'),
+				(current_user, motor_type_id, '{143, 195}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 2000, 'amp-hours'),
+				(current_user, motor_type_id, '{145, 202}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 2000, 'amp-hours'),
+				(current_user, motor_type_id, '{158, 206}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 2000, 'amp-hours'),
+				(current_user, motor_type_id, '{164, 212}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 2000, 'amp-hours'),
 				(current_user, gps_type_id, null, (select upper(substr(md5(random()::text), 0, 7))), 'tarot gps', 9999, 'hours');
 		
 		insert into asset_tb("owner", "type_id", "serial_number", "common_name")
