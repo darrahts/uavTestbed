@@ -448,10 +448,11 @@ insert into stop_code_tb ("description")
 		('low voltage'),
 		('max position error'),
 		('arrival success'),
+		('position error variance'),
 		('average position error'),
 		('low soh (battery)');
 
-
+UPDATE TABLE stop_code_tb SET "description" = 'position error variance' WHERE "description" = 'average position error';
 
 /*
     include a few different short trajectories
