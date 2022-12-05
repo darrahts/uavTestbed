@@ -355,6 +355,7 @@ insert into asset_type_tb("type", "subtype", "description")
 	values ('airframe', 'octorotor', 'osmic_2016'),
 		('battery', 'discrete-eqc', 'plett_2015'),
 		('motor', 'dc', 'generic'),
+		('esc', 'surrogate', 'generic'),
 		('sensor', 'gps', 'generic'),
 		('uav', '-', '-');
 
@@ -367,6 +368,7 @@ do $$
 		airframe_type_id integer := (select id from asset_type_tb where "type" ilike 'airframe');	 
 		battery_type_id integer := (select id from asset_type_tb where "type" ilike 'battery');
 		motor_type_id integer := (select id from asset_type_tb where "type" ilike 'motor');
+		esc_type_id integer := (select id from asset_type_tb where "type" ilike 'esc');
 		gps_type_id integer := (select id from asset_type_tb where "type" ilike 'sensor');
 		uav_type_id integer := (select id from asset_type_tb where "type" ilike 'uav');
 	begin
@@ -398,7 +400,7 @@ do $$
 		gps_id integer = (select id from  asset_tb where "type_id" = (select id from asset_type_tb where "type" ilike 'sensor') order by id desc limit 1);
 		uav_id integer := (select id from asset_tb where "type_id" = (select id from asset_type_tb where "type" ilike 'uav') order by id desc limit 1);
 	begin
-		insert into default_airframe_tb ("id", "num_motors")
+		insert into airframe_tb ("id", "num_motors")
 			values (airframe_id, num_motors);
 		insert into eqc_battery_tb ("id")
 			values (battery_id);
@@ -446,13 +448,12 @@ end $$;
 insert into stop_code_tb ("description")
 	values ('low soc'),
 		('low voltage'),
-		('max position error'),
+		('position error'),
 		('arrival success'),
 		('position error variance'),
-		('average position error'),
+		('esc fault'),
 		('low soh (battery)');
 
-UPDATE TABLE stop_code_tb SET "description" = 'position error variance' WHERE "description" = 'average position error';
 
 /*
     include a few different short trajectories

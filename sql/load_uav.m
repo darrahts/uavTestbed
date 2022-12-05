@@ -49,13 +49,24 @@ function uav = load_uav(conn, serial_number, version, api)
     % all sql queries should end with a ;
     LOAD_UAV_MOTORS.append(";");
     motors_tb = select(conn, LOAD_UAV_MOTORS);
-    
+
     % convert all tables to structs
     uav.uav = table2struct(uav_tb); 
     uav.airframe = table2struct(airframe_tb);
     uav.battery = table2struct(battery_tb);
     uav.motors = table2struct(motors_tb);
     uav.gps = table2struct(gps_tb);
+
+    % convert pg arrays to regular arrays
+    uav.battery.process_id = str2double(strsplit(erase(char(uav.battery.process_id), ["{", "}", "'"]), ','));
+    uav.airframe.process_id = str2double(strsplit(erase(char(uav.airframe.process_id), ["{", "}", "'"]), ','));
+    for i=1:length(uav.motors)
+        uav.motors(i).process_id = str2double(strsplit(erase(char(uav.motors(i).process_id), ["{", "}", "'"]), ','));
+    end
+    uav.motors_id = str2double(strsplit(erase(char(uav.uav.motors_id), ["{", "}", "'"]), ','));
+    uav.escs_id = str2double(strsplit(erase(char(uav.uav.escs_id), ["{", "}", "'"]), ','));
+
+    
     
     % check if there are any new components and if so sample the the
     % initial degradation parameter values

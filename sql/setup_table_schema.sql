@@ -165,8 +165,8 @@ create table trajectory_tb(
 	   NOTE: "ct" and "cq" are thrust and torque constants of the MOTOR, not airframe. these parameters will stay here to remain 
 	   backwards compatable with previous simulations but will be removed in the future. 
 */
-create table default_airframe_tb(
-	"id" int not null,
+create table airframe_tb(
+	"id" serial not null,
 	"version" int not null default 1,
 	"num_motors" int not null default 8,
 	"mass" float not null default 1.8,
@@ -188,7 +188,7 @@ create table default_airframe_tb(
         description here
 */
 create table dc_motor_tb(
-    "id" int  not null,
+    "id" serial not null,
     "version" int not null default 1,
     "motor_number" int,
     "Req" float not null default 0.2371,
@@ -207,10 +207,23 @@ create table dc_motor_tb(
 
 
 /*
+		description here
+*/
+create table esc_tb(
+	"id" serial not null,
+	"version" int not null default 1,
+	"esc_number" int,
+	unique("id", "version"),
+	primary key ("id", "version"),
+	foreign key (id, "version") references asset_tb("id", "version")
+);
+
+
+/*
         description here
 */
 create table eqc_battery_tb (
-    "id" int  not null,
+    "id" serial not null,
     "version" int not null default 1,
 	"cycles" int  default 0,
 	"Q" float not null default 15.0,
@@ -240,14 +253,15 @@ create table eqc_battery_tb (
 		the simulation that could be moved here for example.
 */
 create table uav_tb(
-	"id" int not null,
+	"id" serial not null,
 	"version" int not null default 1,
 	"airframe_id" int not null,
 	"battery_id" int not null,
 	"motors_id" int array,
-	"m1_id" int not null,
-	"m2_id" int not null,
-	"m3_id" int not null,
+	"escs_id" int array,
+	"m1_id" int,
+	"m2_id" int,
+	"m3_id" int,
 	"m4_id" int,
 	"m5_id" int,
 	"m6_id" int,
@@ -303,7 +317,7 @@ create table session_tb(
 
 
 create table sensor_tb(
-    "id" int  not null,
+    "id" serial not null,
     "version" int not null default 1,
 	"voltage_supply" float not null default 12.0,
 	"avg_watts" float not null default 8.26,
