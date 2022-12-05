@@ -1,0 +1,16 @@
+
+stochastic
+
+ description    |stop_code|count|
+ ---------------+---------+-----+
+ low soc        |        1| 1069|
+ low voltage    |        2| 2131|
+
+
+
+true
+
+ description    |stop_code|count|
+ ---------------+---------+-----+
+ low voltage    |        2|    2|
+ arrival success|        4|   70|

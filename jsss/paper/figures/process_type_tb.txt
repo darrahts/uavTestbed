@@ -1,0 +1,7 @@
+ id|type       |subtype1|subtype2           |
+ --+-----------+--------+-------------------+
+  1|degradation|battery |capacitance        |
+  2|degradation|battery |internal resistance|
+  3|degradation|motor   |internal resistance|
+  4|environment|wind    |gust               |
+  5|environment|wind    |constant           |
