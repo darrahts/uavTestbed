@@ -8,13 +8,13 @@ begin
 								unique("id", "version"),
 								primary key ("id", "version"),
 								foreign key (id, "version") references asset_tb("id", "version")
-					)', new."type", new."subtype");
+					)', new."subtype", new."type");
 	return new;
 end;
-$trigger_create_table$ 
+$trg_create_table$ 
 language plpgsql;
 
-create or replace trigger trg_create_on_insert 
-	after insert on test
+create or replace trigger trg_create_on_asset_type 
+	after insert on asset_type_tb
 	for each row
 	execute procedure create_table();
