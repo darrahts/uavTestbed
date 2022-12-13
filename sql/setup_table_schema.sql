@@ -179,7 +179,7 @@ create table airframe_tb(
 	constraint check_num_motors check (num_motors in (3, 4, 6, 8)),
 	unique("id", "version"),
 	primary key ("id", "version"),
-	foreign key (id, "version") references asset_tb("id", "version")
+	foreign key ("id", "version") references asset_tb("id", "version")
 );
 
 
@@ -202,7 +202,7 @@ create table dc_motor_tb(
 	"current_limit" float default 11.0,
 	unique("id", "version"),
 	primary key ("id", "version"),
-	foreign key (id, "version") references asset_tb("id", "version")
+	foreign key ("id", "version") references asset_tb("id", "version")
 );
 
 
@@ -213,9 +213,10 @@ create table esc_tb(
 	"id" serial not null,
 	"version" int not null default 1,
 	"esc_number" int,
+	"params" json default '{}',
 	unique("id", "version"),
 	primary key ("id", "version"),
-	foreign key (id, "version") references asset_tb("id", "version")
+	foreign key ("id", "version") references asset_tb("id", "version")
 );
 
 
@@ -244,7 +245,7 @@ create table eqc_battery_tb (
 	"soc_ocv" json default '{}',
 	unique("id", "version"),
 	primary key ("id", "version"),
-	foreign key (id, "version") references asset_tb("id", "version")
+	foreign key ("id", "version") references asset_tb("id", "version")
 );
 
 
@@ -397,6 +398,8 @@ create table telemetry_tb (
     "wind_gust_x" float,
     "wind_gust_y" float,
     "wind_gust_z" float,
+	"wind_direction" float,
+	"wind_magnitude" float,
 	"m1_vref" float,
     "m1_rpm" float,
     "m1_torque" float,
