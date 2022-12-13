@@ -50,10 +50,24 @@ function uav = load_uav(conn, serial_number, version, api)
     LOAD_UAV_MOTORS.append(";");
     motors_tb = select(conn, LOAD_UAV_MOTORS);
 
+    % convert pg array to regular array
+    uav_tb.escs_id = str2double(strsplit(erase(char(uav_tb.escs_id{1}), ["{", "}", "'"]), ','));
+    % next the query is dynamically generated based on the number of motors
+    LOAD_UAV_ESCS = eval(api.matlab.assets.LOAD_UAV_ESCS);
+%     for i=2:num_motors
+%          s = sprintf(' or mt.id = %d', uav_tb.(sprintf('m%d_id', i)));
+%          LOAD_UAV_ESCS = join([LOAD_UAV_ESCS s]);
+%     end
+    % all sql queries should end with a ;
+    LOAD_UAV_ESCS.append(";");
+    escs_tb = select(conn, LOAD_UAV_ESCS);
+
+
     % convert all tables to structs
     uav.uav = table2struct(uav_tb); 
     uav.airframe = table2struct(airframe_tb);
     uav.battery = table2struct(battery_tb);
+    uav.escs = table2struct(escs_tb);
     uav.motors = table2struct(motors_tb);
     uav.gps = table2struct(gps_tb);
 
@@ -63,9 +77,11 @@ function uav = load_uav(conn, serial_number, version, api)
     for i=1:length(uav.motors)
         uav.motors(i).process_id = str2double(strsplit(erase(char(uav.motors(i).process_id), ["{", "}", "'"]), ','));
     end
-    uav.motors_id = str2double(strsplit(erase(char(uav.uav.motors_id), ["{", "}", "'"]), ','));
-    uav.escs_id = str2double(strsplit(erase(char(uav.uav.escs_id), ["{", "}", "'"]), ','));
 
+    for i=1:length(uav.escs)
+        uav.escs(i).process_id = str2double(strsplit(erase(char(uav.escs(i).process_id), ["{", "}", "'"]), ','));
+        uav.escs(i).params = str2double(strsplit(erase(char(uav.escs(i).params), ["{", "}", "'"]), ','));
+    end
     
     
     % check if there are any new components and if so sample the the
