@@ -55,6 +55,7 @@ read -p "setup table schema? (y/n): " ans
 if [[ $ans = y ]]
 then
     psql -d uav2_db -f sql/setup_table_schema.sql -U $USER 
+    psql -d uav2_db -f sql/create_table_trigger.sql -U $USER
 fi
 unset ans
 
