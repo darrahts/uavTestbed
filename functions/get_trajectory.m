@@ -16,7 +16,7 @@ function trajectory = get_trajectory(trajectory_tb, idx)
     % trajectory.destination = str2double(regexp(trajectory.destination,'[+-]?\d+\.?\d*','match'));
     % trajectory.destination = [trajectory.destination];
     trajectory.destination = trajectory.start;
-    trajectory.sample_time = 10;
+    trajectory.sample_time = 2;
     if sum(strcmp(fieldnames(trajectory), 'path')) == 0
         map = load(sprintf('trajectories/%s.mat', trajectory.map)).(sprintf('%s', trajectory.map));
         prm = mobileRobotPRM;
@@ -34,7 +34,7 @@ function trajectory = get_trajectory(trajectory_tb, idx)
     end
 
     if isempty(trajectory.x_ref_points) | isnan(trajectory.x_ref_points)
-        trajectory.reference_velocity = 1.0;        
+        trajectory.reference_velocity = 3.0;        
         trajectory.path_distance = calculatedistance(trajectory.path); % total distance to be covered
         time_interval = calculatetime(trajectory.path_distance,trajectory.reference_velocity); 
         trajectory.path_time = time_interval(2)/60;
@@ -51,6 +51,6 @@ function trajectory = get_trajectory(trajectory_tb, idx)
         trajectory.y_ref_points = [time_samples trajectory.y_ref_points];
     end
     trajectory = rmfield(trajectory, {'x_waypoints', 'y_waypoints'});
-
+    %trajectory.waypoints = [trajectory.start; trajectory.waypoints; trajectory.destination];
 end
 
