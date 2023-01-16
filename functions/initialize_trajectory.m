@@ -64,4 +64,6 @@ function [trajectory, prm] = initialize_trajectory(waypoints, velocity)
     trajectory.path_distance = path_distance;
     trajectory.arrival_times = arrival_times;
 
+    trajectory.id = 8;
+
 end
