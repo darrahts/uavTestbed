@@ -134,6 +134,8 @@ function uav = load_uav(conn, serial_number, version, api)
     % this is hard coded here because loading
     uav.dynamics_srate = .025;
     
+    uav.uav.total_flight_time = uav.uav.age;
+    uav.uav.total_distance = uav.uav.age2;
     
 end
 

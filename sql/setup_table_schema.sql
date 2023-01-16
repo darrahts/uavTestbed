@@ -89,8 +89,10 @@ create table asset_tb(
     "serial_number" varchar(32) not null,
 	"common_name" varchar(32),
     "age" float(16) default 0,
+	"age2" float(16) default 0,
     "eol" float(16) default 0,
     "units" varchar(32), 
+	"units2" varchar(32),
 	unique("serial_number", "version"),
 	unique("id", "version"),
 	primary key ("id", "version")
@@ -295,6 +297,10 @@ create table session_tb(
 	"m6_avg_current" float,
 	"m7_avg_current" float,
 	"m8_avg_current" float,
+	"avg_vel" float,
+	"std_vel" float,
+	"avg_acc" float,
+	"std_acc" float,
 	"avg_pos_err" float not null,
 	"max_pos_err" float not null,
 	"std_pos_err" float not null,
@@ -398,6 +404,9 @@ create table telemetry_tb (
     "wind_gust_x" float,
     "wind_gust_y" float,
     "wind_gust_z" float,
+	"wind_const_x" float,
+    "wind_const_y" float,
+    "wind_const_z" float,
 	"wind_direction" float,
 	"wind_magnitude" float,
 	"m1_vref" float,
@@ -449,6 +458,8 @@ create table telemetry_tb (
     "x_vel_true" float not null,
     "y_vel_true" float not null,
     "z_vel_true" float not null,
+	"velocity" float,
+	"acceleration" float,
 	"flight_id" int references session_tb(id)
 );
 
