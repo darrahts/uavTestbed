@@ -25,7 +25,10 @@ for i = 1:length(uav.motors)
     uav.motors(i).Req = normrnd(m_mu, m_std);
     
     % min bound on motor resistance
-    uav.motors(i).Req = max(.269, uav.motors(i).Req);
+    uav.motors(i).Req = max(.268, uav.motors(i).Req);
+    uav.motors(i).Req = uav.motors(i).Req + normrnd(uav.motors(i).Req * .01, uav.motors(i).Req * .005);
 end
-%uav.uav.age = 0;
-uav.uav.age = uav.uav.age + amp_hours;
+
+uav.uav.age = uav.uav.age +  trajectory.flight_time;
+uav.uav.total_distance = uav.uav.total_distance + trajectory.path_distance;
+uav.uav.total_flight_time = uav.uav.total_flight_time + trajectory.flight_time;

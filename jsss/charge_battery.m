@@ -1,5 +1,3 @@
-uav.battery.v = battery.battery_true.v.Data(end);
-uav.battery.z = battery.battery_true.z.Data(end);
 
 u = -22; %-uav.battery.Q;  % Q degrades but u should remain the factory value of 22 for the case of the tarot
 charge = sim('continuous_battery.slx');

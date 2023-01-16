@@ -27,6 +27,7 @@ api = jsondecode(fileread('sql/api.json'));
 % username=input('username: ', 's');
 % password=input('password: ', 's');
 
+username = 'macslab';
 password = 'Ch0colate!';
 db_name = 'uav2_db';
 
@@ -130,12 +131,13 @@ z_end = battery.battery_true.z.Data(end);
 v_start = battery.battery_true.v.Data(1);
 v_end = battery.battery_true.v.Data(end);
 
+uav.battery.v = v_end;
+uav.battery.z = z_end;
+
 dt_stop = dt_start + minutes(time.Data(end, 1));
 
 stop_code = max(find(any(stop_codes.Data(:,:))));
 
-disp('update component degradation');
-update_component_degradation;
 
 disp('checking constraints')
 if mean(errors.euclidean_pos_err.Data) > sim_params.perf_param_thresh.avg_pos_err
@@ -161,11 +163,14 @@ end
 disp('charge battery');
 charge_battery;
 
-disp('update asset age');
-update_assets_age;
+disp('update component degradation');
+update_component_degradation;
 
 disp('update component degradation parameters');
 update_component_parameters;
+
+disp('update asset age');
+update_assets_age;
 
 disp('insert flight data');
 insert_flight_data;
