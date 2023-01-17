@@ -51,6 +51,7 @@ function uav = load_uav(conn, serial_number, version, api)
     motors_tb = select(conn, LOAD_UAV_MOTORS);
 
     % convert pg array to regular array
+    uav_tb.motors_id = str2double(strsplit(erase(char(uav_tb.motors_id{1}), ["{", "}", "'"]), ','));
     uav_tb.escs_id = str2double(strsplit(erase(char(uav_tb.escs_id{1}), ["{", "}", "'"]), ','));
     % next the query is dynamically generated based on the number of motors
     LOAD_UAV_ESCS = eval(api.matlab.assets.LOAD_UAV_ESCS);

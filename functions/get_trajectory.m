@@ -49,14 +49,14 @@ function trajectory = get_trajectory(trajectory_tb, idx)
         trajectory.acceleration_profile = qdd;
 
 
-        arr_t = zeros(length(pth),1);
-        arrival_times = zeros(length(waypoints),1);
+        arr_t = zeros(length(trajectory.path),1);
+        arrival_times = zeros(length(trajectory.waypoints),1);
         j = 2;
-        for i=1:length(pth)-1
-            dist = calculatedistance(pth(i:i+1,1:2));
-            t = calculatetime(dist, velocity);
+        for i=1:length(trajectory.path)-1
+            dist = calculatedistance(trajectory.path(i:i+1,1:2));
+            t = calculatetime(dist, trajectory.velocity);
             arr_t(i+1) = arr_t(i) + t(2)*1.0;
-            res = find(ismember(waypoints, pth(i+1,:), 'row'));
+            res = find(ismember(trajectory.waypoints, trajectory.path(i+1,:), 'row'));
             if length(res) > 0
                 arrival_times(j) = arr_t(i+1);
                 j = j + 1;
