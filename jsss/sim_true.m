@@ -11,9 +11,11 @@ disp(rand_num);
 % root_directory = strjoin(file_path(1:idx), filesep);
 % % switch to the root directory
 
-username = char(java.lang.System.getProperty('user.name'));
+%username = char(java.lang.System.getProperty('user.name'));
 
-root_directory = sprintf('/home/%s/uavtestbed', username);
+%root_directory = sprintf('/home/%s/uavtestbed', username);
+
+root_directory = sprintf('/home/%s/uavtestbed', 'oem');
 
 cd(root_directory);
 
@@ -27,7 +29,7 @@ api = jsondecode(fileread('sql/api.json'));
 % username=input('username: ', 's');
 % password=input('password: ', 's');
 
-username = 'macslab';
+username = 'oem';
 password = 'Ch0colate!';
 db_name = 'uav2_db';
 
@@ -43,7 +45,6 @@ if isempty(group_id)
     execute(conn, sprintf('insert into group_tb("info") values(''%s'')', experiment_info));
     group_id = select(conn, sprintf("select id from group_tb where info ilike '%%%s%%';", experiment_info)).id;
 end
-
 
 disp('loading uav');
 
@@ -85,13 +86,19 @@ end
 
 % load the trajectory information
 trajectory_tb = readtable('trajectories/trajectories_exported.csv');
-trajectory_tb = trajectory_tb(trajectory_tb.path_time < uav.max_flight_time - 1.95, :);
-trajectory_tb = trajectory_tb(trajectory_tb.path_time > uav.max_flight_time - 5, :);
+trajectory_tb = trajectory_tb(trajectory_tb.path_time < uav.max_flight_time - 8, :);
+trajectory_tb = trajectory_tb(trajectory_tb.path_time > uav.max_flight_time - 12, :);
 trajectory_tb = sortrows(trajectory_tb, "path_time", 'descend');
+
+trajectory = get_trajectory(trajectory_tb, randi(height(trajectory_tb)));
 
 setup_sim_params;
 
 load_process_data;
+
+
+
+
 
 
 % initialize the degradation parameters to randomly sampled values
@@ -120,11 +127,9 @@ for i = 1:length(uav.motors)
     uav.motors(i).Req = max(.265, uav.motors(i).Req);
 end
 
-trajectory = get_trajectory(trajectory_tb, randi(height(trajectory_tb)));
-
 disp('sim true');
-%evalin('base','sim(''simulink/uav_simulation_tarot'')')
 sim('simulink/uav_simulation_tarot.slx');
+
 
 z_start = battery.battery_true.z.Data(1);
 z_end = battery.battery_true.z.Data(end);
@@ -176,17 +181,12 @@ disp('insert flight data');
 insert_flight_data;
 
 execute(conn, sprintf('insert into true_age_tb ("flight_id", "stop_code", "trajectory_id", "uav_age", "battery_age", "m1_age","m2_age","m3_age","m4_age","m5_age","m6_age","m7_age","m8_age") values (%d, %d, %d, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f);', ...
-    flight_id, stop_code, trajectory.id, uav.uav.age, uav.battery.age, uav.motors(1).age, uav.motors(2).age, uav.motors(3).age, uav.motors(4).age, uav.motors(5).age, uav.motors(6).age, uav.motors(7).age, uav.motors(8).age))
-conn.close();
-clear conn;
+    flight_id, stop_code, trajectory.id, uav.uav.age, uav.battery.age, uav.motors(1).age, uav.motors(2).age, uav.motors(3).age, uav.motors(4).age, uav.motors(5).age, uav.motors(6).age, uav.motors(7).age, uav.motors(8).age));
 
 disp('saving uav')
 
-uav.battery.process_id = char(uav.battery.process_id);
-uav.airframe.process_id = char(uav.airframe.process_id);
-for i=1:length(uav.motors)
-    uav.motors(i).process_id = char(uav.motors(i).process_id);
-end
+conn.close();
+clear conn;
 
 save('uav.mat', 'uav');
 
