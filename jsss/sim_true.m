@@ -11,11 +11,9 @@ disp(rand_num);
 % root_directory = strjoin(file_path(1:idx), filesep);
 % % switch to the root directory
 
-%username = char(java.lang.System.getProperty('user.name'));
+username = char(java.lang.System.getProperty('user.name'));
 
-%root_directory = sprintf('/home/%s/uavtestbed', username);
-
-root_directory = sprintf('/home/%s/uavtestbed', 'oem');
+root_directory = sprintf('/home/%s/uavtestbed', username);
 
 cd(root_directory);
 
@@ -29,7 +27,6 @@ api = jsondecode(fileread('sql/api.json'));
 % username=input('username: ', 's');
 % password=input('password: ', 's');
 
-username = 'oem';
 password = 'Ch0colate!';
 db_name = 'uav2_db';
 
@@ -185,6 +182,7 @@ execute(conn, sprintf('insert into true_age_tb ("flight_id", "stop_code", "traje
 
 disp('saving uav')
 
+close(conn);
 conn.close();
 clear conn;
 
