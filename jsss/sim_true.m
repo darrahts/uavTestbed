@@ -89,6 +89,8 @@ trajectory_tb = sortrows(trajectory_tb, "path_time", 'descend');
 
 trajectory = get_trajectory(trajectory_tb, randi(height(trajectory_tb)));
 
+clear trajectory_tb;
+
 setup_sim_params;
 
 load_process_data;

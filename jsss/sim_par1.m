@@ -32,8 +32,23 @@ db_name = 'uav2_db';
 
 %the database connection
 conn = database(db_name, username, password);
+
 stop_code_tb = select(conn, "select * from stop_code_tb;");
+
 load('uav.mat');
+load('originalmap.mat');
+
+% load the trajectory information
+trajectory_tb = readtable('trajectories/trajectories_exported.csv');
+trajectory_tb = trajectory_tb(trajectory_tb.path_time < uav.max_flight_time - 8, :);
+trajectory_tb = trajectory_tb(trajectory_tb.path_time > uav.max_flight_time - 12, :);
+trajectory_tb = sortrows(trajectory_tb, "path_time", 'descend');
+
+trajectory = get_trajectory(trajectory_tb, randi(height(trajectory_tb)));
+
+clear trajectory_tb;
+
+
 %the battery never charges to the same output voltage level
 uav.battery.v = pearsrnd(uav.battery.v-.25, uav.battery.v*.01, -1, 12);
 
@@ -41,34 +56,10 @@ uav.battery.z = min(1.01, pearsrnd(uav.battery.z-.0025, uav.battery.z*.01, -1, 1
 
 flight_id = select(conn, "select flight_id from true_age_tb order by id desc limit 1;").flight_id;
 
-
-process_type = 'environment';
-process_tb = select(conn, eval(api.matlab.process.LOAD_ALL_PROCESSES)) ; 
-
-for i = 1:height(process_tb)
-    params = process_tb(i, 'parameters').parameters{1};
-    res = jsondecode(string(params));
-    fn = fieldnames(res);
-    for j = 1:length(fn)
-        processes.(sprintf("%s", process_type)).(sprintf("%s", process_tb(i, 'subtype').subtype{1})).(sprintf("%s", process_tb(i, 'subtype2').subtype2{1})).(sprintf("%s", fn{j})) = res.(fn{j});
-    end
-end
-clear i;
-
-conn.close();
-clear conn;
-
-% load the trajectory information
-trajectory_tb = readtable('trajectories/trajectories_exported.csv');
-trajectory_tb = trajectory_tb(trajectory_tb.path_time < uav.max_flight_time - 1.95, :);
-trajectory_tb = trajectory_tb(trajectory_tb.path_time > uav.max_flight_time - 5, :);
-trajectory_tb = sortrows(trajectory_tb, "path_time", 'descend');
-
-trajectory = get_trajectory(trajectory_tb, randi(height(trajectory_tb)));
-
-clear trajectory_tb;
-
 setup_sim_params;
+
+load_process_data;
+
 
 
    %[TODO] implement estimators and pull covariance 
@@ -103,12 +94,17 @@ while 1
         break;
     end
 
-    sim('simulink/tarot_model1.slx');
+    sim('simulink/uav_simulation_tarot1.slx');
+
 
     z_start = battery.battery_true.z.Data(1);
     z_end = battery.battery_true.z.Data(end);
     v_start = battery.battery_true.v.Data(1);
     v_end = battery.battery_true.v.Data(end);
+
+    uav.battery.v = v_end;
+    uav.battery.z = z_end;
+
 
     stop_code = max(find(any(stop_codes.Data(:,:))));
 
@@ -116,16 +112,17 @@ while 1
         stop_code = stop_code_tb.id(strcmp(stop_code_tb.description, 'average position error'));
     end
 
-    update_component_degradation;
+    if  uav.battery.Q < sim_params.perf_param_thresh.min_soh_batt
+        stop_code = stop_code_tb.id(strcmp(stop_code_tb.description, 'low soh (battery)'));
+        disp('low charge capacitance, no longer safe to fly');
+    end  
 
+ 
+    disp('charge battery');
     charge_battery;
 
-    password = 'Ch0colate!';
-    db_name = 'uav2_db';
-    
-    %the database connection
-    conn = database(db_name, username, password);
-
+    disp('update component degradation');
+    update_component_degradation;
 
     var_names = get_column_names(conn, 'stochastic_summary_tb');
     flight_summary_tb = table(max(find(any(stop_codes.Data(:,:)))), ...
@@ -184,12 +181,9 @@ while 1
     % write the data to the database
     sqlwrite(conn, 'stochastic_degradation_tb', flight_degradation_tb);
 
-    conn.close();
-    clear conn;
-
     flight_num = flight_num + 1;
     
-    if flight_num == 3
+    if flight_num > 150
         break
     end
 
@@ -202,19 +196,11 @@ while 1
 
 end
 
-%uav.uav.age = 1.0;
-
-password = 'Ch0colate!';
-db_name = 'uav2_db';
-
-%the database connection
-conn = database(db_name, username, password);
-
 execute(conn, sprintf('insert into stochastic_tb ("flight_id", "stop_code", "trajectory_id", "uav_age", "battery_age", "m1_age","m2_age","m3_age","m4_age","m5_age","m6_age","m7_age","m8_age", "session_num") values (%d, %d, %d, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %d);', ...
     flight_id, stop_code, trajectory.id, uav.uav.age, uav.battery.age, uav.motors(1).age, uav.motors(2).age, uav.motors(3).age, uav.motors(4).age, uav.motors(5).age, uav.motors(6).age, uav.motors(7).age, uav.motors(8).age, session_num))
 
 conn.close();
 clear conn;
 
-
-
+disp('exiting');
+exit;
