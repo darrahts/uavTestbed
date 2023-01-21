@@ -1,23 +1,23 @@
-function [trajectory, prm] = initialize_trajectory(waypoints, velocity)
+function [trajectory, prm] = initialize_trajectory(prm, waypoints, velocity)
     
-    num_nodes = 2000;
-    conn_dist = 25;
+%     num_nodes = 8000;
+%     conn_dist = 25;
 
     trajectory.waypoints = waypoints;
     trajectory.start = waypoints(1,:);
     trajectory.destination = waypoints(end,:);
     trajectory.velocity = velocity;
 
-    map = load('trajectories/complexmap2.mat');
-    map = map.complexMap;
-    resolution = .1;
-    radius = 2;
-    map = binaryOccupancyMap(map, resolution);
-    inflate(map, radius);
-    prm = mobileRobotPRM('Map', map);
-%     prm.Map = map;
-    prm.NumNodes = num_nodes;
-    prm.ConnectionDistance = conn_dist;
+%     map = load('trajectories/bigmap.mat');
+%     map = map.map;
+%     resolution = .1;
+%     radius = 2;
+%     map = binaryOccupancyMap(map, resolution);
+%     inflate(map, radius);
+%     prm = mobileRobotPRM('Map', map);
+% %     prm.Map = map;
+%     prm.NumNodes = num_nodes;
+%     prm.ConnectionDistance = conn_dist;
     
     pth = findpath(prm, waypoints(1,:), waypoints(2,:));
     for i = 3:length(waypoints(:,1))
