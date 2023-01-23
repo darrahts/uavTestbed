@@ -95,11 +95,6 @@ setup_sim_params;
 
 load_process_data;
 
-
-
-
-
-
 % initialize the degradation parameters to randomly sampled values
    %[TODO] implement estimators and pull covariance 
 Q_mu = polyval(uav.battery.q_coef, uav.battery.age);
@@ -163,11 +158,8 @@ while stop_count < 5
 
     if stop_code ~= 4
         fprintf("Threshold violation or failure indicated by stop_code %d\n", stop_code);
-
-        fid = fopen('fail.txt', 'a+');
-        fprintf(fid, '1');
-        fclose(fid);
-
+        stop_count = stop_count + 1;
+        
     end
 
 
