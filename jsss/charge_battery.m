@@ -9,18 +9,6 @@ amp_hours = avg_current * charge_time;
 charge_discount = .9;
 uav.battery.age = uav.battery.age + (amp_hours * charge_discount);
 
-Q_mu = polyval(uav.battery.q_coef, uav.battery.age);
-Q_std = .02*Q_mu;
-
-R0_mu = polyval(uav.battery.r_coef, uav.battery.age);
-R0_std = .02*R0_mu;
-
-uav.battery.Q = normrnd(Q_mu, Q_std);
-uav.battery.R0 = normrnd(R0_mu, R0_std);
-
-uav.battery.Q = min(22.5, uav.battery.Q);
-uav.battery.R0 = max(.00105, uav.battery.R0);
-
 %the battery never charges to the same output voltage level
 uav.battery.v = pearsrnd(uav.battery.v-.25, uav.battery.v*.01, -1, 12);
 uav.battery.z = min(1.01, pearsrnd(uav.battery.z-.0025, uav.battery.z*.01, -1, 12));

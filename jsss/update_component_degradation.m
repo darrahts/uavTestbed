@@ -12,9 +12,9 @@ R0_mu = polyval(uav.battery.r_coef, uav.battery.age);
 R0_std = .02*R0_mu;
 
 uav.battery.Q = normrnd(Q_mu, Q_std);
-uav.battery.Q = min(22.5, uav.battery.Q);
-
 uav.battery.R0 = normrnd(R0_mu, R0_std);
+
+uav.battery.Q = min(22.5, uav.battery.Q);
 uav.battery.R0 = max(.00105, uav.battery.R0);
 
 for i = 1:length(uav.motors)

@@ -18,10 +18,11 @@ function trajectory = get_trajectory(trajectory_tb, idx)
     trajectory.destination = trajectory.start;
     trajectory.sample_time = 1;
     if sum(strcmp(fieldnames(trajectory), 'path')) == 0
-        map = load(sprintf('trajectories/%s.mat', trajectory.map)).(sprintf('%s', trajectory.map));
+        map = load(sprintf('trajectories/%s.mat', trajectory.map)).map;
+        inflate(map, 2);
         prm = mobileRobotPRM;
         prm.Map = map;
-        prm.NumNodes = 2000;
+        prm.NumNodes = 8000;
         prm.ConnectionDistance = 25;
 
         trajectory.path = findpath(prm, trajectory.start, trajectory.waypoints(1,:));
