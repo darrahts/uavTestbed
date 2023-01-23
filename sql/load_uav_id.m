@@ -1,0 +1,142 @@
+function uav = load_uav(conn, serial_number, version, api)
+    %%
+    %       @brief: Loads a complete UAV model by serial number
+    %
+    %       @params: 
+    %           conn - the database connection object
+    %           serial_number - the unique identifier of the asset
+    %
+    %       @returns: a UAV struct containing the airframe, battery, and
+    %       motors
+    %
+    %       @constraints: 
+    %           exists(serial_number)
+    %
+    %       @bugs:
+    %           does not properly read NULL value, reads as -2147483648
+    %%
+    
+    % load the UAV record from the db
+    uav_tb = select(conn, eval(api.matlab.assets.LOAD_UAV_BY_SERIAL));
+ 
+    % load the airframe associated with the UAV
+    airframe_tb = select(conn, eval(api.matlab.assets.LOAD_UAV_AIRFRAME));
+    
+    % load the battery associated with the UAV
+    battery_tb = select(conn, eval(api.matlab.assets.LOAD_UAV_BATTERY));
+    
+    % load the gps associated with the UAV
+    gps_tb = select(conn, eval(api.matlab.assets.LOAD_UAV_GPS));
+    
+    % the motors are a bit different, first see how many motors there are
+    % either 8, 6, 4, or 3 motors are valid motor numbers.
+    if uav_tb.m8_id > 0
+        num_motors = 8;
+    elseif uav_tb.m6_id > 0
+        num_motors = 6;
+    elseif uav_tb.m4_id > 0
+        num_motors = 4;
+    else
+        num_motors = 3;
+    end
+ 
+    % next the query is dynamically generated based on the number of motors
+    LOAD_UAV_MOTORS = eval(api.matlab.assets.LOAD_UAV_MOTORS);
+    for i=2:num_motors
+         s = sprintf(' or mt.id = %d', uav_tb.(sprintf('m%d_id', i)));
+         LOAD_UAV_MOTORS = join([LOAD_UAV_MOTORS s]);
+    end
+    % all sql queries should end with a ;
+    LOAD_UAV_MOTORS.append(";");
+    motors_tb = select(conn, LOAD_UAV_MOTORS);
+
+    % convert pg array to regular array
+    uav_tb.motors_id = str2double(strsplit(erase(char(uav_tb.motors_id{1}), ["{", "}", "'"]), ','));
+    uav_tb.escs_id = str2double(strsplit(erase(char(uav_tb.escs_id{1}), ["{", "}", "'"]), ','));
+    % next the query is dynamically generated based on the number of motors
+    LOAD_UAV_ESCS = eval(api.matlab.assets.LOAD_UAV_ESCS);
+%     for i=2:num_motors
+%          s = sprintf(' or mt.id = %d', uav_tb.(sprintf('m%d_id', i)));
+%          LOAD_UAV_ESCS = join([LOAD_UAV_ESCS s]);
+%     end
+    % all sql queries should end with a ;
+    LOAD_UAV_ESCS.append(";");
+    escs_tb = select(conn, LOAD_UAV_ESCS);
+
+
+    % convert all tables to structs
+    uav.uav = table2struct(uav_tb); 
+    uav.airframe = table2struct(airframe_tb);
+    uav.battery = table2struct(battery_tb);
+    uav.escs = table2struct(escs_tb);
+    uav.motors = table2struct(motors_tb);
+    uav.gps = table2struct(gps_tb);
+
+    % convert pg arrays to regular arrays
+    uav.battery.process_id = str2double(strsplit(erase(char(uav.battery.process_id), ["{", "}", "'"]), ','));
+    uav.airframe.process_id = str2double(strsplit(erase(char(uav.airframe.process_id), ["{", "}", "'"]), ','));
+    for i=1:length(uav.motors)
+        uav.motors(i).process_id = str2double(strsplit(erase(char(uav.motors(i).process_id), ["{", "}", "'"]), ','));
+    end
+
+    for i=1:length(uav.escs)
+        uav.escs(i).process_id = str2double(strsplit(erase(char(uav.escs(i).process_id), ["{", "}", "'"]), ','));
+        uav.escs(i).params = str2double(strsplit(erase(char(uav.escs(i).params), ["{", "}", "'"]), ','));
+    end
+    
+    
+    % check if there are any new components and if so sample the the
+    % initial degradation parameter values
+    % battery
+    if uav.battery.age == 0
+       uav.battery.Q = normrnd(uav.battery.Q, .02*uav.battery.Q);
+       uav.battery.R0 = normrnd(uav.battery.R0, .02*uav.battery.R0);
+    end
+    % motors
+    for i = 1:num_motors
+       if uav.motors(i).age == 0
+           uav.motors(i).Req = normrnd(uav.motors(i).Req, .02*uav.motors(i).Req);
+       end
+    end
+    
+    % the Jb matrix is stored as a double array in postgres, but matlab
+    % reads it as a char array / string
+    uav.airframe.Jb = string(uav.airframe.Jb);
+    uav.airframe.Jb = erase(uav.airframe.Jb, "{");
+    uav.airframe.Jb = erase(uav.airframe.Jb, "}");
+    uav.airframe.Jb = reshape(str2num(uav.airframe.Jb), [3,3]);
+    
+    if contains(uav.uav.common_name, 'tarot')
+    % this is the relationship between state of charge and voltage
+    % here for backwards compatability, to be removed in the future
+        %print(uav.battery.soc_ocv)
+        %print(class(uav.battery.soc_ocv))
+        res = jsondecode(char(uav.battery.soc_ocv.getValue));
+        if contains(fieldnames(res), 'z_coef')
+           uav.battery.z_coef = res.z_coef'; 
+           uav.battery = rmfield(uav.battery, 'soc_ocv');
+        end
+    else
+        if uav.battery.v0 > 4.1 && uav.battery.v0 < 4.3
+            uav.battery.soc_ocv = load('degradation/soc_ocv.mat').soc_ocv;
+            
+        end
+    end
+    
+    % easier access to some variable
+    uav.max_flight_time = uav.uav.max_flight_time;
+    uav.id = uav.uav.id;
+    uav.version = uav.uav.version;
+    
+    % the current implementation assumes the entire mass value is captured in
+    % the airframe (a mass field could be added to the asset class...)
+    uav.mass = uav.airframe.mass;
+    
+    % this is hard coded here because loading
+    uav.dynamics_srate = .025;
+    
+    uav.uav.total_flight_time = uav.uav.age;
+    uav.uav.total_distance = uav.uav.age2;
+    
+end
+
