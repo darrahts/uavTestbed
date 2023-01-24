@@ -65,6 +65,7 @@ if [[ $ans = y ]]
 then
     psql -d uav2_db -f sql/setup_defaults.sql -U $USER
     psql -d uav2_db -f sql/create_tarot_uav.sql -U $USER
+    for n in {1..100} ; do psql -d uav2_db -f sql/create_tarot_uav.sql -U $USER; done
 fi
 unset ans
 

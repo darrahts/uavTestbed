@@ -6,7 +6,7 @@ disp(rand_num);
 
 s = dbstack();
 row = regexp(s(1).file, '(\d*)', 'match');
-row = row{1};
+row = int32(row{1});
 
 % disp('initializing workspace');
 % % get the root directory
@@ -58,7 +58,7 @@ uav_tb = select(conn, api.matlab.assets.LOAD_ALL_UAVS);
 % uav = load_uav(conn, serial_number, version, api);
 
 uav = uav_tb(row,:);
-uav = load_uav_id(conn, api, uav)
+uav = load_uav_id(conn, api, uav);
 
 % get the start time
 dt_last = table2array(select(conn, 'select mt.dt_stop from session_tb mt order by dt_stop desc limit 1;'));
@@ -90,8 +90,8 @@ end
 
 % load the trajectory information
 trajectory_tb = readtable('trajectories/trajectories_exported.csv');
-trajectory_tb = trajectory_tb(trajectory_tb.path_time < uav.max_flight_time - 8, :);
-trajectory_tb = trajectory_tb(trajectory_tb.path_time > uav.max_flight_time - 12, :);
+trajectory_tb = trajectory_tb(trajectory_tb.path_time < 1300, :);
+trajectory_tb = trajectory_tb(trajectory_tb.path_time > 950, :);
 trajectory_tb = sortrows(trajectory_tb, "path_time", 'descend');
 
 trajectory = get_trajectory(trajectory_tb, randi(height(trajectory_tb)));

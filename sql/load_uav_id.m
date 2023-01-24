@@ -1,4 +1,4 @@
-function uav = load_uav(conn, serial_number, version, api)
+function uav = load_uav_id(conn, api, uav_tb)
     %%
     %       @brief: Loads a complete UAV model by serial number
     %
@@ -17,8 +17,11 @@ function uav = load_uav(conn, serial_number, version, api)
     %%
     
     % load the UAV record from the db
-    uav_tb = select(conn, eval(api.matlab.assets.LOAD_UAV_BY_SERIAL));
- 
+    uavid = uav_tb.id;
+    uavvers = uav_tb.version;
+    query = sprintf("select ast.*, ut.* from asset_tb ast inner join uav_tb ut on ast.id = ut.id and ast.version = ut.version where ut.id=%d and ast.version = %d;", uavid, uavvers);
+    uav_tb = select(conn, query);
+
     % load the airframe associated with the UAV
     airframe_tb = select(conn, eval(api.matlab.assets.LOAD_UAV_AIRFRAME));
     
@@ -65,7 +68,7 @@ function uav = load_uav(conn, serial_number, version, api)
 
 
     % convert all tables to structs
-    uav.uav = table2struct(uav_tb); 
+    uav.uav = table2struct(uav_tb);
     uav.airframe = table2struct(airframe_tb);
     uav.battery = table2struct(battery_tb);
     uav.escs = table2struct(escs_tb);
