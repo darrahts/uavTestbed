@@ -6,7 +6,7 @@ disp(rand_num);
 
 s = dbstack();
 row = regexp(s(1).file, '(\d*)', 'match');
-row = int32(row{1});
+row = int32(str2double(row{1}));
 
 % disp('initializing workspace');
 % % get the root directory
@@ -59,7 +59,7 @@ uav_tb = select(conn, api.matlab.assets.LOAD_ALL_UAVS);
 
 uav = uav_tb(row,:);
 uav = load_uav_id(conn, api, uav);
-
+disp(uav.id);
 % get the start time
 dt_last = table2array(select(conn, 'select mt.dt_stop from session_tb mt order by dt_stop desc limit 1;'));
 if ~isempty(dt_last)
