@@ -66,6 +66,9 @@ then
     psql -d uav2_db -f sql/setup_defaults.sql -U $USER
     psql -d uav2_db -f sql/create_tarot_uav.sql -U $USER
     for n in {1..100} ; do psql -d uav2_db -f sql/create_tarot_uav.sql -U $USER; done
+
+   # psql -d uav2_db -c "\copy trajectory_tb FROM 'trajectories/trajectories_import.csv' delimiter '|' csv" -U $USER
+
 fi
 unset ans
 

@@ -92,13 +92,13 @@ function uav = load_uav_id(conn, api, uav_tb)
     % initial degradation parameter values
     % battery
     if uav.battery.age == 0
-       uav.battery.Q = normrnd(uav.battery.Q, .02*uav.battery.Q);
-       uav.battery.R0 = normrnd(uav.battery.R0, .02*uav.battery.R0);
+       uav.battery.Q = max(uav.battery.Q*.98, normrnd(uav.battery.Q, .02*uav.battery.Q));
+       uav.battery.R0 = max(uav.battery.R0*.98, normrnd(uav.battery.R0, .02*uav.battery.R0));
     end
     % motors
     for i = 1:num_motors
        if uav.motors(i).age == 0
-           uav.motors(i).Req = normrnd(uav.motors(i).Req, .02*uav.motors(i).Req);
+           uav.motors(i).Req = max(uav.motors(i).Req*.98, normrnd(uav.motors(i).Req, .02*uav.motors(i).Req));
        end
     end
     
