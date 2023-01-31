@@ -4,6 +4,10 @@ rand_num = randi(9999999);
 rng(rand_num);
 disp(rand_num);
 
+s = dbstack();
+row = regexp(s(1).file, '(\d*)', 'match');
+row = int32(str2double(row{1}));
+
 % disp('initializing workspace');
 % % get the root directory
 % file_path = strsplit(fileparts(matlab.desktop.editor.getActiveFilename), filesep);
@@ -32,6 +36,7 @@ db_name = 'uav2_db';
 
 %the database connection
 conn = database(db_name, username, password);
+disp(conn)
 
 stop_code_tb = select(conn, "select * from stop_code_tb;");
 
@@ -48,10 +53,13 @@ disp('loading uav');
 % check out what UAVs are in the db
 uav_tb = select(conn, api.matlab.assets.LOAD_ALL_UAVS);
 
-serial_number = char(uav_tb(strcmp(uav_tb.common_name, 'tarot t18 uav'), :).serial_number);
-serial_number = string(serial_number(1,:));
-version = max(uav_tb(strcmp(uav_tb.common_name, 'tarot t18 uav'), :).version);
-uav = load_uav(conn, serial_number, version, api);
+% serial_number = char(uav_tb(strcmp(uav_tb.common_name, 'tarot t18 uav'), :).serial_number);
+% serial_number = string(serial_number(1,:));
+% version = max(uav_tb(strcmp(uav_tb.common_name, 'tarot t18 uav'), :).version);
+% uav = load_uav(conn, serial_number, version, api);
+
+uav = uav_tb(row,:);
+uav = load_uav_id(conn, api, uav)
 
 % get the start time
 dt_last = table2array(select(conn, 'select mt.dt_stop from session_tb mt order by dt_stop desc limit 1;'));
@@ -95,6 +103,7 @@ setup_sim_params;
 
 load_process_data;
 
+
 % initialize the degradation parameters to randomly sampled values
    %[TODO] implement estimators and pull covariance 
 Q_mu = polyval(uav.battery.q_coef, uav.battery.age);
@@ -117,10 +126,9 @@ for i = 1:length(uav.motors)
     m_mu = polyval(uav.motors(i).r_coef, uav.motors(i).age);
     m_std = .02*m_mu;
     uav.motors(i).Req = normrnd(m_mu, m_std);
-
      % min bound on motor resistance
-    uav.motors(i).Req = max(.268, uav.motors(i).Req);
-    uav.motors(i).Req = uav.motors(i).Req + normrnd(uav.motors(i).Req * .01, uav.motors(i).Req * .005);
+    uav.motors(i).Req = max(.265, uav.motors(i).Req);
+    uav.motors(i).Req = uav.motors(i).Req + normrnd(.002, .001);
 end
 
 stop_count = 0;

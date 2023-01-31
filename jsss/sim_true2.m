@@ -59,7 +59,7 @@ uav_tb = select(conn, api.matlab.assets.LOAD_ALL_UAVS);
 
 uav = uav_tb(row,:);
 uav = load_uav_id(conn, api, uav);
-disp(uav.id);
+
 % get the start time
 dt_last = table2array(select(conn, 'select mt.dt_stop from session_tb mt order by dt_stop desc limit 1;'));
 if ~isempty(dt_last)
@@ -130,7 +130,7 @@ for i = 1:length(uav.motors)
 end
 
 disp('sim true');
-sim('simulink/uav_simulation_tarot.slx');
+sim('simulink/uav_simulation_tarot2.slx');
 
 
 z_start = battery.battery_true.z.Data(1);

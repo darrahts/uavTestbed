@@ -6,7 +6,7 @@ disp(rand_num);
 
 s = dbstack();
 row = regexp(s(1).file, '(\d*)', 'match');
-row = row{1};
+row = int32(str2double(row{1}));
 
 % disp('initializing workspace');
 % % get the root directory
@@ -127,6 +127,7 @@ for i = 1:length(uav.motors)
     uav.motors(i).Req = normrnd(m_mu, m_std);
     % min bound on motor resistance
     uav.motors(i).Req = max(.265, uav.motors(i).Req);
+    uav.motors(i).Req = uav.motors(i).Req + normrnd(.002, .001);
 end
 
 disp('sim true');
@@ -165,7 +166,6 @@ if stop_code ~= 4
     fclose(fid);
 
 end
-
 
 disp('charge battery');
 charge_battery;

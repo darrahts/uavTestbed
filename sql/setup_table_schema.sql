@@ -391,7 +391,7 @@ create table degradation_tb (
 		new fields are easily added. 
 */
 create table telemetry_tb (
-	"dt" timestamp(6) unique not null,
+	"dt" timestamp(6) not null,
     "battery_true_v" float not null,
     "battery_true_z" float not null,
     "battery_true_r" float,
@@ -461,7 +461,8 @@ create table telemetry_tb (
     "z_vel_true" float not null,
 	"velocity" float,
 	"acceleration" float,
-	"flight_id" int references session_tb(id)
+	"flight_id" int references session_tb(id),
+	unique (flight_id, dt)
 );
 
 /*

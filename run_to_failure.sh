@@ -8,16 +8,17 @@ DATE=$(date +'%Y-%m-%d')
 
 echo $t
 
-matlab -nodesktop -nodisplay -nosplash -logfile logs/$DATE\_true\_$t.log -batch "try, run('jsss/sim_true$t.m'), catch me, fprintf('%s', string(me.message)), end; exit;" &
+# matlab -nodesktop -nodisplay -nosplash -logfile logs/$DATE\_true\_$t.log -batch "try, run('jsss/sim_true$t.m'), catch me, fprintf('%s', string(me.message)), end; exit;" &
 
+matlab -nodesktop -nodisplay -nosplash -logfile logs/$DATE\_true_rtf\_$t.log -batch "try, run('jsss/sim_true_rtf$t.m'), catch me, fprintf('%s', string(me.message)), end; exit;" &
 
-# for (( i=1; i <=$num_parallel_units; i++ ))
+# for (( i=2; i <=$num_parallel_units; i++ ))
 # do 
 #     echo "true run < $t>"
 
 #     matlab -nodesktop -nodisplay -nosplash -logfile logs/$DATE\_true\_$t.log -batch "try, run('jsss/sim_true$t.m'), catch me, fprintf('%s', string(me.message)), end; exit;" &
     
-#     t=t+1
+#     let t++
 
 #     sleep 20
 # done
