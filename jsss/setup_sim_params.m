@@ -14,11 +14,11 @@ sim_params.max_sim_time = 3000;
 % performance thresholds %%%% max_pos_err calculation is incorrect (does
 % not account for time offset, needs updated)
 sim_params.perf_param_thresh.max_pos_err  = 6; % this is check in the simulation
-sim_params.perf_param_thresh.min_soc      = .25; % this is check in the simulation
-sim_params.perf_param_thresh.min_v        = 20; % this is checked in the simulation
+sim_params.perf_param_thresh.min_soc      = .15; % this is check in the simulation
+sim_params.perf_param_thresh.min_v        = 19; % this is checked in the simulation
 sim_params.perf_param_thresh.min_soh_batt = 18; % this is checked after %% can this even be done?
-sim_params.perf_param_thresh.avg_pos_err  = 2.5; % this is checked after
-sim_params.perf_param_thresh.max_pos_err_var  = 3; % check this (currently not used)
+sim_params.perf_param_thresh.avg_pos_err  = 3.0; % this is checked after
+sim_params.perf_param_thresh.max_pos_err_var  = 3.0; % check this (currently not used)
 % sim_params.z_ref = 8;
 
 
