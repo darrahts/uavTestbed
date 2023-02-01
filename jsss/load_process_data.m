@@ -39,12 +39,9 @@ clear('description', 'i', 'params', 'j', 'proc_tb', 'process_tb', 'process_type'
 P_failure = zeros(length(uav.escs), 1);
 
 
-
-
-
-
-
-
+processes.environment.wind.gust.x(2) = 2.5;
+processes.environment.wind.gust.y(2) = 2.5;
+processes.environment.wind.gust.z(2) = .75;
 
 %process_type = 'degradation';
 %description = 'continuous';

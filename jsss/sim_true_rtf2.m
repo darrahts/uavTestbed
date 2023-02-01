@@ -7,6 +7,8 @@ disp(rand_num);
 s = dbstack();
 row = regexp(s(1).file, '(\d*)', 'match');
 row = int32(str2double(row{1}));
+disp(row)
+
 
 % disp('initializing workspace');
 % % get the root directory
@@ -52,6 +54,8 @@ disp('loading uav');
 
 % check out what UAVs are in the db
 uav_tb = select(conn, api.matlab.assets.LOAD_ALL_UAVS);
+uav_tb = sortrows(uav_tb, {'id', 'version'});
+
 
 % serial_number = char(uav_tb(strcmp(uav_tb.common_name, 'tarot t18 uav'), :).serial_number);
 % serial_number = string(serial_number(1,:));
@@ -78,6 +82,8 @@ dt_start = datetime(dt_start, 'InputFormat', 'yyyy-MM-dd HH:mm:ss');
 dt_start = dateshift(dt_start, 'start', 'second');
 % get the flight_id (the unique id in the data table)
 flight_id = table2array(select(conn, 'select id from session_tb order by id desc limit 1;')) + 1;
+sprintf('flight_id: %d', flight_id)
+
 if isempty(flight_id)
     flight_id = 1;
 end
@@ -128,14 +134,35 @@ for i = 1:length(uav.motors)
     m_std = .02*m_mu;
     uav.motors(i).Req = normrnd(m_mu, m_std);
      % min bound on motor resistance
-    uav.motors(i).Req = max(.265, uav.motors(i).Req);
-    uav.motors(i).Req = uav.motors(i).Req + normrnd(.002, .001);
+    uav.motors(i).Req = max(.265, uav.motors(i).Req) + normrnd(.002, .001);
+    if uav.motors(i).age < 800 
+        uav.motors(i).Req = min(.28, uav.motors(i).Req + normrnd(.002, .001));
+    elseif uav.motors(i).age >=800 && uav.motors(i).age < 1200
+        uav.motors(i).Req = min(.31, uav.motors(i).Req + normrnd(.002, .001));
+    end
 end
 
 stop_count = 0;
 k = 1;
 t1 = tic
 while stop_count < 5
+
+
+    %% set constant wind
+    rng(round(rand*1000000));
+    constant_x_wind = normrnd(2, 1.5);
+    if rand > .5
+        constant_x_wind = -constant_x_wind;
+    end
+    constant_y_wind = normrnd(2, 1.5);
+    if rand > .5
+        constant_y_wind = -constant_y_wind;
+    end
+    constant_z_wind = normrnd(0, .5);
+    if rand > .5
+        constant_z_wind = -constant_z_wind;
+    end
+
 
     disp('sim true');
     sim('simulink/uav_simulation_tarot2.slx');
