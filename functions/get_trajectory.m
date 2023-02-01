@@ -35,7 +35,7 @@ function trajectory = get_trajectory(trajectory_tb, idx)
     end
 
     if isempty(trajectory.x_ref_points) | isnan(trajectory.x_ref_points)
-        trajectory.velocity = max(2.0, min(4.0, normrnd(3.0, .25)));        
+        trajectory.velocity = max(2.1, min(3.1, normrnd(2.55, .2)));        
         trajectory.path_distance = calculatedistance(trajectory.path); % total distance to be covered
         time_interval = calculatetime(trajectory.path_distance,trajectory.velocity); 
         trajectory.flight_time = time_interval(2)/60;
