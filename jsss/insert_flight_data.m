@@ -61,7 +61,7 @@ flight_degradation_tb = table(flight_id, ...
 % write the data to the database
 sqlwrite(conn, 'degradation_tb', flight_degradation_tb);
 
-flight_telemetry_table = timetable;
+flight_telemetry_tb = timetable;
 sample_rate = 1;
 try
     battery_tt = sync_telemetry_data(battery, sample_rate, time.Time(:));
