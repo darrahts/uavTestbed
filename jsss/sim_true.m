@@ -90,8 +90,8 @@ end
 
 % load the trajectory information
 trajectory_tb = readtable('trajectories/trajectories_exported.csv');
-trajectory_tb = trajectory_tb(trajectory_tb.path_time < uav.max_flight_time - 8, :);
-trajectory_tb = trajectory_tb(trajectory_tb.path_time > uav.max_flight_time - 12, :);
+trajectory_tb = trajectory_tb(trajectory_tb.path_time < 1300, :);
+trajectory_tb = trajectory_tb(trajectory_tb.path_time > 950, :);
 trajectory_tb = sortrows(trajectory_tb, "path_time", 'descend');
 
 trajectory = get_trajectory(trajectory_tb, randi(height(trajectory_tb)));

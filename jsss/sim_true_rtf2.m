@@ -91,11 +91,12 @@ end
 
 % load the trajectory information
 trajectory_tb = readtable('trajectories/trajectories_exported.csv');
-trajectory_tb = trajectory_tb(trajectory_tb.path_time < uav.max_flight_time - 8, :);
-trajectory_tb = trajectory_tb(trajectory_tb.path_time > uav.max_flight_time - 12, :);
+trajectory_tb = trajectory_tb(trajectory_tb.path_time < 1300, :);
+trajectory_tb = trajectory_tb(trajectory_tb.path_time > 950, :);
 trajectory_tb = sortrows(trajectory_tb, "path_time", 'descend');
 
 trajectory = get_trajectory(trajectory_tb, randi(height(trajectory_tb)));
+disp(trajectory)
 
 clear trajectory_tb;
 
@@ -137,7 +138,7 @@ t1 = tic
 while stop_count < 5
 
     disp('sim true');
-    sim('simulink/uav_simulation_tarot.slx');
+    sim('simulink/uav_simulation_tarot2.slx');
 
 
     z_start = battery.battery_true.z.Data(1);
@@ -194,6 +195,9 @@ while stop_count < 5
     flight_num = flight_num + 1;
     
     k = k + 1;
+%     if k == 3
+%         break;
+%     end
 end
 
 t2 = tic
