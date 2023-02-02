@@ -143,10 +143,9 @@ for i = 1:length(uav.motors)
 end
 
 stop_count = 0;
-k = 1;
+% k = 1;
 t1 = tic
 while stop_count < 5
-
 
     %% set constant wind
     rng(round(rand*1000000));
@@ -165,7 +164,7 @@ while stop_count < 5
 
 
     disp('sim true');
-    sim('simulink/uav_simulation_tarot2.slx');
+    sim(sprintf('simulink/uav_simulation_tarot%d.slx', row));
 
 
     z_start = battery.battery_true.z.Data(1);
@@ -193,7 +192,7 @@ while stop_count < 5
     end  
 
     if stop_code ~= 4
-        fprintf("Threshold violation or failure indicated by stop_code %d\n", stop_code);
+        fprintf("Threshold violation or failure indicated by stop_code %d, stop count: %d\n", stop_code, stop_count);
         stop_count = stop_count + 1;
         
     end
@@ -221,7 +220,7 @@ while stop_count < 5
     flight_id = flight_id + 1;
     flight_num = flight_num + 1;
     
-    k = k + 1;
+%    k = k + 1;
 %     if k == 3
 %         break;
 %     end
