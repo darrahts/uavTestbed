@@ -9,14 +9,6 @@ row = regexp(s(1).file, '(\d*)', 'match');
 row = int32(str2double(row{1}));
 disp(row)
 
-
-% disp('initializing workspace');
-% % get the root directory
-% file_path = strsplit(fileparts(matlab.desktop.editor.getActiveFilename), filesep);
-% idx = find(strcmp(file_path, 'uavtestbed'));
-% root_directory = strjoin(file_path(1:idx), filesep);
-% % switch to the root directory
-
 username = char(java.lang.System.getProperty('user.name'));
 
 root_directory = sprintf('/home/%s/uavtestbed', username);
@@ -65,6 +57,12 @@ uav_tb = sortrows(uav_tb, {'id', 'version'});
 uav = uav_tb(row,:);
 uav = load_uav_id(conn, api, uav)
 
+stop_count = table2array(select(conn, sprintf('select count(*) from session_tb where stop_code != 4 and uav_id = %d', uav.id)));
+if stop_count == 5
+    disp('stop count reached. exiting');
+    exit;
+end
+
 % get the start time
 dt_last = table2array(select(conn, 'select mt.dt_stop from session_tb mt order by dt_stop desc limit 1;'));
 if ~isempty(dt_last)
@@ -99,12 +97,7 @@ end
 trajectory_tb = readtable('trajectories/trajectories_exported.csv');
 trajectory_tb = trajectory_tb(trajectory_tb.path_time < 1300, :);
 trajectory_tb = trajectory_tb(trajectory_tb.path_time > 950, :);
-trajectory_tb = sortrows(trajectory_tb, "path_time", 'descend');
-
-trajectory = get_trajectory(trajectory_tb, randi(height(trajectory_tb)));
-disp(trajectory)
-
-clear trajectory_tb;
+trajectory_tb = sortrows(trajectory_tb, "path_time", 'descend')
 
 setup_sim_params;
 
@@ -142,7 +135,6 @@ for i = 1:length(uav.motors)
     end
 end
 
-stop_count = 0;
 % k = 1;
 t1 = tic
 while stop_count < 5
@@ -162,6 +154,9 @@ while stop_count < 5
         constant_z_wind = -constant_z_wind;
     end
 
+
+    trajectory = get_trajectory(trajectory_tb, randi(height(trajectory_tb)));
+    disp(trajectory)
 
     disp('sim true');
     sim(sprintf('simulink/uav_simulation_tarot%d.slx', row));

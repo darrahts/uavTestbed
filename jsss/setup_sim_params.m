@@ -1,5 +1,6 @@
 
-
+trajectory = get_trajectory(trajectory_tb, randi(height(trajectory_tb)));
+disp(trajectory)
 
 sim_params.initial_conditions  = load('params/initial_conditions.mat').IC;
 sim_params.initial_conditions.Psi = pi/2;
