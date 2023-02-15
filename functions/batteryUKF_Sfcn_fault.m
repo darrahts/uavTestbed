@@ -339,7 +339,7 @@ function Update(block)
 
     % Q-bump code
     if r^2>1*sigma_y, % bad voltage estimate by 2-SigmaX, bump Q 
-        fprintf('Bumping sigmax\n');
+        % fprintf('Bumping sigmax\n');
         sigma_x(3,3) = sigma_x(3,3)*bump_val;
     end
 
