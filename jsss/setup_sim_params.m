@@ -1,13 +1,12 @@
 
-trajectory = get_trajectory(trajectory_tb, randi(height(trajectory_tb)));
-disp(trajectory)
+
 
 sim_params.initial_conditions  = load('params/initial_conditions.mat').IC;
 sim_params.initial_conditions.Psi = pi/2;
 sim_params.initial_conditions.Z = .05;
 
-sim_params.initial_conditions.X = trajectory.start(1);
-sim_params.initial_conditions.Y = trajectory.start(2);
+% sim_params.initial_conditions.X = trajectory.start(1);
+% sim_params.initial_conditions.Y = trajectory.start(2);
 
 % stop measure on the simulation, in general it should stop before this
 sim_params.max_sim_time = 3000;

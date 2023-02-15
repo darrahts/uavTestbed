@@ -26,10 +26,14 @@ for i = 1:length(uav.motors)
     
     % min bound on motor resistance
     uav.motors(i).Req = max(.265, uav.motors(i).Req) + normrnd(.002, .001);
-    if uav.motors(i).age < 800 
-        uav.motors(i).Req = min(.28, uav.motors(i).Req + normrnd(.002, .001));
-    elseif uav.motors(i).age >=800 && uav.motors(i).age < 1200
-        uav.motors(i).Req = min(.31, uav.motors(i).Req + normrnd(.002, .001));
+    if uav.motors(i).age < 200 
+        uav.motors(i).Req = min(.28, uav.motors(i).Req) + normrnd(.002, .003);
+
+    elseif uav.motors(i).age >= 200 && uav.motors(i).age < 300
+        uav.motors(i).Req = min(.295, uav.motors(i).Req) + normrnd(.002, .003);
+
+    elseif uav.motors(i).age >= 300 && uav.motors(i).age < 400
+        uav.motors(i).Req = min(.31, uav.motors(i).Req) + normrnd(.002, .001);
     end
 end
 

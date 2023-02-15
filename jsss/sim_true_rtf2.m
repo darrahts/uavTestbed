@@ -5,9 +5,9 @@ rng(rand_num);
 disp(rand_num);
 
 s = dbstack();
-row = regexp(s(1).file, '(\d*)', 'match');
-row = int32(str2double(row{1}));
-disp(row)
+file_id = regexp(s(1).file, '(\d*)', 'match');
+file_id = int32(str2double(file_id{1}));
+disp(file_id)
 
 username = char(java.lang.System.getProperty('user.name'));
 
@@ -30,11 +30,9 @@ db_name = 'uav2_db';
 
 %the database connection
 conn = database(db_name, username, password);
-disp(conn)
+% disp(conn)
 
 stop_code_tb = select(conn, "select * from stop_code_tb;");
-
-experiment_info = "testing new updates";
 
 group_id = select(conn, sprintf("select id from group_tb where info ilike '%%%s%%';", experiment_info)).id;
 if isempty(group_id)
@@ -53,14 +51,21 @@ uav_tb = sortrows(uav_tb, {'id', 'version'});
 % serial_number = string(serial_number(1,:));
 % version = max(uav_tb(strcmp(uav_tb.common_name, 'tarot t18 uav'), :).version);
 % uav = load_uav(conn, serial_number, version, api);
-
-uav = uav_tb(row,:);
+disp(uav_id)
+uav = uav_tb(uav_tb.id==uav_id, :);
 uav = load_uav_id(conn, api, uav)
 
-stop_count = table2array(select(conn, sprintf('select count(*) from session_tb where stop_code != 4 and uav_id = %d', uav.id)));
-if stop_count == 5
-    disp('stop count reached. exiting');
-    exit;
+
+if check_stops == 1
+    stop_count = table2array(select(conn, sprintf('select count(*) from session_tb where stop_code != 4 and uav_id = %d', uav.id)));
+    disp(sprintf('stop count: %d', stop_count))
+    if stop_count == 8
+        disp('stop count reached. exiting');
+        exit;
+    end
+else
+    stop_count = 0;
+    disp('skipping stop check');
 end
 
 % get the start time
@@ -78,13 +83,7 @@ else
 end
 dt_start = datetime(dt_start, 'InputFormat', 'yyyy-MM-dd HH:mm:ss');
 dt_start = dateshift(dt_start, 'start', 'second');
-% get the flight_id (the unique id in the data table)
-flight_id = table2array(select(conn, 'select id from session_tb order by id desc limit 1;')) + 1;
-sprintf('flight_id: %d', flight_id)
 
-if isempty(flight_id)
-    flight_id = 1;
-end
 
 % the flight number of the selected uav (i.e. how many flights it has gone
 % previously + 1 for the upcomming flight)
@@ -97,7 +96,7 @@ end
 trajectory_tb = readtable('trajectories/trajectories_exported.csv');
 trajectory_tb = trajectory_tb(trajectory_tb.path_time < 1300, :);
 trajectory_tb = trajectory_tb(trajectory_tb.path_time > 950, :);
-trajectory_tb = sortrows(trajectory_tb, "path_time", 'descend')
+trajectory_tb = sortrows(trajectory_tb, "path_time", 'descend');
 
 setup_sim_params;
 
@@ -137,19 +136,19 @@ end
 
 % k = 1;
 t1 = tic
-while stop_count < 5
+while stop_count < 8
 
     %% set constant wind
     rng(round(rand*1000000));
-    constant_x_wind = normrnd(2, 1.5);
+    constant_x_wind = normrnd(1.5, .75);
     if rand > .5
         constant_x_wind = -constant_x_wind;
     end
-    constant_y_wind = normrnd(2, 1.5);
+    constant_y_wind = normrnd(1.5, .75);
     if rand > .5
         constant_y_wind = -constant_y_wind;
     end
-    constant_z_wind = normrnd(0, .5);
+    constant_z_wind = normrnd(0, .4);
     if rand > .5
         constant_z_wind = -constant_z_wind;
     end
@@ -157,9 +156,12 @@ while stop_count < 5
 
     trajectory = get_trajectory(trajectory_tb, randi(height(trajectory_tb)));
     disp(trajectory)
+    
+    sim_params.initial_conditions.X = trajectory.start(1);
+    sim_params.initial_conditions.Y = trajectory.start(2);
 
     disp('sim true');
-    sim(sprintf('simulink/uav_simulation_tarot%d.slx', row));
+    sim(sprintf('simulink/uav_simulation_tarot%d.slx', file_id));
 
 
     z_start = battery.battery_true.z.Data(1);
@@ -187,9 +189,8 @@ while stop_count < 5
     end  
 
     if stop_code ~= 4
-        fprintf("Threshold violation or failure indicated by stop_code %d, stop count: %d\n", stop_code, stop_count);
         stop_count = stop_count + 1;
-        
+        fprintf("Threshold violation or failure indicated by stop_code %d, stop count: %d\n", stop_code, stop_count);
     end
 
 

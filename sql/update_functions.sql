@@ -65,3 +65,21 @@ do $$
 		 WHERE id = uav_id and "version" = vers - 1;
 end $$
 
+
+
+CREATE OR REPLACE FUNCTION randrange(low INT ,high INT) 
+   RETURNS INT AS
+$$
+BEGIN
+   RETURN floor(random()* (high-low + 1) + low);
+END;
+$$ language plpgsql STRICT;
+
+
+CREATE OR REPLACE FUNCTION randchoice( a anyarray)
+RETURNS anyelement AS
+$$
+BEGIN
+  RETURN a[trunc(random() * array_length(a, 1) + 1)];
+END
+$$ LANGUAGE plpgsql VOLATILE;

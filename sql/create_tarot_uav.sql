@@ -1,33 +1,61 @@
 do $$	
 	declare 
+
 		airframe_type_id integer := (select id from asset_type_tb where "type" ilike 'airframe');	 
 		battery_type_id integer := (select id from asset_type_tb where "type" ilike 'battery');
 		motor_type_id integer := (select id from asset_type_tb where "type" ilike 'motor');
 		esc_type_id integer := (select id from asset_type_tb where "type" ilike 'esc');
 		gps_type_id integer := (select id from asset_type_tb where "type" ilike 'sensor');
 		uav_type_id integer := (select id from asset_type_tb where "type" ilike 'uav');
+
+		bat_cap_type integer := (select id from process_type_tb where subtype = 'battery' and subtype2 = 'capacitance');
+		bat_res_type integer := (select id from process_type_tb where subtype = 'battery' and subtype2 = 'internal resistance');                                                           -- 
+		mot_res_type integer := (select id from process_type_tb where subtype = 'motor' and subtype2 = 'internal resistance');
+		esc_fail_type integer := (select id from process_type_tb where subtype = 'electronic speed controller' and subtype2 = 'abrupt onset');
+		
+		bat_cap_ps integer := (select randchoice(array(select id from process_tb where type_id = bat_cap_type and id > 17)));
+		bat_res_ps integer := (select randchoice(array(select id from process_tb where type_id = bat_res_type and id > 17)));
+		
+		mot1_res_ps integer := (select randchoice(array(select id from process_tb where type_id = mot_res_type and id > 17)));
+		mot2_res_ps integer := (select randchoice(array(select id from process_tb where type_id = mot_res_type and id > 17)));
+		mot3_res_ps integer := (select randchoice(array(select id from process_tb where type_id = mot_res_type and id > 17)));
+		mot4_res_ps integer := (select randchoice(array(select id from process_tb where type_id = mot_res_type and id > 17)));
+		mot5_res_ps integer := (select randchoice(array(select id from process_tb where type_id = mot_res_type and id > 17)));
+		mot6_res_ps integer := (select randchoice(array(select id from process_tb where type_id = mot_res_type and id > 17)));
+		mot7_res_ps integer := (select randchoice(array(select id from process_tb where type_id = mot_res_type and id > 17)));
+		mot8_res_ps integer := (select randchoice(array(select id from process_tb where type_id = mot_res_type and id > 17)));
+		
+		esc1_res_ps integer := (select randchoice(array(select id from process_tb where type_id = esc_fail_type and id > 17)));
+		esc2_res_ps integer := (select randchoice(array(select id from process_tb where type_id = esc_fail_type and id > 17)));
+		esc3_res_ps integer := (select randchoice(array(select id from process_tb where type_id = esc_fail_type and id > 17)));
+		esc4_res_ps integer := (select randchoice(array(select id from process_tb where type_id = esc_fail_type and id > 17)));
+		esc5_res_ps integer := (select randchoice(array(select id from process_tb where type_id = esc_fail_type and id > 17)));
+		esc6_res_ps integer := (select randchoice(array(select id from process_tb where type_id = esc_fail_type and id > 17)));
+		esc7_res_ps integer := (select randchoice(array(select id from process_tb where type_id = esc_fail_type and id > 17)));
+		esc8_res_ps integer := (select randchoice(array(select id from process_tb where type_id = esc_fail_type and id > 17)));
+
 	begin
 		insert into asset_tb("owner", "type_id", "process_id", "serial_number", "common_name")
 			values (current_user, airframe_type_id, '{4}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot airframe');
 		
 		insert into asset_tb("owner", "type_id", "process_id", "serial_number", "common_name", "eol", "units")
-			values (current_user, battery_type_id, '{7, 9}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot battery', 7000, 'amp-hours'),
-				(current_user, motor_type_id, '{120}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 10000, 'amp-hours'),
-				(current_user, motor_type_id, '{127}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 10000, 'amp-hours'),
-				(current_user, motor_type_id, '{132}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 10000, 'amp-hours'),
-				(current_user, motor_type_id, '{136}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 10000, 'amp-hours'),
-				(current_user, motor_type_id, '{143}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 10000, 'amp-hours'),
-				(current_user, motor_type_id, '{145}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 10000, 'amp-hours'),
-				(current_user, motor_type_id, '{158}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 10000, 'amp-hours'),
-				(current_user, motor_type_id, '{164}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 10000, 'amp-hours'),
-				(current_user, esc_type_id, '{170}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot esc', 10000, 'amp-hours'),
-				(current_user, esc_type_id, '{173}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot esc', 10000, 'amp-hours'),
-				(current_user, esc_type_id, '{181}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot esc', 10000, 'amp-hours'),
-				(current_user, esc_type_id, '{188}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot esc', 10000, 'amp-hours'),
-				(current_user, esc_type_id, '{195}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot esc', 10000, 'amp-hours'),
-				(current_user, esc_type_id, '{202}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot esc', 10000, 'amp-hours'),
-				(current_user, esc_type_id, '{206}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot esc', 10000, 'amp-hours'),
-				(current_user, esc_type_id, '{212}', (select upper(substr(md5(random()::text), 0, 7))), 'tarot esc', 10000, 'amp-hours'),
+			values (current_user, battery_type_id, array[bat_cap_ps, bat_res_ps], (select upper(substr(md5(random()::text), 0, 7))), 'tarot battery', 7000, 'amp-hours'),
+				(current_user, motor_type_id, array[mot1_res_ps], (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 10000, 'amp-hours'),
+				(current_user, motor_type_id, array[mot2_res_ps], (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 10000, 'amp-hours'),
+				(current_user, motor_type_id, array[mot3_res_ps], (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 10000, 'amp-hours'),
+				(current_user, motor_type_id, array[mot4_res_ps], (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 10000, 'amp-hours'),
+				(current_user, motor_type_id, array[mot5_res_ps], (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 10000, 'amp-hours'),
+				(current_user, motor_type_id, array[mot6_res_ps], (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 10000, 'amp-hours'),
+				(current_user, motor_type_id, array[mot7_res_ps], (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 10000, 'amp-hours'),
+				(current_user, motor_type_id, array[mot8_res_ps], (select upper(substr(md5(random()::text), 0, 7))), 'tarot motor', 10000, 'amp-hours'),
+				(current_user, esc_type_id, array[esc1_res_ps], (select upper(substr(md5(random()::text), 0, 7))), 'tarot esc', 10000, 'amp-hours'),
+				(current_user, esc_type_id, array[esc2_res_ps], (select upper(substr(md5(random()::text), 0, 7))), 'tarot esc', 10000, 'amp-hours'),
+				(current_user, esc_type_id, array[esc3_res_ps], (select upper(substr(md5(random()::text), 0, 7))), 'tarot esc', 10000, 'amp-hours'),
+				(current_user, esc_type_id, array[esc4_res_ps], (select upper(substr(md5(random()::text), 0, 7))), 'tarot esc', 10000, 'amp-hours'),
+				(current_user, esc_type_id, array[esc5_res_ps], (select upper(substr(md5(random()::text), 0, 7))), 'tarot esc', 10000, 'amp-hours'),
+				(current_user, esc_type_id, array[esc6_res_ps], (select upper(substr(md5(random()::text), 0, 7))), 'tarot esc', 10000, 'amp-hours'),
+				(current_user, esc_type_id, array[esc7_res_ps], (select upper(substr(md5(random()::text), 0, 7))), 'tarot esc', 10000, 'amp-hours'),
+				(current_user, esc_type_id, array[esc8_res_ps], (select upper(substr(md5(random()::text), 0, 7))), 'tarot esc', 10000, 'amp-hours'),
 				(current_user, gps_type_id, null, (select upper(substr(md5(random()::text), 0, 7))), 'tarot gps', 9999, 'hours');
 		
 		insert into asset_tb("owner", "type_id", "serial_number", "common_name")

@@ -471,7 +471,7 @@ create table telemetry_tb (
 */
 create table true_age_tb(
 	"id" serial primary key not null,
-	"flight_id" int references session_tb(id),
+	"flight_id" int references session_tb(id) unique,
 	"stop_code" int references stop_code_tb(id),
 	"trajectory_id" int references trajectory_tb(id),
 	"uav_age" float not null,
