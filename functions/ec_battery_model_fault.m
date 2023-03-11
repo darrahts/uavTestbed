@@ -122,6 +122,7 @@ function Output(block)
     % implement fault
     if t > ft
         Q = block.DialogPrm(3).Data;
+        disp(Q)
         battery.z_coef(7) = battery.z_coef(7) * .98;
         z = z * .99999;
     end
