@@ -57,6 +57,9 @@
 
 
 <!-- ABOUT THE PROJECT -->
+## UPDATE - Dataset 
+A dataset for the experiments will be released soon. In the meantime, contact us for access. The dataset contains run-to-failure flight data for over 100 UAVs, starting from a new UAV with brand new components, and includes battery changes and degradation in 9 different components. There are over 20 different mission plans that operate in an urban environment with varying wind conditions. 
+
 ## About The Project
 This is a complete UAV simulation testbed that is intended to be used with the [data management framework](https://github.com/darrahts/data_management_framework). A Postgres database schema and an API in MATLAB / python is used in conjunction. This framework will support a wide variety of simulation-based experiments as well as real-world experiments using the same interface.  
 
@@ -65,14 +68,8 @@ This is a Work In Progress [WIP]! Updates are being made as of July 15th, 2022. 
 Currenlty we are conducting several run-to-failure experiments in effort to collect telementry and degradation data to facilitate research into deep learning approaches to problems such as remaining useful life (RUL) estimation, fault detection & isolation (FDI), decision making, and others.  
 
 TODO
-- finish refactoring the framework
 - add power demand estimation based on trajectory
 - add in trajectory risk / reward 
-- add in-mission decision making and actions
-    - activities such as drop package, take picture, transmit data, etc
-    - appropriate power demand based on activity
-- more...
-
 
 
 ### Prerequisites
